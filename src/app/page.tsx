@@ -142,8 +142,8 @@ export default function Home() {
       <section aria-label="Próximos passos" className="mt-section-mobile md:mt-section">
         <Container>
           <CtaBanner title="Vamos conversar sobre o que você precisa.">
-            <Button href="/servicos">Quero contratar</Button>
-            <Button href="/vagas" variant="secondary">
+            <Button href="/contato">Quero contratar</Button>
+            <Button href="/sobre" variant="secondary">
               Sou recrutador
             </Button>
           </CtaBanner>
