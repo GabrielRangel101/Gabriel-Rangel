@@ -16,6 +16,7 @@ import {
   SparkIcon,
   WorkflowIcon,
 } from "@/components/ui/icons";
+import { cases } from "@/content/cases";
 import { projects } from "@/content/projects";
 import { site } from "@/lib/site";
 
@@ -56,10 +57,26 @@ export default function Home() {
   return (
     <>
       <section aria-labelledby="hero-titulo" className="pt-16 md:pt-24">
-        <Container className="grid items-center gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
+        <Container className="grid items-center gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
           <div>
-            <p className="text-eyebrow text-ink-subtle">Portfólio</p>
-            <h1 id="hero-titulo" className="text-display-xl mt-4">
+            <div className="flex items-center gap-3">
+              <Image
+                src={portrait}
+                alt="Retrato de Gabriel Rangel"
+                width={48}
+                height={48}
+                priority
+                placeholder="blur"
+                className="size-12 rounded-full border border-hairline-strong object-cover object-[50%_25%]"
+              />
+              <div>
+                <p className="text-body-sm font-semibold text-ink">Portfólio</p>
+                <p className="text-body-sm text-ink-subtle">
+                  Dados, automação e IA
+                </p>
+              </div>
+            </div>
+            <h1 id="hero-titulo" className="text-display-xl mt-6">
               {site.name}
             </h1>
             <p className="text-body-lg mt-6 max-w-2xl text-ink-muted">
@@ -72,14 +89,20 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <Image
-            src={portrait}
-            alt="Retrato de Gabriel Rangel"
-            priority
-            sizes="(min-width: 1024px) 480px, (min-width: 640px) 480px, 100vw"
-            placeholder="blur"
-            className="aspect-square w-full max-w-md rounded-xl border border-hairline object-cover lg:max-w-none"
-          />
+          <div className="max-lg:hidden">
+            <DemoFrame
+              fallbackHref={cases["gazeta-meridiano"].demo.embedUrl}
+              fallbackLabel="Abrir o dashboard em nova aba"
+            >
+              <iframe
+                src={cases["gazeta-meridiano"].demo.embedUrl}
+                title={cases["gazeta-meridiano"].demo.title}
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                className="aspect-[4/3] w-full bg-surface-2"
+              />
+            </DemoFrame>
+          </div>
         </Container>
       </section>
 
