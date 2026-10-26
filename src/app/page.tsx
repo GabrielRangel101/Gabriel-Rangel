@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 import { DemoFrame } from "@/components/ui/DemoFrame";
 import { FeatureCard } from "@/components/ui/FeatureCard";
+import { ScaledFrame } from "@/components/ui/ScaledFrame";
 import { Section } from "@/components/ui/Section";
 import {
   ArrowRightIcon,
@@ -94,12 +95,9 @@ export default function Home() {
               fallbackHref={cases["gazeta-meridiano"].demo.embedUrl}
               fallbackLabel="Abrir o dashboard em nova aba"
             >
-              <iframe
+              <ScaledFrame
                 src={cases["gazeta-meridiano"].demo.embedUrl}
                 title={cases["gazeta-meridiano"].demo.title}
-                loading="lazy"
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                className="aspect-[4/3] w-full bg-surface-2"
               />
             </DemoFrame>
           </div>
