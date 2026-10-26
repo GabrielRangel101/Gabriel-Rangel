@@ -71,9 +71,11 @@ export default function Home() {
                 className="size-12 rounded-full border border-hairline-strong object-cover object-[50%_25%]"
               />
               <div>
-                <p className="text-body-sm font-semibold text-ink">Portfólio</p>
+                <p className="text-body-sm font-semibold text-ink">
+                  {site.name}
+                </p>
                 <p className="text-body-sm text-ink-subtle">
-                  Dados, automação e IA
+                  Analista de dados e IA
                 </p>
               </div>
             </div>
