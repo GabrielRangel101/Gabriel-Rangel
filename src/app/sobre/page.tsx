@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 import { FeatureCard } from "@/components/ui/FeatureCard";
 import { Section } from "@/components/ui/Section";
+import { SparkIcon } from "@/components/ui/icons";
 import { areas, tools } from "@/content/areas";
 import { site } from "@/lib/site";
 
@@ -18,15 +19,24 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section aria-labelledby="sobre-titulo" className="pt-12 md:pt-20">
+      <section
+        aria-labelledby="sobre-titulo"
+        className="pt-16 text-center md:pt-24"
+      >
         <Container>
-          <p className="text-eyebrow text-ink-subtle">Analista de dados e IA</p>
-          <h1 id="sobre-titulo" className="text-display-lg mt-3 max-w-4xl">
-            Sobre mim
+          <p className="text-button inline-flex items-center gap-2 rounded-full border border-hairline-strong bg-surface-1 px-4 py-2 text-ink">
+            <SparkIcon className="text-ink-muted" />
+            Analista de dados e IA
+          </p>
+          <h1
+            id="sobre-titulo"
+            className="text-display-lg mx-auto mt-6 max-w-4xl"
+          >
+            Quem sou e como trabalho
           </h1>
-          <p className="text-subhead mt-6 max-w-2xl text-ink-muted">
-            Analista de dados e automação com IA. Aqui está o que construo, como
-            penso e com o que trabalho.
+          <p className="text-subhead mx-auto mt-6 max-w-2xl text-ink-muted">
+            Transformo dados em painéis, sistemas e agentes que tiram o
+            trabalho manual do caminho.
           </p>
         </Container>
       </section>
