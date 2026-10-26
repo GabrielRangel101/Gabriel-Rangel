@@ -1,6 +1,6 @@
 # Portfólio Gabriel Rangel
 
-Next.js (App Router) + Tailwind 4, pronto para a Vercel. Requisitos e decisões em [`docs/PRD.md`](docs/PRD.md); tokens visuais em [`DESIGN.md`](DESIGN.md).
+Next.js (App Router) + Tailwind 4, pronto para a Vercel. Tokens visuais e regras de interface em [`DESIGN.md`](DESIGN.md).
 
 ## Desenvolvimento
 
