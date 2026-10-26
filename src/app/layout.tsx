@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Footer } from "@/components/layout/Footer";
+import { TopNav } from "@/components/layout/TopNav";
 import "./globals.css";
 
 const inter = Inter({
@@ -40,7 +42,19 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="min-h-dvh">{children}</body>
+      <body className="flex min-h-dvh flex-col">
+        <a
+          href="#conteudo"
+          className="text-button fixed left-4 top-2 z-50 -translate-y-20 rounded-md bg-primary px-4 py-2 text-on-primary focus:translate-y-0"
+        >
+          Pular para o conteúdo
+        </a>
+        <TopNav />
+        <main id="conteudo" className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </body>
     </html>
   );
 }
