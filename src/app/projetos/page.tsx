@@ -33,7 +33,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
     <Container className="pt-12 md:pt-16">
       <p className="text-eyebrow text-ink-subtle">Projetos</p>
       <h1 className="text-display-md mt-3 max-w-3xl">
-        Demos reais, com dados sintéticos.
+        Demos reais, para abrir e testar.
       </h1>
 
       <nav

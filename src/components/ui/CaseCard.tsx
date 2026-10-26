@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cases } from "@/content/cases";
 import type { Project } from "@/content/projects";
 import { ArrowRightIcon } from "./icons";
-import { SyntheticBadge, TypeTag } from "./Tag";
+import { TypeTag } from "./Tag";
 
 // O link cobre o card inteiro (after:absolute), então o clique e o foco valem para toda a área.
 export function CaseCard({ project }: { project: Project }) {
@@ -41,11 +41,6 @@ export function CaseCard({ project }: { project: Project }) {
           {project.summary}
         </p>
         <ul className="flex flex-wrap gap-2">
-          {project.synthetic && (
-            <li>
-              <SyntheticBadge />
-            </li>
-          )}
           {stack.map((tool) => (
             <li
               key={tool}

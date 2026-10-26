@@ -374,7 +374,7 @@ No drop shadows, gradients or blur on surfaces.
 
 - **Buttons.** Primary: accent fill, dark text. Secondary: surface-1 with hairline. Tertiary: text only. All 8px corners, minimum height 40px on desktop and 44px on touch. Never pill-shaped.
 - **Filter tabs** (`/projetos`: Power BI, Looker, Web com IA, Agente / n8n, Sistemas). Pill shape, minimum height 36px on desktop and 44px on touch. Selected state lifts to surface-2.
-- **Case card.** Surface-1, 16px corners, preview image or video poster at the top, title, one line of challenge, type tag, optional synthetic-data badge.
+- **Case card.** Surface-1, 16px corners, preview image or video poster at the top, title, one line of challenge, type tag over the image, summary and stack tags. No synthetic-data badge on the card (the notice lives in the demo frame and in the technical layer).
 - **Demo frame.** Surface-1 panel around an iframe, video or chat. Always has a visible fallback link (open in new tab) and a "Dados sintéticos" badge when applicable.
 - **Type tag.** Pill on surface-2 with text and a small icon. Case types are told apart by label and icon, never by color.
 - **Inputs.** Surface-1, 1px `{colors.input-border}`, 8px corners, minimum height 44px, visible label above the field, helper or error text below in `{colors.semantic-error}` with an icon. Focus uses the global focus ring.

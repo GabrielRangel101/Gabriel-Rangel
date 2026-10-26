@@ -8,6 +8,10 @@ export type TechnicalSection = {
 };
 
 export type CaseStudy = {
+  // Texto do início da página, em parágrafos.
+  description: string[];
+  status: string;
+  role: string;
   problem: string;
   decision: string;
   result: string[];
@@ -23,6 +27,12 @@ export type CaseStudy = {
 
 export const cases: Record<string, CaseStudy> = {
   "gazeta-meridiano": {
+    description: [
+      "Dashboard de inteligência de assinaturas B2C para um jornal fictício. A IA roteia as perguntas de negócio para um motor de métricas próprio, sem calcular números por conta própria.",
+      "Inclui funil de compra de ponta a ponta, CAC, LTV e payback por canal, ponte de MRR, retenção por safra, risco de cancelamento por assinante, simulador “e se” e a explicação das fórmulas de cada métrica.",
+    ],
+    status: "Publicado",
+    role: "Projeto autoral",
     problem:
       "Mostrar como um gestor de assinaturas B2C decide sem depender de planilhas, deixando explícito o que é dado e o que é premissa.",
     decision:

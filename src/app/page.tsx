@@ -116,7 +116,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section id="projetos" eyebrow="Projetos em destaque" title="Demos reais, com dados sintéticos.">
+      <Section id="projetos" eyebrow="Projetos em destaque" title="Demos reais, para abrir e testar.">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {publishedProjects.map((project) => (
             <CaseCard key={project.slug} project={project} />
