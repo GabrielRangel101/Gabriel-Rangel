@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* Tokens do DESIGN.md. Tema escuro único na v1; os nomes permitem um tema claro depois. */
+@theme {
+  --color-primary: #2bc4cf;
+  --color-on-primary: #010102;
+  --color-primary-hover: #4fd6df;
+  --color-primary-pressed: #1fa7b1;
+
+  --color-ink: #f7f8f8;
+  --color-ink-muted: #d0d6e0;
+  --color-ink-subtle: #8a8f98;
+  --color-ink-disabled: #62666d;
+
+  --color-canvas: #010102;
+  --color-surface-1: #0f1011;
+  --color-surface-2: #141516;
+  --color-surface-3: #18191a;
+  --color-surface-4: #191a1b;
+  --color-hairline: #23252a;
+  --color-hairline-strong: #34343a;
+  --color-input-border: #62666d;
+
+  --color-success: #27a644;
+  --color-error: #f87171;
+  --color-warning: #fbbf24;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --spacing-section: 96px;
+  --spacing-section-mobile: 64px;
+  --container-content: 1200px;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 280ms;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-canvas);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.003em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tipografia: tracking em em, escala fluida de 375 a 1280 px. */
+@utility text-display-xl {
+  font-size: clamp(36px, 17.77px + 4.862vw, 80px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.0375em;
+}
+@utility text-display-lg {
+  font-size: clamp(30px, 19.23px + 2.873vw, 56px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.032em;
+}
+@utility text-display-md {
+  font-size: clamp(26px, 20.2px + 1.547vw, 40px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+@utility text-headline {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.021em;
+}
+@utility text-card-title {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+}
+@utility text-subhead {
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+@utility text-body-lg {
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: -0.006em;
+}
+@utility text-body-sm {
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+@utility text-caption {
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+@utility text-button {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+@utility text-eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+}
+@utility text-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+/* Alvos de toque: 40 px no desktop, 44 px em dispositivos de toque. */
+@utility touch-target {
+  min-height: 40px;
+  @media (pointer: coarse) {
+    min-height: 44px;
+  }
+}
+
+/* Foco visível: 2 px no acento, 100% de opacidade, offset de 2 px. */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+/* Movimento: só opacity, transform e background-color. */
+@utility transition-ui {
+  transition-property: opacity, transform, background-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
