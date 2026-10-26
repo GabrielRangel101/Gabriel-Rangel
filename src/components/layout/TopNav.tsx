@@ -6,7 +6,29 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { CloseIcon, MenuIcon } from "@/components/ui/icons";
+import { caseTypes } from "@/components/ui/Tag";
 import { site } from "@/lib/site";
+
+const pillClass =
+  "text-body-sm touch-target transition-ui inline-flex items-center gap-2 rounded-full bg-surface-1 px-3 text-ink-subtle hover:bg-surface-2 hover:text-ink";
+
+function TypePills({ className = "" }: { className?: string }) {
+  return (
+    <ul className={className}>
+      {site.navTypes.map((type) => {
+        const { label, Icon } = caseTypes[type];
+        return (
+          <li key={type}>
+            <Link href={`/projetos?tipo=${type}`} className={pillClass}>
+              <Icon />
+              {label}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 export function TopNav() {
   const pathname = usePathname();
@@ -30,21 +52,29 @@ export function TopNav() {
   }, [open]);
 
   const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   const linkClass = (href: string) =>
-    `text-body-sm transition-ui rounded-md px-3 py-2 ${
-      isActive(href) ? "text-ink" : "text-ink-subtle hover:text-ink"
+    `text-body-sm touch-target transition-ui inline-flex items-center rounded-md px-3 ${
+      isActive(href)
+        ? "bg-surface-2 text-ink"
+        : "text-ink-subtle hover:bg-surface-1 hover:text-ink"
     }`;
 
   return (
     <header className="sticky top-0 z-40 border-b border-hairline bg-canvas">
-      <Container className="flex h-14 items-center justify-between">
+      <Container className="flex h-14 items-center gap-6">
         <Link
           href="/"
-          className="text-body touch-target inline-flex items-center rounded-xs font-semibold"
+          className="touch-target inline-flex items-center gap-3 rounded-md"
         >
-          {site.name}
+          <span
+            aria-hidden="true"
+            className="text-caption grid size-8 place-items-center rounded-md border border-hairline-strong bg-surface-2 font-semibold text-ink"
+          >
+            GR
+          </span>
+          <span className="text-body font-semibold">{site.name}</span>
         </Link>
 
         <nav aria-label="Principal" className="hidden items-center gap-1 md:flex">
@@ -60,7 +90,9 @@ export function TopNav() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <TypePills className="hidden items-center gap-2 xl:flex" />
+
+        <div className="ml-auto flex items-center gap-2">
           <Button href={site.cta.href} className="max-sm:hidden">
             {site.cta.label}
           </Button>
@@ -94,12 +126,16 @@ export function TopNav() {
                 key={href}
                 href={href}
                 aria-current={isActive(href) ? "page" : undefined}
-                className={`${linkClass(href)} text-body flex min-h-11 items-center`}
+                className={`${linkClass(href)} text-body min-h-11`}
               >
                 {label}
               </Link>
             ))}
-            <Button href={site.cta.href} className="my-2 sm:hidden">
+            <p className="text-eyebrow mt-4 px-3 text-ink-subtle">
+              Tipos de projeto
+            </p>
+            <TypePills className="mt-2 flex flex-wrap gap-2 px-3" />
+            <Button href={site.cta.href} className="my-4 sm:hidden">
               {site.cta.label}
             </Button>
           </Container>
