@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { TopNav } from "@/components/layout/TopNav";
+import { indexable, siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const inter = Inter({
@@ -19,6 +20,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  robots: indexable ? undefined : { index: false, follow: false },
   title: {
     default: "Gabriel Rangel",
     template: "%s · Gabriel Rangel",

@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { site } from "@/lib/site";
 
 const linkClass =
-  "text-body-sm transition-ui rounded-xs text-ink-subtle hover:text-ink";
+  "text-body-sm touch-target transition-ui inline-flex items-center rounded-xs text-ink-subtle hover:text-ink";
 
 export function Footer() {
   const { github, linkedin } = site.external;
@@ -18,7 +18,7 @@ export function Footer() {
 
         <nav aria-label="Rodapé: navegação">
           <p className="text-eyebrow text-ink-muted">Navegação</p>
-          <ul className="mt-4 flex flex-col gap-3">
+          <ul className="mt-2 flex flex-col">
             {site.nav.map(({ href, label }) => (
               <li key={href}>
                 <Link href={href} className={linkClass}>
@@ -31,7 +31,7 @@ export function Footer() {
 
         <nav aria-label="Rodapé: contato">
           <p className="text-eyebrow text-ink-muted">Contato</p>
-          <ul className="mt-4 flex flex-col gap-3">
+          <ul className="mt-2 flex flex-col">
             <li>
               <Link href="/contato" className={linkClass}>
                 Fale comigo

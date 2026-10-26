@@ -42,7 +42,7 @@ export function TopNav() {
       <Container className="flex h-14 items-center justify-between">
         <Link
           href="/"
-          className="text-body rounded-xs font-semibold"
+          className="text-body touch-target inline-flex items-center rounded-xs font-semibold"
         >
           {site.name}
         </Link>

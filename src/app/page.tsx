@@ -1,70 +1,159 @@
-import { Accordion, AccordionItem } from "@/components/ui/Accordion";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { CaseCard } from "@/components/ui/CaseCard";
 import { Container } from "@/components/ui/Container";
-import { TextArea, TextField } from "@/components/ui/Field";
-import { Skeleton } from "@/components/ui/Skeleton";
-import { SyntheticBadge, TypeTag, caseTypes } from "@/components/ui/Tag";
-import type { CaseType } from "@/components/ui/Tag";
+import { CtaBanner } from "@/components/ui/CtaBanner";
+import { DemoFrame } from "@/components/ui/DemoFrame";
+import { FeatureCard } from "@/components/ui/FeatureCard";
+import { Section } from "@/components/ui/Section";
+import {
+  ArrowRightIcon,
+  BarChartIcon,
+  DatabaseIcon,
+  LayersIcon,
+  SparkIcon,
+  WorkflowIcon,
+} from "@/components/ui/icons";
+import { projects } from "@/content/projects";
+import { site } from "@/lib/site";
 
-// Página provisória da etapa 2: galeria dos componentes base. A Home real entra na etapa 3.
+const areas = [
+  {
+    icon: BarChartIcon,
+    title: "Dashboards de BI",
+    text: "Painéis em Power BI e Looker que respondem à pergunta do negócio.",
+  },
+  {
+    icon: LayersIcon,
+    title: "Sistemas web",
+    text: "Sistemas sob medida para trocar planilha por um fluxo que funciona.",
+  },
+  {
+    icon: WorkflowIcon,
+    title: "Agentes e automações",
+    text: "Fluxos em n8n e agentes de IA que assumem o trabalho repetitivo.",
+  },
+  {
+    icon: DatabaseIcon,
+    title: "Dados organizados",
+    text: "Modelagem e SQL para ter uma fonte confiável por trás de cada número.",
+  },
+];
+
+const tools = [
+  "Power BI",
+  "Looker",
+  "SQL",
+  "Python",
+  "n8n",
+  "Supabase",
+  "Claude API",
+];
+
 export default function Home() {
   return (
-    <Container className="flex flex-col gap-12 py-section-mobile md:py-section">
-      <header>
-        <p className="text-eyebrow text-ink-subtle">Componentes base</p>
-        <h1 className="text-display-lg mt-4">Gabriel Rangel</h1>
-      </header>
-
-      <section aria-labelledby="botoes" className="flex flex-col gap-4">
-        <h2 id="botoes" className="text-headline">Botões</h2>
-        <div className="flex flex-wrap gap-3">
-          <Button>Falar comigo</Button>
-          <Button variant="secondary">Ver projetos</Button>
-          <Button variant="tertiary">Baixar currículo</Button>
-          <Button disabled>Indisponível</Button>
-        </div>
+    <>
+      <section aria-labelledby="hero-titulo" className="pt-16 md:pt-24">
+        <Container>
+          <p className="text-eyebrow text-ink-subtle">
+            Portfólio
+          </p>
+          <h1 id="hero-titulo" className="text-display-xl mt-4">
+            {site.name}
+          </h1>
+          <p className="text-body-lg mt-6 max-w-2xl text-ink-muted">
+            {site.tagline}
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button href="/projetos">Ver projetos</Button>
+            <Button href="/contato" variant="secondary">
+              Falar comigo
+            </Button>
+          </div>
+        </Container>
       </section>
 
-      <section aria-labelledby="tags" className="flex flex-col gap-4">
-        <h2 id="tags" className="text-headline">Tags</h2>
-        <div className="flex flex-wrap gap-2">
-          {(Object.keys(caseTypes) as CaseType[]).map((t) => (
-            <TypeTag key={t} type={t} />
+      <Section id="areas" eyebrow="O que construo" title="Do dado bruto à decisão, sem trabalho manual no meio.">
+        <div className="grid gap-4 sm:grid-cols-2">
+          {areas.map(({ icon, title, text }) => (
+            <FeatureCard key={title} icon={icon} title={title}>
+              {text}
+            </FeatureCard>
           ))}
-          <SyntheticBadge />
         </div>
-      </section>
+      </Section>
 
-      <section aria-labelledby="campos" className="flex max-w-xl flex-col gap-4">
-        <h2 id="campos" className="text-headline">Campos</h2>
-        <TextField label="Nome" placeholder="Como devo te chamar" />
-        <TextField
-          label="E-mail"
-          type="email"
-          defaultValue="nome@"
-          error="Confira o e-mail: falta o domínio, como nome@empresa.com."
-        />
-        <TextArea label="Mensagem" hint="Conte em poucas linhas o que você precisa." />
-      </section>
+      <Section id="projetos" eyebrow="Projetos em destaque" title="Demos reais, com dados sintéticos.">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <CaseCard key={project.slug} project={project} />
+          ))}
+        </div>
+        <Link
+          href="/projetos"
+          className="text-button mt-8 inline-flex min-h-10 items-center gap-2 rounded-md text-primary"
+        >
+          Ver todos os projetos
+          <ArrowRightIcon />
+        </Link>
+      </Section>
 
-      <section aria-labelledby="acordeao" className="flex max-w-xl flex-col gap-4">
-        <h2 id="acordeao" className="text-headline">Acordeão</h2>
-        <Accordion>
-          <AccordionItem title="Como funciona o diagnóstico?" defaultOpen>
-            Conversamos sobre o seu processo atual e eu aponto o que dá para automatizar.
-          </AccordionItem>
-          <AccordionItem title="Quanto tempo leva?">
-            Depende do escopo; o diagnóstico define o prazo.
-          </AccordionItem>
-        </Accordion>
-      </section>
+      <Section id="demo" eyebrow="Demo rápida" title="Pergunte ao painel, em português.">
+        <DemoFrame
+          fallbackHref="/projetos/gazeta-meridiano"
+          fallbackLabel="Ver o case Gazeta Meridiano"
+        >
+          <div className="flex flex-col items-start gap-4 bg-surface-2 p-6 md:p-12">
+            <SparkIcon width={24} height={24} className="text-ink-muted" />
+            <h3 className="text-card-title">Mesa de análise (Modo IA)</h3>
+            <p className="text-body max-w-xl text-ink-muted">
+              Em vez de montar filtros, você escreve a pergunta. A resposta vem
+              apenas dos dados do painel.
+            </p>
+          </div>
+        </DemoFrame>
+      </Section>
 
-      <section aria-labelledby="skeleton" className="flex max-w-xl flex-col gap-3">
-        <h2 id="skeleton" className="text-headline">Skeleton</h2>
-        <Skeleton className="h-6 w-2/3" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-5/6" />
+      <Section id="ferramentas" eyebrow="Ferramentas" title="O que uso no dia a dia.">
+        <ul className="flex flex-wrap gap-2">
+          {tools.map((tool) => (
+            <li
+              key={tool}
+              className="text-body-sm rounded-md border border-hairline bg-surface-1 px-3 py-2 text-ink-muted"
+            >
+              {tool}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section id="sobre" eyebrow="Sobre" title="Quem está por trás.">
+        <div className="max-w-2xl">
+          <p className="text-body-lg text-ink-muted">
+            Sou analista de dados e automação com IA. Construo dashboards,
+            sistemas e agentes que tiram o trabalho manual do caminho. Mostro o
+            trabalho em demos que você pode abrir e testar.
+          </p>
+          <Link
+            href="/sobre"
+            className="text-button mt-6 inline-flex min-h-10 items-center gap-2 rounded-md text-primary"
+          >
+            Conhecer a trajetória
+            <ArrowRightIcon />
+          </Link>
+        </div>
+      </Section>
+
+      <section aria-label="Próximos passos" className="mt-section-mobile md:mt-section">
+        <Container>
+          <CtaBanner title="Vamos conversar sobre o que você precisa.">
+            <Button href="/servicos">Quero contratar</Button>
+            <Button href="/vagas" variant="secondary">
+              Sou recrutador
+            </Button>
+          </CtaBanner>
+        </Container>
       </section>
-    </Container>
+    </>
   );
 }
