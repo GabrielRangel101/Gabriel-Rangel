@@ -9,50 +9,11 @@ import { DemoFrame } from "@/components/ui/DemoFrame";
 import { FeatureCard } from "@/components/ui/FeatureCard";
 import { ScaledFrame } from "@/components/ui/ScaledFrame";
 import { Section } from "@/components/ui/Section";
-import {
-  ArrowRightIcon,
-  BarChartIcon,
-  DatabaseIcon,
-  LayersIcon,
-  SparkIcon,
-  WorkflowIcon,
-} from "@/components/ui/icons";
+import { ArrowRightIcon, SparkIcon } from "@/components/ui/icons";
+import { areas, tools } from "@/content/areas";
 import { cases } from "@/content/cases";
 import { publishedProjects } from "@/content/projects";
 import { site } from "@/lib/site";
-
-const areas = [
-  {
-    icon: BarChartIcon,
-    title: "Dashboards de BI",
-    text: "Painéis em Power BI e Looker que respondem à pergunta do negócio.",
-  },
-  {
-    icon: LayersIcon,
-    title: "Sistemas web",
-    text: "Sistemas sob medida para trocar planilha por um fluxo que funciona.",
-  },
-  {
-    icon: WorkflowIcon,
-    title: "Agentes e automações",
-    text: "Fluxos em n8n e agentes de IA que assumem o trabalho repetitivo.",
-  },
-  {
-    icon: DatabaseIcon,
-    title: "Dados organizados",
-    text: "Modelagem e SQL para ter uma fonte confiável por trás de cada número.",
-  },
-];
-
-const tools = [
-  "Power BI",
-  "Looker",
-  "SQL",
-  "Python",
-  "n8n",
-  "Supabase",
-  "Claude API",
-];
 
 export default function Home() {
   return (
