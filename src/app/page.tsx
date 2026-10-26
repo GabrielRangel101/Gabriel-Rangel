@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import portrait from "@/assets/gabriel-rangel.jpg";
 import { Button } from "@/components/ui/Button";
 import { CaseCard } from "@/components/ui/CaseCard";
 import { Container } from "@/components/ui/Container";
@@ -54,22 +56,30 @@ export default function Home() {
   return (
     <>
       <section aria-labelledby="hero-titulo" className="pt-16 md:pt-24">
-        <Container>
-          <p className="text-eyebrow text-ink-subtle">
-            Portfólio
-          </p>
-          <h1 id="hero-titulo" className="text-display-xl mt-4">
-            {site.name}
-          </h1>
-          <p className="text-body-lg mt-6 max-w-2xl text-ink-muted">
-            {site.tagline}
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href="/projetos">Ver projetos</Button>
-            <Button href="/contato" variant="secondary">
-              Falar comigo
-            </Button>
+        <Container className="grid items-center gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16">
+          <div>
+            <p className="text-eyebrow text-ink-subtle">Portfólio</p>
+            <h1 id="hero-titulo" className="text-display-xl mt-4">
+              {site.name}
+            </h1>
+            <p className="text-body-lg mt-6 max-w-2xl text-ink-muted">
+              {site.tagline}
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button href="/projetos">Ver projetos</Button>
+              <Button href="/contato" variant="secondary">
+                Falar comigo
+              </Button>
+            </div>
           </div>
+          <Image
+            src={portrait}
+            alt="Retrato de Gabriel Rangel"
+            priority
+            sizes="(min-width: 1024px) 480px, (min-width: 640px) 480px, 100vw"
+            placeholder="blur"
+            className="aspect-square w-full max-w-md rounded-xl border border-hairline object-cover lg:max-w-none"
+          />
         </Container>
       </section>
 
