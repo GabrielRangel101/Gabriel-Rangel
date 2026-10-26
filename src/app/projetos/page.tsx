@@ -4,7 +4,7 @@ import { CaseCard } from "@/components/ui/CaseCard";
 import { Container } from "@/components/ui/Container";
 import { caseTypes } from "@/components/ui/Tag";
 import type { CaseType } from "@/components/ui/Tag";
-import { projects } from "@/content/projects";
+import { publishedProjects } from "@/content/projects";
 
 export const metadata: Metadata = {
   title: "Projetos",
@@ -26,8 +26,8 @@ export default async function ProjectsPage({ searchParams }: Props) {
   const active =
     tipo && tipo in caseTypes ? (tipo as CaseType) : undefined;
   const visible = active
-    ? projects.filter((p) => p.type === active)
-    : projects;
+    ? publishedProjects.filter((p) => p.type === active)
+    : publishedProjects;
 
   return (
     <Container className="pt-12 md:pt-16">
@@ -64,11 +64,17 @@ export default async function ProjectsPage({ searchParams }: Props) {
       </nav>
 
       {visible.length > 0 ? (
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {visible.map((project) => (
-            <CaseCard key={project.slug} project={project} />
-          ))}
-        </div>
+        <>
+          <p className="text-body-sm mt-6 text-ink-subtle">
+            Mostrando {visible.length}{" "}
+            {visible.length === 1 ? "projeto" : "projetos"}
+          </p>
+          <div className="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {visible.map((project) => (
+              <CaseCard key={project.slug} project={project} />
+            ))}
+          </div>
+        </>
       ) : (
         <div className="mt-8 max-w-xl rounded-xl border border-hairline bg-surface-1 p-6">
           <h2 className="text-card-title">

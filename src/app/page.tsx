@@ -18,7 +18,7 @@ import {
   WorkflowIcon,
 } from "@/components/ui/icons";
 import { cases } from "@/content/cases";
-import { projects } from "@/content/projects";
+import { publishedProjects } from "@/content/projects";
 import { site } from "@/lib/site";
 
 const areas = [
@@ -118,7 +118,7 @@ export default function Home() {
 
       <Section id="projetos" eyebrow="Projetos em destaque" title="Demos reais, com dados sintéticos.">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
+          {publishedProjects.map((project) => (
             <CaseCard key={project.slug} project={project} />
           ))}
         </div>
