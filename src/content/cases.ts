@@ -35,6 +35,7 @@ export const cases: Record<string, CaseStudy> = {
     ],
     status: "Publicado",
     role: "Projeto autoral",
+    repoUrl: "https://github.com/GabrielRangel101/meridiano-subscriber-compass",
     highlights: [
       "A IA roteia as perguntas de negócio para um motor de métricas próprio, sem calcular números por conta própria",
       "Funil de compra de ponta a ponta, com CAC, LTV e payback por canal",
