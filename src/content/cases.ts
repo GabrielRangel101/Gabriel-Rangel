@@ -12,6 +12,8 @@ export type CaseStudy = {
   description: string[];
   status: string;
   role: string;
+  // Lista curta da aba Detalhes Técnicos.
+  highlights: string[];
   problem: string;
   decision: string;
   result: string[];
@@ -33,6 +35,13 @@ export const cases: Record<string, CaseStudy> = {
     ],
     status: "Publicado",
     role: "Projeto autoral",
+    highlights: [
+      "A IA roteia as perguntas de negócio para um motor de métricas próprio, sem calcular números por conta própria",
+      "Funil de compra de ponta a ponta, com CAC, LTV e payback por canal",
+      "Ponte de MRR e retenção por safra",
+      "Risco de cancelamento por assinante",
+      "Simulador “e se” e explicação das fórmulas de cada métrica",
+    ],
     problem:
       "Mostrar como um gestor de assinaturas B2C decide sem depender de planilhas, deixando explícito o que é dado e o que é premissa.",
     decision:
@@ -54,18 +63,6 @@ export const cases: Record<string, CaseStudy> = {
           "A pergunta de negócio passa por um roteador, que escolhe a análise. O motor de métricas calcula; a IA só redige a resposta com o resultado dele.",
         ],
         code: "pergunta → roteador de perguntas → motor de métricas → resposta redigida pela IA",
-      },
-      {
-        title: "Análises do painel",
-        list: [
-          "Funil de compra de ponta a ponta",
-          "CAC, LTV e payback por canal",
-          "Ponte de MRR",
-          "Retenção por safra",
-          "Risco de cancelamento por assinante",
-          "Simulador “e se”",
-          "Explicação das fórmulas de cada métrica",
-        ],
       },
       {
         title: "Dados",

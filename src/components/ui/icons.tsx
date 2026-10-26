@@ -38,7 +38,33 @@ export const ChevronDownIcon = (p: IconProps) => (
     <path d="M6 9l6 6 6-6" />
   </Icon>
 );
-export const ArrowLeftIcon = (p: IconProps) => (
+export const PlayIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M7 5l12 7-12 7V5z" />
+  </Icon>
+);
+export const WrenchIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M14.7 6.3a4 4 0 0 0 5 5L13 18l-3 3-4-4 3-3 6.7-6.7a4 4 0 0 0-1-1z" />
+  </Icon>
+);
+export const CheckIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 12.5l4.5 4.5L19 7.5" />
+  </Icon>
+);
+export const CheckCircleIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M8 12.5l3 3 5-6" />
+  </Icon>
+);
+export const CodeIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" />
+  </Icon>
+);
+export const ArrowLeftIcon =(p: IconProps) => (
   <Icon {...p}>
     <path d="M19 12H5M11 6l-6 6 6 6" />
   </Icon>
