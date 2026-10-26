@@ -15,7 +15,9 @@ export const site = {
   navTypes: ["power-bi", "web-ia", "agente"] satisfies CaseType[],
   cta: { href: "/contato", label: "Falar comigo" },
   external: {
-    github: undefined as string | undefined,
-    linkedin: undefined as string | undefined,
+    github: "https://github.com/GabrielRangel101" as string | undefined,
+    linkedin: "https://www.linkedin.com/in/gabriel-rangel-a954ba26a/" as
+      | string
+      | undefined,
   },
 } as const;
