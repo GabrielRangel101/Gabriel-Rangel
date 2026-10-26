@@ -15,7 +15,7 @@ export const projects: Project[] = [
     title: "Gazeta Meridiano",
     type: "web-ia",
     summary:
-      "Painel de assinaturas B2C com uma Mesa de análise em Modo IA que responde sobre os dados do painel.",
+      "Dashboard de inteligência de assinaturas B2C para um jornal fictício. A IA roteia as perguntas para um motor de métricas próprio, sem calcular números por conta própria.",
     synthetic: true,
   },
   {

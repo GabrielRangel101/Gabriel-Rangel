@@ -107,8 +107,9 @@ export default function Home() {
             <SparkIcon width={24} height={24} className="text-ink-muted" />
             <h3 className="text-card-title">Mesa de análise (Modo IA)</h3>
             <p className="text-body max-w-xl text-ink-muted">
-              Em vez de montar filtros, você escreve a pergunta. A resposta vem
-              apenas dos dados do painel.
+              Em vez de montar filtros, você escreve a pergunta. A IA escolhe a
+              análise e redige a resposta; os números vêm de um motor de
+              métricas testado.
             </p>
           </div>
         </DemoFrame>
