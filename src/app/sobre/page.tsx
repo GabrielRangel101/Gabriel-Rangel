@@ -150,11 +150,24 @@ export default function AboutPage() {
                     {job.scope}
                   </p>
                 )}
+                {job.intro && <p className="mb-4">{job.intro}</p>}
                 <ul className="flex list-disc flex-col gap-3 pl-5">
                   {job.highlights.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
+                {job.tools && (
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {job.tools.map((tool) => (
+                      <li
+                        key={tool}
+                        className="text-caption rounded-full border border-hairline px-2 py-0.5 text-ink-subtle"
+                      >
+                        {tool}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </AccordionItem>
             ))}
           </Accordion>

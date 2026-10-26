@@ -4,8 +4,13 @@ export type Experience = {
   company: string;
   role: string;
   period: string;
+  // Linha curta em destaque (ex.: segmento atendido).
   scope?: string;
+  // Parágrafo de apresentação da atuação.
+  intro?: string;
   highlights: string[];
+  // Ferramentas usadas nessa atuação.
+  tools?: string[];
 };
 
 export const aboutFacts = [
@@ -32,7 +37,14 @@ export const toolGroups: { title: string; items: string[] }[] = [
   },
   {
     title: "Automação e IA",
-    items: ["n8n e agentes de IA", "Claude API", "Power Automate", "Supabase", "APIs REST"],
+    items: [
+      "n8n e agentes de IA",
+      "Claude API",
+      "Power Automate",
+      "Playwright (Python) e Chromium",
+      "Supabase",
+      "APIs REST",
+    ],
   },
 ];
 
@@ -41,13 +53,24 @@ export const experience: Experience[] = [
     company: "Grupo RBS",
     role: "Analista de Dados (Assistente de Dados IV)",
     period: "04/2025 – atual",
-    scope: "Business Analytics: audiência, redação e produtos digitais B2C",
+    intro:
+      "Atuo no time de Business Analytics, apoiando Redação, Audiência, Streaming e produtos digitais B2C com dados e análises para decisões estratégicas, da performance do conteúdo à geração e retenção de assinantes.",
     highlights: [
-      "Mantenho 4 dashboards completos no Looker Studio (de 5 a 60 páginas), incluindo o principal, de conversão (funis Android, iOS e site; conversões por dia e hora; página de CRO), e o de mídia paga (Google Ads e Meta Ads).",
-      "Migrei o GA4 para uma nova propriedade (30+ campos novos) e redesenhei a atribuição de UTMs, reduzindo em cerca de 60% o volume sem canal identificado.",
-      "Automatizei 3 relatórios com Power Automate, eliminando 6 horas por semana de trabalho manual.",
-      "Integrei GA4 e BigQuery (ETL e modelagem dimensional) e estruturei o rastreio da jornada completa do usuário, do anúncio da Meta ao clique no CRO.",
-      "Otimizei consultas no BigQuery e migrei a lógica de um CASE do Looker Studio para o SQL, reduzindo o tempo da consulta de 3 minutos para 28 segundos.",
+      "Manutenção e evolução de dashboards no Looker Studio (audiência, streaming, conversão e mídia paga), com atenção à performance e ao custo. Em uma das otimizações, passei a lógica do dashboard para o SQL e reduzi o custo dele.",
+      "Automação de relatórios com Power Automate: 3 relatórios automatizados, com cerca de 6 horas semanais de trabalho manual a menos.",
+      "Análise de grandes volumes de dados no BigQuery (GCP) com SQL e Python, integrados ao GA4 (eventos, usuários, sessões e conversões), para entender a jornada do usuário, do anúncio à conversão, e a performance digital.",
+      "Participação na migração do GA4 para uma nova propriedade (30+ campos novos) e no redesenho da atribuição de UTMs, ampliando a visibilidade da origem do tráfego e das conversões.",
+      "Apoio às equipes de Audiência, Redação e Marketing na tradução de necessidades de negócio em análises e visualizações claras, e colaboração na criação de novas bases, relatórios e painéis estratégicos.",
+      "Automação de tarefas com Playwright (Python) e Chromium.",
+    ],
+    tools: [
+      "BigQuery",
+      "SQL",
+      "Python",
+      "Looker Studio",
+      "GA4",
+      "Power Automate",
+      "Playwright",
     ],
   },
   {
