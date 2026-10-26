@@ -117,15 +117,23 @@ export default async function CasePage({ params }: Props) {
 
         <section
           aria-labelledby="tecnica"
-          className="mt-section-mobile md:mt-section"
+          className="mt-section-mobile grid gap-8 md:mt-section md:grid-cols-[1fr_2fr] md:gap-12"
         >
-          <h2 id="tecnica" className="text-headline">
-            Camada técnica
-          </h2>
-          <p className="text-body mt-2 max-w-2xl text-ink-muted">
-            Para quem quer ver como foi feito.
-          </p>
-          <div className="mt-8 max-w-3xl">
+          <div>
+            <h2 id="tecnica" className="text-headline">
+              Camada técnica
+            </h2>
+            <p className="text-body mt-2 max-w-sm text-ink-muted">
+              Para quem quer ver como foi feito.
+            </p>
+            {study.repoUrl && (
+              <a href={study.repoUrl} rel="noopener" className={`${linkClass} mt-6`}>
+                Ver o código no GitHub
+                <ArrowRightIcon />
+              </a>
+            )}
+          </div>
+          <div>
             <Accordion>
               {study.technical.map((section) => (
                 <AccordionItem key={section.title} title={section.title}>
@@ -148,12 +156,6 @@ export default async function CasePage({ params }: Props) {
               ))}
             </Accordion>
           </div>
-          {study.repoUrl && (
-            <a href={study.repoUrl} rel="noopener" className={`${linkClass} mt-6`}>
-              Ver o código no GitHub
-              <ArrowRightIcon />
-            </a>
-          )}
         </section>
       </Container>
     </article>

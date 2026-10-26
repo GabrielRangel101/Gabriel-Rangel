@@ -343,7 +343,7 @@ Inter carries everything; JetBrains Mono carries code in the technical layer of 
 ## Layout
 
 - Base unit 4px. Card padding 24px (`{spacing.lg}`); CTA banner padding 48px; section gap 96px on desktop, 64px on mobile.
-- Max content width 1200px. Card grids are 3-up on desktop, 2-up at 1024px, 1-up below 768px.
+- Max content width 1360px (was 1200px; raised so wide screens keep less empty canvas at the sides). Long text keeps its own 768px measure. Card grids are 3-up on desktop, 2-up at 1024px, 1-up below 768px.
 - Demo frames span the content width and keep their aspect ratio.
 - The dark canvas is the whitespace: sections separate by lifting onto surface-1 panels or by the 96px gap, not by borders.
 
