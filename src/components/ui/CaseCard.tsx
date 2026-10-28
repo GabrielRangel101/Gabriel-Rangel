@@ -7,7 +7,8 @@ import { TypeTag } from "./Tag";
 
 // O link cobre o card inteiro (after:absolute), então o clique e o foco valem para toda a área.
 export function CaseCard({ project }: { project: Project }) {
-  const stack = cases[project.slug]?.stack.slice(0, 4) ?? [];
+  const study = cases[project.slug];
+  const stack = study?.stack.slice(0, 4) ?? [];
 
   return (
     <article className="transition-ui group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-surface-1 hover:border-hairline-strong hover:bg-surface-2">
@@ -27,7 +28,7 @@ export function CaseCard({ project }: { project: Project }) {
         </div>
       )}
 
-      <div className="flex flex-1 flex-col gap-3 p-6">
+      <div className="flex flex-1 flex-col gap-4 p-6">
         {!project.image && <TypeTag type={project.type} />}
         <h3 className="text-card-title">
           <Link
@@ -37,9 +38,24 @@ export function CaseCard({ project }: { project: Project }) {
             {project.title}
           </Link>
         </h3>
-        <p className="text-body-sm line-clamp-3 text-ink-muted">
-          {project.summary}
-        </p>
+        {study && (
+          <dl className="flex flex-col gap-3">
+            <div>
+              <dt className="text-eyebrow text-ink">Desafio</dt>
+              <dd className="text-body-sm mt-1 text-ink-muted">{study.problem}</dd>
+            </div>
+            <div>
+              <dt className="text-eyebrow text-ink">O que fiz</dt>
+              <dd className="text-body-sm mt-1 text-ink-muted">{study.decision}</dd>
+            </div>
+            <div className="rounded-lg bg-surface-3 p-4">
+              <dt className="text-eyebrow text-primary">Resultado</dt>
+              <dd className="text-body-sm mt-1 font-medium text-ink">
+                {study.result[0]}
+              </dd>
+            </div>
+          </dl>
+        )}
         <ul className="flex flex-wrap gap-2">
           {stack.map((tool) => (
             <li
@@ -50,8 +66,8 @@ export function CaseCard({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
-        <span className="text-button mt-auto inline-flex items-center gap-2 pt-3 text-primary">
-          Ver case
+        <span className="text-button mt-auto inline-flex items-center gap-2 pt-2 text-primary">
+          Ver projeto
           <ArrowRightIcon className="transition-ui group-hover:translate-x-0.5" />
         </span>
       </div>

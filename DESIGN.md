@@ -1,13 +1,18 @@
 ---
 version: alpha
 name: gabriel-rangel-portfolio
-description: "Dark, product-focused portfolio canvas for Gabriel Rangel (data and AI automation analyst). Deep petrol canvas (#07131a), pale cool-white text (#f2f8f9), a four-step surface ladder with hairline borders, and a single cyan-teal accent (#2bc4cf) used only on the primary CTA, links, focus ring and brand mark. Display type is Inter at 600 with negative tracking set in em. Pages lead with live demos and dashboard screenshots framed in dark panels. Derived from a style analysis of a dark SaaS marketing site; accent hue, fonts and components were changed to pass WCAG contrast and to fit a portfolio."
+description: "Dark, product-focused portfolio canvas for Gabriel Rangel (data and AI automation analyst). Deep petrol canvas (#07131a), pale cool-white text (#f2f8f9), a four-step surface ladder with hairline borders, and a single cyan-teal accent (#2bc4cf) used on links, focus ring, brand mark and highlighted headline words. The contact CTA is the one exception: a warm orange (#f97316) so it stands out from everything else. The Home hero fades from deep teal (#0f4a57) to the canvas. Display type is Inter at 600 with negative tracking set in em. Pages lead with live demos and dashboard screenshots framed in dark panels. Derived from a style analysis of a dark SaaS marketing site; accent hue, fonts and components were changed to pass WCAG contrast and to fit a portfolio."
 
 colors:
   primary: "#2bc4cf"
   on-primary: "#07131a"
   primary-hover: "#4fd6df"
   primary-pressed: "#1fa7b1"
+  cta: "#f97316"
+  cta-hover: "#fb923c"
+  cta-pressed: "#ea580c"
+  header: "#0b1117"
+  hero-top: "#0f4a57"
   ink: "#f2f8f9"
   ink-muted: "#c5d4d9"
   ink-subtle: "#8fa6ae"
@@ -283,7 +288,7 @@ The theme is dark only in v1. Tokens are named so a light theme can be added lat
 - One accent hue (184°); success green sits 50° away, error red and warning amber are separate and used only for feedback.
 - Display type at weight 600 with negative tracking in em, body at 400.
 - Cards use 12px corners (16px for demo and case frames), buttons 8px, tabs and tags pill.
-- No gradients, no glassmorphism, no second accent, no decorative color.
+- Gradients only in two places: the Home hero background (teal to canvas) and highlighted headline words (accent to a lighter accent). No glassmorphism. Orange (`cta`) is reserved for the contact button; it is not a second accent for links or decoration.
 
 ## Colors
 
@@ -357,7 +362,7 @@ Inter carries everything; JetBrains Mono carries code in the technical layer of 
 | 3 | `{colors.surface-3}` | Dropdowns, user bubbles |
 | Focus | 2px solid `{colors.primary}`, offset 2px, 100% opacity | Any focused interactive element |
 
-No drop shadows, gradients or blur on surfaces.
+No drop shadows or blur on surfaces; the only gradients are the hero background and headline highlight.
 
 ## Shapes
 
@@ -408,7 +413,7 @@ Not used in v1: pricing cards, customer logo tiles, testimonial cards (the site 
 ### Don't
 - Don't ship a light theme in v1.
 - Don't use the accent as a section background or card fill.
-- Don't add a second accent, gradients, glassmorphism or spotlight effects.
+- Don't add gradients beyond the hero and the headline highlight, nor glassmorphism, spotlight effects, or use orange for anything but the contact CTA.
 - Don't color-code case types.
 - Don't use ink-disabled for information.
 - Don't use pill-shaped CTAs.

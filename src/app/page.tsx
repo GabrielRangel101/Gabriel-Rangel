@@ -18,7 +18,10 @@ import { site } from "@/lib/site";
 export default function Home() {
   return (
     <>
-      <section aria-labelledby="hero-titulo" className="pt-16 md:pt-24">
+      <section
+        aria-labelledby="hero-titulo"
+        className="bg-linear-to-b from-hero-top via-hero-mid to-canvas pb-16 pt-16 md:pb-20 md:pt-24"
+      >
         <Container className="grid items-center gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
           <div>
             <div className="flex items-center gap-3">
@@ -35,21 +38,26 @@ export default function Home() {
                 <p className="text-body-sm font-semibold text-ink">
                   {site.name}
                 </p>
-                <p className="text-body-sm text-ink-subtle">
+                <p className="text-body-sm text-ink-muted">
                   Analista de dados e IA
                 </p>
               </div>
             </div>
             <h1 id="hero-titulo" className="text-display-xl mt-6">
-              {site.name}
+              Seus dados viram decisão,{" "}
+              <span className="text-accent-gradient">
+                sem trabalho manual no meio.
+              </span>
             </h1>
             <p className="text-body-lg mt-6 max-w-2xl text-ink-muted">
               {site.tagline}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="/projetos">Ver projetos</Button>
-              <Button href="/contato" variant="secondary">
+              <Button href="/contato" variant="cta">
                 Falar comigo
+              </Button>
+              <Button href="/projetos" variant="secondary">
+                Ver projetos
               </Button>
             </div>
           </div>
@@ -67,7 +75,7 @@ export default function Home() {
         </Container>
       </section>
 
-      <Section id="areas" eyebrow="O que construo" title="Do dado bruto à decisão, sem trabalho manual no meio.">
+      <Section id="areas" eyebrow="O que construo" title="Quatro frentes de trabalho.">
         <div className="grid gap-4 sm:grid-cols-2">
           {areas.map(({ icon, title, text }) => (
             <FeatureCard key={title} icon={icon} title={title}>
@@ -78,7 +86,7 @@ export default function Home() {
       </Section>
 
       <Section id="projetos" eyebrow="Projetos em destaque" title="Demos reais, para abrir e testar.">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           {publishedProjects.map((project) => (
             <CaseCard key={project.slug} project={project} />
           ))}
@@ -142,7 +150,9 @@ export default function Home() {
       <section aria-label="Próximos passos" className="mt-section-mobile md:mt-section">
         <Container>
           <CtaBanner title="Vamos conversar sobre o que você precisa.">
-            <Button href="/contato">Quero contratar</Button>
+            <Button href="/contato" variant="cta">
+              Quero contratar
+            </Button>
             <Button href="/sobre" variant="secondary">
               Sou recrutador
             </Button>

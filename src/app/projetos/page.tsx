@@ -69,7 +69,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
             Mostrando {visible.length}{" "}
             {visible.length === 1 ? "projeto" : "projetos"}
           </p>
-          <div className="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-4 grid gap-6 md:grid-cols-2">
             {visible.map((project) => (
               <CaseCard key={project.slug} project={project} />
             ))}

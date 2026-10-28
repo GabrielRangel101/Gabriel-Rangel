@@ -6,6 +6,11 @@
   --color-on-primary: #07131a;
   --color-primary-hover: #4fd6df;
   --color-primary-pressed: #1fa7b1;
+  --color-primary-soft: #8be9ef;
+
+  --color-cta: #f97316;
+  --color-cta-hover: #fb923c;
+  --color-cta-pressed: #ea580c;
 
   --color-ink: #f2f8f9;
   --color-ink-muted: #c5d4d9;
@@ -17,6 +22,9 @@
   --color-surface-2: #12272f;
   --color-surface-3: #172f39;
   --color-surface-4: #19323d;
+  --color-header: #0b1117;
+  --color-hero-top: #0f4a57;
+  --color-hero-mid: #0b2e39;
   --color-hairline: #1d3541;
   --color-hairline-strong: #2a4756;
   --color-input-border: #5d7983;
@@ -135,6 +143,14 @@ body {
   font-size: 13px;
   line-height: 1.5;
   letter-spacing: 0;
+}
+
+/* Destaque de palavras no título: acento em degradê, só em texto grande. */
+@utility text-accent-gradient {
+  background-image: linear-gradient(90deg, var(--color-primary), var(--color-primary-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Alvos de toque: 40 px no desktop, 44 px em dispositivos de toque. */

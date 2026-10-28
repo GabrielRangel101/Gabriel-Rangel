@@ -31,6 +31,7 @@ function TypePills({ className = "" }: { className?: string }) {
 }
 
 export function TopNav() {
+  const [first, ...rest] = site.name.split(" ");
   const pathname = usePathname();
   // O menu guarda a página em que foi aberto; ao navegar, deixa de valer e fecha sozinho.
   const [openOn, setOpenOn] = useState<string | null>(null);
@@ -55,14 +56,14 @@ export function TopNav() {
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   const linkClass = (href: string) =>
-    `text-body-sm touch-target transition-ui inline-flex items-center rounded-md px-3 ${
+    `text-body-sm touch-target transition-ui inline-flex items-center relative rounded-md px-3 ${
       isActive(href)
-        ? "bg-surface-2 text-ink"
+        ? "bg-surface-2 text-ink after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:rounded-full after:bg-primary"
         : "text-ink-subtle hover:bg-surface-1 hover:text-ink"
     }`;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-hairline bg-canvas">
+    <header className="sticky top-0 z-40 border-b border-hairline bg-header">
       <Container className="flex h-14 items-center gap-6">
         <Link
           href="/"
@@ -70,11 +71,13 @@ export function TopNav() {
         >
           <span
             aria-hidden="true"
-            className="text-caption grid size-8 place-items-center rounded-md border border-hairline-strong bg-surface-2 font-semibold text-ink"
+            className="text-caption grid size-8 place-items-center rounded-md bg-primary font-semibold text-on-primary"
           >
             GR
           </span>
-          <span className="text-body font-semibold">{site.name}</span>
+          <span className="text-body font-semibold">
+            {first} <span className="text-primary">{rest.join(" ")}</span>
+          </span>
         </Link>
 
         <nav aria-label="Principal" className="hidden items-center gap-1 md:flex">
@@ -93,7 +96,7 @@ export function TopNav() {
         <TypePills className="hidden items-center gap-2 xl:flex" />
 
         <div className="ml-auto flex items-center gap-2">
-          <Button href={site.cta.href} className="max-sm:hidden">
+          <Button href={site.cta.href} variant="cta" className="max-sm:hidden">
             {site.cta.label}
           </Button>
           <button
@@ -118,7 +121,7 @@ export function TopNav() {
         <nav
           id="menu-mobile"
           aria-label="Principal"
-          className="border-t border-hairline bg-canvas md:hidden"
+          className="border-t border-hairline bg-header md:hidden"
         >
           <Container className="flex flex-col py-2">
             {site.nav.map(({ href, label }) => (
@@ -135,7 +138,7 @@ export function TopNav() {
               Tipos de projeto
             </p>
             <TypePills className="mt-2 flex flex-wrap gap-2 px-3" />
-            <Button href={site.cta.href} className="my-4 sm:hidden">
+            <Button href={site.cta.href} variant="cta" className="my-4 sm:hidden">
               {site.cta.label}
             </Button>
           </Container>
