@@ -1,4 +1,6 @@
 import type { StaticImageData } from "next/image";
+import auroraImage from "@/assets/cases/mercado-aurora.png";
+import fluxoImage from "@/assets/cases/fluxo-media-compass.png";
 import gazetaImage from "@/assets/cases/gazeta-meridiano.png";
 import type { CaseType } from "@/components/ui/Tag";
 import { hasCase } from "./cases";
@@ -23,14 +25,23 @@ export const projects: Project[] = [
     synthetic: true,
     image: gazetaImage,
   },
-  // Sem página de case e sem imagem ainda: não aparece nas listas até ser publicado.
   {
     slug: "fluxo-media-compass",
     title: "Fluxo Media Compass",
     type: "web-ia",
     summary:
-      "Painel de mídia paga, tracking e aquisição de app, também com Modo IA.",
+      "Dashboard de mídia paga, aquisição de app e saúde da coleta para uma fintech fictícia. Mostra como a perda de atribuição no iOS distorce o CPI e a decisão de verba.",
     synthetic: true,
+    image: fluxoImage,
+  },
+  {
+    slug: "mercado-aurora",
+    title: "Mercado Aurora",
+    type: "web-ia",
+    summary:
+      "Dashboard de uma rede fictícia de supermercados: onde a margem é ganha e perdida, ruptura, perdas e alertas por dinheiro em risco.",
+    synthetic: true,
+    image: auroraImage,
   },
 ];
 
