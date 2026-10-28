@@ -25,24 +25,33 @@ export const aboutBio = [
   "Meu jeito de trabalhar é direto e prático: resultado antes de tecnologia, e cada passo explicado sem jargão. Cada projeto deste portfólio tem uma demo que você pode abrir e testar.",
 ];
 
-export const toolGroups: { title: string; items: string[] }[] = [
+// Duas camadas: o que Gabriel usa hoje e o que já usou. Separação a confirmar por ele.
+export const toolGroups: { title: string; hint?: string; items: string[] }[] = [
   {
-    title: "BI e análise",
-    items: ["Power BI (DAX, Power Query, RLS)", "Looker Studio", "GA4", "KPIs e data storytelling"],
-  },
-  { title: "Linguagens", items: ["SQL", "Python (Pandas, NumPy, Streamlit)", "VBA"] },
-  {
-    title: "Dados e cloud",
-    items: ["BigQuery (GCP)", "PostgreSQL", "MySQL", "SQL Server", "ETL/ELT", "Modelagem dimensional (Star Schema)"],
-  },
-  {
-    title: "Automação e IA",
+    title: "Uso no dia a dia",
     items: [
+      "Looker Studio",
+      "Power BI (DAX, Power Query, RLS)",
+      "SQL",
+      "BigQuery (GCP)",
+      "Python (Pandas, Playwright)",
+      "GA4",
+      "Power Automate",
       "n8n e agentes de IA",
       "Claude API",
-      "Power Automate",
-      "Playwright (Python) e Chromium",
       "Supabase",
+    ],
+  },
+  {
+    title: "Já utilizei",
+    items: ["VBA", "MySQL", "SQL Server", "PostgreSQL", "Streamlit", "Excel avançado"],
+  },
+  {
+    title: "Como trabalho com dados",
+    items: [
+      "Modelagem dimensional (Star Schema)",
+      "ETL/ELT",
+      "KPIs e data storytelling",
       "APIs REST",
     ],
   },
@@ -56,11 +65,10 @@ export const experience: Experience[] = [
     intro:
       "Atuo no time de Business Analytics, apoiando Redação, Audiência, Streaming e produtos digitais B2C com dados e análises para decisões estratégicas, da performance do conteúdo à geração e retenção de assinantes.",
     highlights: [
-      "Manutenção e evolução de dashboards no Looker Studio (audiência, streaming, conversão e mídia paga), com atenção à performance e ao custo. Em uma das otimizações, passei a lógica do dashboard para o SQL e reduzi o custo dele.",
-      "Automação de relatórios com Power Automate: 3 relatórios automatizados, com cerca de 6 horas semanais de trabalho manual a menos.",
-      "Análise de grandes volumes de dados no BigQuery (GCP) com SQL e Python, integrados ao GA4 (eventos, usuários, sessões e conversões), para entender a jornada do usuário, do anúncio à conversão, e a performance digital.",
-      "Participação na migração do GA4 para uma nova propriedade (30+ campos novos) e no redesenho da atribuição de UTMs, ampliando a visibilidade da origem do tráfego e das conversões.",
-      "Apoio às equipes de Audiência, Redação e Marketing na tradução de necessidades de negócio em análises e visualizações claras, e colaboração na criação de novas bases, relatórios e painéis estratégicos.",
+      "Mantenho 4 dashboards completos no Looker Studio (de 5 a 60 páginas), incluindo o principal, de conversão (funis Android, iOS e site; conversões por dia e hora; página de CRO), e o de mídia paga (Google Ads e Meta Ads).",
+      "Redesenhei a atribuição de UTMs (canais internos e externos) e participei da migração do GA4 para uma nova propriedade (30+ campos novos). O volume sem canal identificado (“não trackeado”) caiu cerca de 60%.",
+      "Automatizei 3 relatórios com Power Automate, eliminando cerca de 6 horas por semana de trabalho manual.",
+      "Integrei GA4 e BigQuery (ETL e modelagem dimensional) e estruturei o rastreio da jornada completa do usuário, do anúncio da Meta ao clique no CRO, para Audiência, Redação e Marketing.",
       "Automação de tarefas com Playwright (Python) e Chromium.",
     ],
     tools: [
@@ -104,10 +112,6 @@ export const education = {
   status: "conclusão prevista em 12/2026",
 };
 
-export const courses: { area: string; items: string }[] = [
-  { area: "Power BI", items: "Formação Microsoft Power BI Profissional (Udemy) · Power BI Service (EmpowerData)" },
-  { area: "SQL e BigQuery", items: "Banco de Dados e SQL para Data Analytics (Udemy) · Google BigQuery para Data Analytics (Udemy)" },
-  { area: "Python", items: "Python para Data Analytics e Streamlit (Assimov Academy)" },
-  { area: "Analytics e automação", items: "Google Analytics 4 para Análise de Dados (Udemy) · Dominando Power Automate (EmpowerData)" },
-  { area: "IA e automação", items: "Claude Code Impressionador · Dominando n8n e Agentes de IA · Supabase Impressionador (HashtagTreinamentos)" },
-];
+// Uma linha só: os cursos apoiam a experiência, não competem com ela.
+export const courses =
+  "Cursos complementares em Power BI, SQL e BigQuery, Python, GA4, Power Automate, n8n e Supabase.";

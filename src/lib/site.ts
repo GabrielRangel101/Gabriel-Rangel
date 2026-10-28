@@ -13,6 +13,11 @@ export const site = {
   ],
   // Atalhos por tipo de projeto no cabeçalho; os demais tipos ficam nas abas de /projetos.
   navTypes: ["power-bi", "web-ia", "agente"] satisfies CaseType[],
+  // Preencha para exibir no site: e-mail público e caminho do CV em /public (ex.: "/cv-gabriel-rangel.pdf").
+  email: undefined as string | undefined,
+  cv: undefined as string | undefined,
+  // Cargo e ferramentas da primeira dobra.
+  stack: ["Power BI", "Looker Studio", "SQL", "BigQuery", "Python", "n8n"],
   cta: { href: "/contato", label: "Falar comigo" },
   external: {
     github: "https://github.com/GabrielRangel101" as string | undefined,

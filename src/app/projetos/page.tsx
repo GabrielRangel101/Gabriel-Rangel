@@ -36,6 +36,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
         Demos reais, para abrir e testar.
       </h1>
 
+      {publishedProjects.length > 4 && (
       <nav
         aria-label="Filtrar por tipo"
         className="-mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-2 md:mx-0 md:flex-wrap md:overflow-visible md:px-0"
@@ -62,6 +63,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
           );
         })}
       </nav>
+      )}
 
       {visible.length > 0 ? (
         <>

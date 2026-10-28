@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { TopNav } from "@/components/layout/TopNav";
+import { publishedProjects } from "@/content/projects";
+import { site } from "@/lib/site";
 import { indexable, siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -52,7 +54,11 @@ export default function RootLayout({
         >
           Pular para o conteúdo
         </a>
-        <TopNav />
+        <TopNav
+          types={site.navTypes.filter((type) =>
+            publishedProjects.some((project) => project.type === type),
+          )}
+        />
         <main id="conteudo" className="flex-1">
           {children}
         </main>

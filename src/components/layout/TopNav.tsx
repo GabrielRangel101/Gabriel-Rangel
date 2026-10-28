@@ -7,15 +7,23 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { CloseIcon, MenuIcon } from "@/components/ui/icons";
 import { caseTypes } from "@/components/ui/Tag";
+import type { CaseType } from "@/components/ui/Tag";
 import { site } from "@/lib/site";
 
 const pillClass =
   "text-body-sm touch-target transition-ui inline-flex items-center gap-2 rounded-full bg-surface-1 px-3 text-ink-subtle hover:bg-surface-2 hover:text-ink";
 
-function TypePills({ className = "" }: { className?: string }) {
+function TypePills({
+  types,
+  className = "",
+}: {
+  types: CaseType[];
+  className?: string;
+}) {
+  if (types.length === 0) return null;
   return (
     <ul className={className}>
-      {site.navTypes.map((type) => {
+      {types.map((type) => {
         const { label, Icon } = caseTypes[type];
         return (
           <li key={type}>
@@ -30,7 +38,7 @@ function TypePills({ className = "" }: { className?: string }) {
   );
 }
 
-export function TopNav() {
+export function TopNav({ types }: { types: CaseType[] }) {
   const [first, ...rest] = site.name.split(" ");
   const pathname = usePathname();
   // O menu guarda a página em que foi aberto; ao navegar, deixa de valer e fecha sozinho.
@@ -93,7 +101,7 @@ export function TopNav() {
           ))}
         </nav>
 
-        <TypePills className="hidden items-center gap-2 xl:flex" />
+        <TypePills types={types} className="hidden items-center gap-2 xl:flex" />
 
         <div className="ml-auto flex items-center gap-2">
           <Button href={site.cta.href} variant="cta" className="max-sm:hidden">
@@ -134,10 +142,12 @@ export function TopNav() {
                 {label}
               </Link>
             ))}
-            <p className="text-eyebrow mt-4 px-3 text-ink-subtle">
-              Tipos de projeto
-            </p>
-            <TypePills className="mt-2 flex flex-wrap gap-2 px-3" />
+            {types.length > 0 && (
+              <p className="text-eyebrow mt-4 px-3 text-ink-subtle">
+                Tipos de projeto
+              </p>
+            )}
+            <TypePills types={types} className="mt-2 flex flex-wrap gap-2 px-3" />
             <Button href={site.cta.href} variant="cta" className="my-4 sm:hidden">
               {site.cta.label}
             </Button>

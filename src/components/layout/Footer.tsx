@@ -37,6 +37,13 @@ export function Footer() {
                 Fale comigo
               </Link>
             </li>
+            {site.email && (
+              <li>
+                <a href={`mailto:${site.email}`} className={linkClass}>
+                  {site.email}
+                </a>
+              </li>
+            )}
             {github && (
               <li>
                 <a href={github} rel="noopener" className={linkClass}>

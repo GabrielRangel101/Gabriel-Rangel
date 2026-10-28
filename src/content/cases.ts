@@ -48,8 +48,9 @@ export const cases: Record<string, CaseStudy> = {
     decision:
       "A IA não calcula números. Ela só escolhe a análise certa e redige a resposta a partir de um motor de métricas próprio e testado.",
     result: [
-      "Dashboard publicado, com todas as abas e a Mesa de análise testadas no site publicado.",
-      "Testes automatizados para o motor de métricas e para os roteadores de perguntas.",
+      "Um gestor de assinaturas decide verba por canal com CAC, LTV e payback, vê o risco de cancelamento de cada assinante e testa cenários no simulador “e se”.",
+      "Cada métrica tem a fórmula explicada no próprio painel, e o que é dado e o que é premissa fica separado.",
+      "O motor de métricas e os roteadores de perguntas têm testes automatizados; as abas e a Mesa de análise foram testadas no site publicado.",
     ],
     stack: ["TanStack Start", "React", "Recharts", "Tailwind", "shadcn/ui"],
     demo: {
@@ -101,10 +102,10 @@ export const cases: Record<string, CaseStudy> = {
     decision:
       "O motor de métricas é puro e testado, e a IA só escolhe a análise e redige o texto. Nenhum número vem de modelo de linguagem, para que cada valor possa ser verificado.",
     result: [
-      "Publicado e abrindo ao vivo, com demo automática de cerca de 45 s.",
-      "33 testes do motor de métricas passam.",
-      "Cada consulta SQL do pacote /sql é comparada por teste com o resultado do motor em TypeScript.",
-      "Detecta o defeito de atribuição do Meta iOS a partir de 24/08 e mostra o CPI corrigido ao lado do medido.",
+      "O painel mostra que o CPI do Meta iOS aparece como R$ 10,54, mas seria cerca de R$ 9,03 com a atribuição corrigida, e o que isso muda na decisão de verba.",
+      "90 dias de dados simulados, com 4 defeitos de coleta injetados e detectados e 5 checagens de saúde da coleta em alerta.",
+      "33 testes do motor de métricas passam, e cada consulta SQL do pacote /sql é comparada por teste com o resultado do motor em TypeScript.",
+      "Publicado, com demo automática de cerca de 45 s.",
     ],
     stack: [
       "TanStack Start",
@@ -179,10 +180,11 @@ export const cases: Record<string, CaseStudy> = {
     decision:
       "Os dados vêm de uma simulação do estoque de cada SKU em cada loja, dia a dia, em vez de números sorteados. Ruptura e perda nascem da simulação, então os números fecham entre si.",
     result: [
-      "Publicado e abrindo ao vivo.",
-      "36 casos de teste em 3 arquivos (ask, geral e insights).",
-      "Os números fecham entre si: a margem real é a bruta menos a perda, e as lojas somam a rede.",
-      "A aba de alertas é a especificação das regras e de uma mensagem de WhatsApp. A automação com n8n ainda não está conectada, e o app avisa isso.",
+      "A ponte da margem mostra por que a margem real é 24,8% contra a meta de 25,0%: R$ 1,3 mi perdidos entre vencimento, avaria, quebra e furto.",
+      "Rede de 4 lojas com 12 meses de dados simulados: receita de R$ 70,6 mi, ruptura de 3,24% e R$ 924 mil de venda perdida.",
+      "Os sinais vêm ordenados por dinheiro em risco, com responsável por cada um (o maior, de R$ 1,5 mi por ano, são itens de tráfego com margem abaixo da média).",
+      "36 casos de teste em 3 arquivos conferem que a margem real é a bruta menos a perda e que as lojas somam a rede.",
+      "A aba de alertas é a especificação das regras e de uma mensagem de WhatsApp; a automação com n8n ainda não está conectada, e o app avisa isso.",
     ],
     stack: [
       "TanStack Start",

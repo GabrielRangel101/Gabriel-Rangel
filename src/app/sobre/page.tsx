@@ -74,6 +74,16 @@ export default function AboutPage() {
               {aboutFacts.map((fact) => (
                 <li key={fact}>{fact}</li>
               ))}
+              {site.email && (
+                <li>
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="rounded-xs text-primary underline"
+                  >
+                    {site.email}
+                  </a>
+                </li>
+              )}
             </ul>
             <div className="mt-4 flex flex-wrap gap-2">
               {linkedin && (
@@ -88,6 +98,11 @@ export default function AboutPage() {
                   <ExternalLinkIcon />
                 </Button>
               )}
+              {site.cv && (
+                <Button href={site.cv} variant="secondary" download>
+                  Baixar CV
+                </Button>
+              )}
             </div>
           </div>
 
@@ -99,8 +114,8 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section id="ferramentas" eyebrow="Ferramentas" title="O que uso no dia a dia.">
-        <div className="grid gap-4 sm:grid-cols-2">
+      <Section id="ferramentas" eyebrow="Ferramentas" title="O que domino e o que já usei.">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {toolGroups.map((group) => (
             <section
               key={group.title}
@@ -127,8 +142,8 @@ export default function AboutPage() {
 
       <Section id="ajuda" eyebrow="Em que posso ajudar" title="Do dado bruto à decisão.">
         <div className="grid gap-4 sm:grid-cols-2">
-          {areas.map(({ icon, title, text }) => (
-            <FeatureCard key={title} icon={icon} title={title}>
+          {areas.map(({ icon, title, text, note }) => (
+            <FeatureCard key={title} icon={icon} title={title} note={note}>
               {text}
             </FeatureCard>
           ))}
@@ -144,6 +159,7 @@ export default function AboutPage() {
                 title={job.company}
                 subtitle={job.role}
                 meta={job.period}
+                defaultOpen
               >
                 {job.scope && (
                   <p className="text-body-sm mb-3 font-medium text-ink">
@@ -185,18 +201,7 @@ export default function AboutPage() {
               {education.status}
             </p>
           </div>
-          <dl className="flex flex-col divide-y divide-hairline rounded-xl border border-hairline bg-surface-1">
-            {courses.map((course) => (
-              <div key={course.area} className="p-5">
-                <dt className="text-body-sm font-medium text-ink">
-                  {course.area}
-                </dt>
-                <dd className="text-body-sm mt-1 text-ink-muted">
-                  {course.items}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <p className="text-body-sm self-center text-ink-muted">{courses}</p>
         </div>
       </Section>
 

@@ -52,6 +52,19 @@ export default function Home() {
             <p className="text-body-lg mt-6 max-w-2xl text-ink-muted">
               {site.tagline}
             </p>
+            <ul
+              aria-label="Ferramentas principais"
+              className="mt-6 flex flex-wrap gap-2"
+            >
+              {site.stack.map((tool) => (
+                <li
+                  key={tool}
+                  className="text-body-sm rounded-md border border-hairline-strong bg-surface-1/60 px-3 py-1 text-ink"
+                >
+                  {tool}
+                </li>
+              ))}
+            </ul>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button href="/contato" variant="cta">
                 Falar comigo
@@ -59,6 +72,11 @@ export default function Home() {
               <Button href="/projetos" variant="secondary">
                 Ver projetos
               </Button>
+              {site.cv && (
+                <Button href={site.cv} variant="secondary" download>
+                  Baixar CV
+                </Button>
+              )}
             </div>
           </div>
           <div className="max-lg:hidden">
@@ -77,8 +95,8 @@ export default function Home() {
 
       <Section id="areas" eyebrow="O que construo" title="Quatro frentes de trabalho.">
         <div className="grid gap-4 sm:grid-cols-2">
-          {areas.map(({ icon, title, text }) => (
-            <FeatureCard key={title} icon={icon} title={title}>
+          {areas.map(({ icon, title, text, note }) => (
+            <FeatureCard key={title} icon={icon} title={title} note={note}>
               {text}
             </FeatureCard>
           ))}
