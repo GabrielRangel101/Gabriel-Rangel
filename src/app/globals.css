@@ -3,23 +3,23 @@
 /* Tokens do DESIGN.md. Tema escuro único na v1; os nomes permitem um tema claro depois. */
 @theme {
   --color-primary: #2bc4cf;
-  --color-on-primary: #010102;
+  --color-on-primary: #07131a;
   --color-primary-hover: #4fd6df;
   --color-primary-pressed: #1fa7b1;
 
-  --color-ink: #f7f8f8;
-  --color-ink-muted: #d0d6e0;
-  --color-ink-subtle: #8a8f98;
-  --color-ink-disabled: #62666d;
+  --color-ink: #f2f8f9;
+  --color-ink-muted: #c5d4d9;
+  --color-ink-subtle: #8fa6ae;
+  --color-ink-disabled: #5d7983;
 
-  --color-canvas: #010102;
-  --color-surface-1: #0f1011;
-  --color-surface-2: #141516;
-  --color-surface-3: #18191a;
-  --color-surface-4: #191a1b;
-  --color-hairline: #23252a;
-  --color-hairline-strong: #34343a;
-  --color-input-border: #62666d;
+  --color-canvas: #07131a;
+  --color-surface-1: #0d1e27;
+  --color-surface-2: #12272f;
+  --color-surface-3: #172f39;
+  --color-surface-4: #19323d;
+  --color-hairline: #1d3541;
+  --color-hairline-strong: #2a4756;
+  --color-input-border: #5d7983;
 
   --color-success: #27a644;
   --color-error: #f87171;

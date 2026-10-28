@@ -1,29 +1,29 @@
 ---
 version: alpha
 name: gabriel-rangel-portfolio
-description: "Dark, product-focused portfolio canvas for Gabriel Rangel (data and AI automation analyst). Near-black canvas (#010102), light gray text (#f7f8f8), a four-step surface ladder with hairline borders, and a single cyan-teal accent (#2bc4cf) used only on the primary CTA, links, focus ring and brand mark. Display type is Inter at 600 with negative tracking set in em. Pages lead with live demos and dashboard screenshots framed in dark panels. Derived from a style analysis of a dark SaaS marketing site; accent hue, fonts and components were changed to pass WCAG contrast and to fit a portfolio."
+description: "Dark, product-focused portfolio canvas for Gabriel Rangel (data and AI automation analyst). Deep petrol canvas (#07131a), pale cool-white text (#f2f8f9), a four-step surface ladder with hairline borders, and a single cyan-teal accent (#2bc4cf) used only on the primary CTA, links, focus ring and brand mark. Display type is Inter at 600 with negative tracking set in em. Pages lead with live demos and dashboard screenshots framed in dark panels. Derived from a style analysis of a dark SaaS marketing site; accent hue, fonts and components were changed to pass WCAG contrast and to fit a portfolio."
 
 colors:
   primary: "#2bc4cf"
-  on-primary: "#010102"
+  on-primary: "#07131a"
   primary-hover: "#4fd6df"
   primary-pressed: "#1fa7b1"
-  ink: "#f7f8f8"
-  ink-muted: "#d0d6e0"
-  ink-subtle: "#8a8f98"
-  ink-disabled: "#62666d"
-  canvas: "#010102"
-  surface-1: "#0f1011"
-  surface-2: "#141516"
-  surface-3: "#18191a"
-  surface-4: "#191a1b"
-  hairline: "#23252a"
-  hairline-strong: "#34343a"
-  input-border: "#62666d"
+  ink: "#f2f8f9"
+  ink-muted: "#c5d4d9"
+  ink-subtle: "#8fa6ae"
+  ink-disabled: "#5d7983"
+  canvas: "#07131a"
+  surface-1: "#0d1e27"
+  surface-2: "#12272f"
+  surface-3: "#172f39"
+  surface-4: "#19323d"
+  hairline: "#1d3541"
+  hairline-strong: "#2a4756"
+  input-border: "#5d7983"
   semantic-success: "#27a644"
   semantic-error: "#f87171"
   semantic-warning: "#fbbf24"
-  overlay: "#000000"
+  overlay: "#03090d"
 
 typography:
   display-xl:
@@ -270,7 +270,7 @@ components:
 
 ## Overview
 
-The site is a dark frame for Gabriel's work. `{colors.canvas}` (#010102) anchors every page; hierarchy comes from a four-step surface ladder (`{colors.surface-1}` to `{colors.surface-4}`) and 1px hairlines, never from drop shadows. Text is `{colors.ink}` (#f7f8f8).
+The site is a dark frame for Gabriel's work. `{colors.canvas}` (#07131a) anchors every page; hierarchy comes from a four-step surface ladder (`{colors.surface-1}` to `{colors.surface-4}`) and 1px hairlines, never from drop shadows. Text is `{colors.ink}` (#f2f8f9).
 
 There is one chromatic accent, cyan-teal `{colors.primary}` (#2bc4cf), used for the primary CTA, text links, the focus ring and the brand mark. Success, error and warning colors exist only as feedback, never as decoration.
 
@@ -301,13 +301,13 @@ The theme is dark only in v1. Tokens are named so a light theme can be added lat
 - **Surface 4** (`{colors.surface-4}`): deepest lifted surface, used rarely.
 - **Hairline** (`{colors.hairline}`): card and divider borders (decorative, 1.2:1 to 1.4:1 by design).
 - **Hairline strong** (`{colors.hairline-strong}`): hovered card borders.
-- **Input border** (`{colors.input-border}` #62666d): input and select borders, 3.30:1 on surface-1.
+- **Input border** (`{colors.input-border}` #5d7983): input and select borders, 3.68:1 on surface-1.
 
 ### Text
 - **Ink** (`{colors.ink}`): headlines and body, 19.6:1 on canvas.
 - **Ink muted** (`{colors.ink-muted}`): secondary text, 13.0:1 on surface-1.
 - **Ink subtle** (`{colors.ink-subtle}`): captions, footer, deselected tabs, 5.86:1 on surface-1. Minimum for any readable note.
-- **Ink disabled** (`{colors.ink-disabled}`): disabled controls and decoration only. It measures 3.30:1 to 3.62:1 and must not carry information.
+- **Ink disabled** (`{colors.ink-disabled}`): disabled controls and decoration only. It measures about 3.4:1 to 3.7:1 and must not carry information.
 
 ### Feedback
 - **Success** (`{colors.semantic-success}`): confirmations, 6.01:1 on surface-1.
