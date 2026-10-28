@@ -1,4 +1,8 @@
 import type { StaticImageData } from "next/image";
+import atendimentosImage from "@/assets/cases/powerbi-atendimentos.png";
+import comprasImage from "@/assets/cases/powerbi-compras.png";
+import lojasImage from "@/assets/cases/powerbi-lojas.png";
+import projetosImage from "@/assets/cases/powerbi-projetos.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
 import fluxoImage from "@/assets/cases/fluxo-media-compass.png";
 import gazetaImage from "@/assets/cases/gazeta-meridiano.png";
@@ -42,6 +46,42 @@ export const projects: Project[] = [
       "Dashboard de uma rede fictícia de supermercados: onde a margem é ganha e perdida, ruptura, perdas e alertas por dinheiro em risco.",
     synthetic: true,
     image: auroraImage,
+  },
+  {
+    slug: "acompanhamento-de-compras",
+    title: "Acompanhamento de Compras",
+    type: "power-bi",
+    summary:
+      "Valor, volume e OTIF das compras, com recortes por comprador, solicitante e fornecedor.",
+    synthetic: true,
+    image: comprasImage,
+  },
+  {
+    slug: "gestao-de-lojas",
+    title: "Gestão de Lojas",
+    type: "power-bi",
+    summary:
+      "Faturamento, lucro, ticket médio e entrega de uma rede de lojas, contra o ano anterior e as metas.",
+    synthetic: true,
+    image: lojasImage,
+  },
+  {
+    slug: "acompanhamento-de-projetos",
+    title: "Acompanhamento de Projetos",
+    type: "power-bi",
+    summary:
+      "Orçamento contra custo real, curva S e gasto por fornecedor, com indicador de consumo.",
+    synthetic: true,
+    image: projetosImage,
+  },
+  {
+    slug: "acompanhamento-de-atendimentos",
+    title: "Acompanhamento de Atendimentos",
+    type: "power-bi",
+    summary:
+      "Tempo de cada etapa de um atendimento de emergência, com destaque para as estações mais lentas.",
+    synthetic: true,
+    image: atendimentosImage,
   },
 ];
 

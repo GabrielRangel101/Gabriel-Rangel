@@ -13,7 +13,7 @@ export function CaseCard({ project }: { project: Project }) {
   return (
     <article className="transition-ui group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-surface-1 hover:border-hairline-strong hover:bg-surface-2">
       {project.image && (
-        <div className="relative aspect-[16/10] overflow-hidden border-b border-hairline bg-surface-2">
+        <div className="relative aspect-[16/9] overflow-hidden border-b border-hairline bg-surface-2">
           <Image
             src={project.image}
             alt={`Prévia do dashboard ${project.title}`}

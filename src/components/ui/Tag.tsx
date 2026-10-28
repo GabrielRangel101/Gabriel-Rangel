@@ -35,11 +35,15 @@ export function TypeTag({ type }: { type: CaseType }) {
   );
 }
 
-export function SyntheticBadge() {
+export function SyntheticBadge({
+  label = "Dados sintéticos",
+}: {
+  label?: string;
+}) {
   return (
     <span className={pill}>
       <DatabaseIcon width={12} height={12} />
-      Dados sintéticos
+      {label}
     </span>
   );
 }

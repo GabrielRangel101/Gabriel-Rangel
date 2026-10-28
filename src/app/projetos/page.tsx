@@ -48,7 +48,9 @@ export default async function ProjectsPage({ searchParams }: Props) {
         >
           Todos
         </Link>
-        {(Object.keys(caseTypes) as CaseType[]).map((type) => {
+        {(Object.keys(caseTypes) as CaseType[])
+          .filter((type) => publishedProjects.some((p) => p.type === type))
+          .map((type) => {
           const { label, Icon } = caseTypes[type];
           return (
             <Link
@@ -83,7 +85,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
             Ainda não há cases de {active && caseTypes[active].label}.
           </h2>
           <p className="text-body-sm mt-2 text-ink-muted">
-            Um case novo entra por semana. Veja os que já estão no ar.
+            Veja os que já estão no ar.
           </p>
           <Link
             href="/projetos"

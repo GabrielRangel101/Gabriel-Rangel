@@ -105,7 +105,7 @@ export default async function CasePage({ params }: Props) {
       <div className="flex flex-wrap items-center gap-3">
         <Button href={study.demo.embedUrl} {...external}>
           <ExternalLinkIcon />
-          Abrir app ao vivo
+          {study.demo.openLabel ?? "Abrir app ao vivo"}
         </Button>
         {study.repoUrl && (
           <Button href={study.repoUrl} variant="secondary" {...external}>
@@ -125,13 +125,19 @@ export default async function CasePage({ params }: Props) {
         <DemoFrame
           fallbackHref={study.demo.embedUrl}
           fallbackLabel="Abrir o dashboard em nova aba"
+          badgeLabel={study.demo.dataLabel}
         >
           <iframe
             src={study.demo.embedUrl}
             title={study.demo.title}
             loading="lazy"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-            className="h-[70dvh] min-h-[520px] w-full bg-surface-2 md:h-auto md:aspect-[16/10]"
+            style={study.demo.ratio ? { aspectRatio: study.demo.ratio } : undefined}
+            className={`w-full bg-surface-2 ${
+              study.demo.ratio
+                ? "h-[70dvh] min-h-[420px] md:h-auto md:min-h-0"
+                : "h-[70dvh] min-h-[520px] md:h-auto md:aspect-[16/10]"
+            }`}
           />
         </DemoFrame>
       </div>

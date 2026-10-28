@@ -22,10 +22,16 @@ export type CaseStudy = {
     embedUrl: string;
     autoUrl?: string;
     title: string;
+    // Opcionais, para demos que não são apps (ex.: relatório do Power BI).
+    openLabel?: string;
+    ratio?: string;
+    dataLabel?: string;
   };
   repoUrl?: string;
   technical: TechnicalSection[];
 };
+
+const PB = "https://app.powerbi.com/view?r=";
 
 export const cases: Record<string, CaseStudy> = {
   "gazeta-meridiano": {
@@ -230,6 +236,190 @@ export const cases: Record<string, CaseStudy> = {
         title: "Publicação",
         paragraphs: [
           "Publicado pela Lovable, com o código enviado pelo GitHub. Não tem banco de dados: o front lê um JSON estático de cerca de 950 KB.",
+        ],
+      },
+    ],
+  },
+  "acompanhamento-de-compras": {
+    description: [
+      "Painel de acompanhamento de compras: valor total, volume de pedidos e o OTIF (On-Time In-Full), o indicador de eficiência da cadeia de suprimentos.",
+      "Mostra as compras dentro e fora do prazo, as canceladas, a evolução mensal e o peso de cada comprador, solicitante e fornecedor. Os dados do relatório são de exemplo.",
+    ],
+    status: "Publicado",
+    role: "Relatório em Power BI",
+    highlights: [
+      "Valor total de compras e total de pedidos",
+      "OTIF para acompanhar a eficiência da cadeia de suprimentos",
+      "Compras dentro do prazo, fora do prazo e canceladas",
+      "Compras por comprador, por solicitante e por fornecedor",
+      "Evolução mensal de valor e de quantidade",
+    ],
+    problem:
+      "Dar à área de compras uma visão única do que foi comprado, do que chegou no prazo e do que foi cancelado.",
+    decision:
+      "Reuni valor, volume e OTIF em uma única página, com recortes por comprador, solicitante e fornecedor e botões para ver só as compras concluídas ou só as canceladas.",
+    result: [
+      "No conjunto de dados de exemplo, o painel mostra 559 compras e R$ 10,1 mi em valor total, com OTIF de 60%: 336 compras dentro do prazo, 138 fora e 85 canceladas.",
+      "A evolução mensal do OTIF separa o que chegou dentro e fora do prazo.",
+      "Mostra quanto cada solicitante e cada fornecedor representa em volume e em valor.",
+    ],
+    stack: ["Power BI"],
+    demo: {
+      embedUrl: PB + "eyJrIjoiOWEzZjc3ZWYtN2ZhZC00MjhiLTllNjUtYzJjOTE1NmUzOGYwIiwidCI6ImZiMjNhNmMwLTY1ZTItNGQxYi1hZDY2LWE4ZWQ1MzMzZjlkZCJ9",
+      title: "Relatório Power BI de acompanhamento de compras",
+      openLabel: "Abrir relatório ao vivo",
+      ratio: "16 / 9",
+      dataLabel: "Dados de exemplo",
+    },
+    technical: [
+      {
+        title: "Como o relatório está organizado",
+        paragraphs: [
+          "Uma página com seis indicadores no topo, gráficos por comprador, solicitante, mês e fornecedor, e a linha do OTIF ao longo do ano.",
+        ],
+      },
+      {
+        title: "Publicação",
+        paragraphs: [
+          "O relatório está publicado na web pelo Power BI e aparece aqui incorporado. Os dados são de exemplo.",
+        ],
+      },
+    ],
+  },
+  "gestao-de-lojas": {
+    description: [
+      "Painel de gestão de uma rede de lojas: faturamento e lucro total e mensal, com comparativos contra o ano anterior e a semana, e metas de ticket médio e de tempo de entrega.",
+      "Mostra os produtos mais vendidos, a margem de lucro, o faturamento e o lucro por categoria e o desempenho de cada filial. Os dados do relatório são de exemplo.",
+    ],
+    status: "Publicado",
+    role: "Relatório em Power BI",
+    highlights: [
+      "Faturamento e lucro total e mensal, com comparativo anual e semanal",
+      "Ticket médio e tempo médio de entrega contra a meta",
+      "Produtos mais vendidos e margem de lucro",
+      "Faturamento, margem e tempo de entrega por filial",
+      "Filtros por ano e por mês",
+    ],
+    problem:
+      "Acompanhar faturamento, lucro e entrega de uma rede de lojas, comparando com o ano anterior e com as metas.",
+    decision:
+      "Montei cartões com a variação contra o ano anterior e a meta, gráficos de faturamento e lucro por mês e por dia da semana, e comparativos por filial, com filtros de ano e de mês.",
+    result: [
+      "O painel compara faturamento e lucro com o ano anterior e mostra o ticket médio (meta de R$ 2.000) e o tempo médio de entrega (meta de até 2 dias).",
+      "Mostra os 5 produtos mais vendidos com a margem de lucro e a margem de cada filial.",
+      "Permite filtrar por ano e por mês e ver faturamento e lucro por categoria e por produto.",
+    ],
+    stack: ["Power BI"],
+    demo: {
+      embedUrl: PB + "eyJrIjoiYjM4YjlkNWMtNGQ3NC00ZjhjLWJlZGQtNzMyOTUzZDYxZTcyIiwidCI6ImZiMjNhNmMwLTY1ZTItNGQxYi1hZDY2LWE4ZWQ1MzMzZjlkZCJ9",
+      title: "Relatório Power BI de gestão de lojas",
+      openLabel: "Abrir relatório ao vivo",
+      ratio: "16 / 9",
+      dataLabel: "Dados de exemplo",
+    },
+    technical: [
+      {
+        title: "Como o relatório está organizado",
+        paragraphs: [
+          "Cartões de indicadores à esquerda, gráficos de evolução e de produtos no centro e comparativos por filial à direita, com os filtros de ano e mês no topo.",
+        ],
+      },
+      {
+        title: "Publicação",
+        paragraphs: [
+          "O relatório está publicado na web pelo Power BI e aparece aqui incorporado. Os dados são de exemplo.",
+        ],
+      },
+    ],
+  },
+  "acompanhamento-de-projetos": {
+    description: [
+      "Painel de acompanhamento de projetos: orçamento, custo real e um indicador de consumo que mostra o percentual do orçamento já usado.",
+      "Mostra o acumulado dos custos ao longo do tempo e os valores gastos com cada fornecedor. Os dados do relatório são de exemplo.",
+    ],
+    status: "Publicado",
+    role: "Relatório em Power BI",
+    highlights: [
+      "Orçamento, custo real e horas trabalhadas por projeto",
+      "Indicador de consumo do orçamento",
+      "Real contra orçado por mês",
+      "Curva S com custo e orçamento acumulados",
+      "Gasto por fornecedor e por classificação",
+    ],
+    problem:
+      "Saber se cada projeto está dentro do orçamento e quanto do orçamento já foi consumido.",
+    decision:
+      "Criei um indicador de consumo do orçamento, o comparativo mensal entre real e orçado, a curva S acumulada e a divisão dos gastos por fornecedor e por tipo (serviço e material), com seleção por projeto.",
+    result: [
+      "No projeto de exemplo, o painel sinaliza “Acima do Orçamento”: R$ 744 mil gastos contra R$ 620 mil orçados, com 120% de consumo.",
+      "A curva S compara o custo acumulado com o orçamento acumulado mês a mês.",
+      "Mostra quanto do gasto foi com cada fornecedor e quanto foi serviço ou material.",
+    ],
+    stack: ["Power BI"],
+    demo: {
+      embedUrl: PB + "eyJrIjoiMzAwNGUxNmItY2NjMS00M2Q1LTg2M2YtM2Q4MjJkMTIwNGQyIiwidCI6ImZiMjNhNmMwLTY1ZTItNGQxYi1hZDY2LWE4ZWQ1MzMzZjlkZCJ9",
+      title: "Relatório Power BI de acompanhamento de projetos",
+      openLabel: "Abrir relatório ao vivo",
+      ratio: "16 / 9",
+      dataLabel: "Dados de exemplo",
+    },
+    technical: [
+      {
+        title: "Como o relatório está organizado",
+        paragraphs: [
+          "Cartões de orçamento, valor real e horas à esquerda, a tabela com os dados do projeto no topo e gráficos de real contra orçado, curva S e fornecedores.",
+        ],
+      },
+      {
+        title: "Publicação",
+        paragraphs: [
+          "O relatório está publicado na web pelo Power BI e aparece aqui incorporado. Os dados são de exemplo.",
+        ],
+      },
+    ],
+  },
+  "acompanhamento-de-atendimentos": {
+    description: [
+      "Painel de acompanhamento de atendimentos de emergência: o tempo médio de operação, da saída da ambulância até a chegada ao hospital.",
+      "Mostra os protocolos de atendimento mais usados e o desempenho geral da equipe, por estação, por faixa de idade e por período. Os dados do relatório são de exemplo.",
+    ],
+    status: "Publicado",
+    role: "Relatório em Power BI",
+    highlights: [
+      "Tempo médio de operação e total de atendimentos",
+      "Tempo por etapa: ambulância, residência do paciente e hospital",
+      "Tabela por estação com destaque para as respostas mais lentas",
+      "Atendimentos por faixa de idade e por período com média móvel",
+      "Filtros por mês e por protocolo",
+    ],
+    problem:
+      "Acompanhar o tempo de uma operação de emergência, da saída da ambulância à chegada ao hospital.",
+    decision:
+      "Dividi o tempo em três etapas (saída da ambulância, estação até a residência e residência até o hospital) e criei uma tabela por estação que destaca as que respondem mais devagar.",
+    result: [
+      "O painel mostra o tempo de cada etapa e destaca em rosa as estações com resposta mais lenta.",
+      "Mostra os atendimentos por faixa de idade e por período, com média móvel de 7 dias.",
+      "Permite filtrar por mês e por protocolo de atendimento.",
+    ],
+    stack: ["Power BI"],
+    demo: {
+      embedUrl: PB + "eyJrIjoiMDRlYjhmYmQtOWRmYi00ZmI4LWI4NzQtZjI3ZWI0YzEyZGI1IiwidCI6ImZiMjNhNmMwLTY1ZTItNGQxYi1hZDY2LWE4ZWQ1MzMzZjlkZCJ9",
+      title: "Relatório Power BI de acompanhamento de atendimentos",
+      openLabel: "Abrir relatório ao vivo",
+      ratio: "16 / 9",
+      dataLabel: "Dados de exemplo",
+    },
+    technical: [
+      {
+        title: "Como o relatório está organizado",
+        paragraphs: [
+          "O relatório tem 2 páginas. A primeira reúne o total de atendimentos, a tabela por estação, o tempo por etapa e os gráficos por idade e por período.",
+        ],
+      },
+      {
+        title: "Publicação",
+        paragraphs: [
+          "O relatório está publicado na web pelo Power BI e aparece aqui incorporado. Os dados são de exemplo.",
         ],
       },
     ],

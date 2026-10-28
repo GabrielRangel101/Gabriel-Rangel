@@ -8,7 +8,9 @@ export function DemoFrame({
   fallbackHref,
   fallbackLabel = "Abrir em nova aba",
   synthetic = true,
+  badgeLabel,
 }: {
+  badgeLabel?: string;
   children: ReactNode;
   fallbackHref: string;
   fallbackLabel?: string;
@@ -18,7 +20,7 @@ export function DemoFrame({
     <div className="rounded-xl border border-hairline bg-surface-1 p-4">
       <div className="overflow-hidden rounded-md">{children}</div>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-        {synthetic ? <SyntheticBadge /> : <span />}
+        {synthetic ? <SyntheticBadge label={badgeLabel} /> : <span />}
         <a
           href={fallbackHref}
           className="text-button inline-flex min-h-10 items-center gap-2 rounded-md text-primary"

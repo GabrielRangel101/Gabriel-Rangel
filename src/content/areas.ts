@@ -18,7 +18,6 @@ export const areas: {
     icon: BarChartIcon,
     title: "Dashboards de BI",
     text: "Painéis em Power BI e Looker que respondem à pergunta do negócio.",
-    note: "Case em breve neste portfólio",
   },
   {
     icon: LayersIcon,
