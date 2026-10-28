@@ -3,6 +3,7 @@ import atendimentosImage from "@/assets/cases/powerbi-atendimentos.png";
 import comprasImage from "@/assets/cases/powerbi-compras.png";
 import lojasImage from "@/assets/cases/powerbi-lojas.png";
 import projetosImage from "@/assets/cases/powerbi-projetos.png";
+import saborImage from "@/assets/cases/sabor-da-casa.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
 import fluxoImage from "@/assets/cases/fluxo-media-compass.png";
 import gazetaImage from "@/assets/cases/gazeta-meridiano.png";
@@ -46,6 +47,15 @@ export const projects: Project[] = [
       "Dashboard de uma rede fictícia de supermercados: onde a margem é ganha e perdida, ruptura, perdas e alertas por dinheiro em risco.",
     synthetic: true,
     image: auroraImage,
+  },
+  {
+    slug: "sabor-da-casa",
+    title: "Sabor da Casa",
+    type: "sistema",
+    summary:
+      "Sistema web de gestão para restaurante de bairro: pedidos, mesas, entregas, financeiro e clientes, com pedido pelo link público que cai direto no painel.",
+    synthetic: true,
+    image: saborImage,
   },
   {
     slug: "acompanhamento-de-compras",

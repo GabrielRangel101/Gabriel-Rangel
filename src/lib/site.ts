@@ -12,7 +12,7 @@ export const site = {
     { href: "/contato", label: "Contato" },
   ],
   // Atalhos por tipo de projeto no cabeçalho; os demais tipos ficam nas abas de /projetos.
-  navTypes: ["power-bi", "web-ia", "agente"] satisfies CaseType[],
+  navTypes: ["power-bi", "web-ia", "sistema", "agente"] satisfies CaseType[],
   // Preencha para exibir no site: e-mail público e caminho do CV em /public (ex.: "/cv-gabriel-rangel.pdf").
   email: undefined as string | undefined,
   cv: undefined as string | undefined,

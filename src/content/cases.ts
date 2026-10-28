@@ -240,6 +240,87 @@ export const cases: Record<string, CaseStudy> = {
       },
     ],
   },
+  "sabor-da-casa": {
+    description: [
+      "Sistema web de gestão para restaurante de bairro: pedidos, mesas, entregas, financeiro, despesas e clientes. Substitui as comandas de papel e os controles soltos.",
+      "O cliente pede por um link público e o pedido cai direto no painel, com alerta sonoro. A demonstração abaixo é uma cópia separada, com dados fictícios e outro nome; o sistema em produção atende um restaurante local. Para testar o pedido do cliente, abra /cliente em outra aba e acompanhe o pedido em /demo/pedidos.",
+    ],
+    status: "Em produção, com demo pública",
+    role: "Projeto autoral, entregue a cliente real",
+    highlights: [
+      "Pedidos em quadro, de novo a entregue, com alerta para pedidos parados",
+      "Mesas e comandas: abertura, itens e fechamento da conta",
+      "Cardápio com categorias, adicionais e custo por produto",
+      "Entregas com atribuição de pedidos e tela do motoboy no celular",
+      "Financeiro e despesas, com contas fixas e variáveis",
+      "Resumo da semana em linguagem simples, com PDF e envio por link do WhatsApp",
+      "Pedido pelo link público, ligado ao painel do restaurante",
+    ],
+    problem:
+      "Antes do sistema, as vendas eram anotadas à mão em comandas de papel, com controles soltos de despesas e clientes.",
+    decision:
+      "Usei o Supabase com regras de segurança por empresa e por perfil. O cliente do link público só consegue criar e consultar o próprio pedido, sem ler as tabelas do restaurante, e gatilhos no banco impedem alterar uma comanda fechada.",
+    result: [
+      "Um painel de 15 telas no lugar da comanda de papel: pedidos, mesas, cardápio, entregas, clientes, financeiro, despesas e relatórios, mais o pedido público, o status do pedido e o QR de mesa.",
+      "20 tabelas e 16 migrações de banco, com 71 políticas de segurança e 7 perfis de acesso: super_admin, admin, garçom, cozinha, entregador, caixa e demo.",
+      "A demo pública tem 12 telas, e o fluxo do cliente até o painel funciona em tempo real entre duas abas do navegador.",
+    ],
+    stack: [
+      "React 19",
+      "TanStack Start",
+      "TypeScript",
+      "Tailwind",
+      "shadcn/ui",
+      "Recharts",
+      "Supabase",
+      "Cloudflare Workers",
+    ],
+    demo: {
+      embedUrl: "https://sabor-da-casa-demo.srrangel447.workers.dev/demo/dashboard",
+      title: "Demo do sistema Sabor da Casa, gestão de restaurante",
+      openLabel: "Abrir demo ao vivo",
+      dataLabel: "Dados fictícios",
+    },
+    technical: [
+      {
+        title: "Modelagem dos dados",
+        paragraphs: [
+          "O sistema é multiempresa: todas as tabelas se ligam a uma empresa. Pedido, item, comanda e entrada financeira são registros separados, e o telefone do cliente é único por empresa.",
+        ],
+      },
+      {
+        title: "Fluxo de um pedido",
+        paragraphs: [
+          "O pedido nasce no link público ou no salão e passa pelas etapas até o caixa. Quando vem do link, ele vira um registro do sistema com origem “site”, sem depender do WhatsApp.",
+        ],
+        code: "cliente (link) → pedido no painel → preparo → pronto → saiu → entregue → caixa",
+      },
+      {
+        title: "Regras de negócio",
+        paragraphs: [
+          "Comanda fechada não pode ser editada nem apagada, então o histórico financeiro não muda depois. Pedido cancelado fica fora do dashboard e do financeiro.",
+        ],
+      },
+      {
+        title: "Segurança e permissões",
+        paragraphs: [
+          "As tabelas têm regras por empresa e por perfil (RLS). O visitante anônimo não acessa as tabelas diretamente: ele usa só funções específicas para criar e consultar o próprio pedido.",
+        ],
+      },
+      {
+        title: "Como a demo funciona",
+        paragraphs: [
+          "A demo não usa banco nem login. Os dados ficam em arquivo e no armazenamento local do navegador, e o painel se sincroniza com a tela do cliente por um evento do navegador. O código do sistema fica em repositório privado.",
+        ],
+      },
+      {
+        title: "Limites",
+        paragraphs: [
+          "Ainda não há aviso automático por WhatsApp, integração com impressora ou meios de pagamento, nem testes automatizados. O custo por produto guarda só o valor atual, sem histórico. O item AI Growth do menu da demo é apenas visual.",
+        ],
+      },
+    ],
+  },
   "acompanhamento-de-compras": {
     description: [
       "Painel de acompanhamento de compras: valor total, volume de pedidos e o OTIF (On-Time In-Full), o indicador de eficiência da cadeia de suprimentos.",
