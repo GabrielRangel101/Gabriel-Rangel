@@ -28,6 +28,8 @@ export type CaseStudy = {
     dataLabel?: string;
   };
   repoUrl?: string;
+  // Depoimento opcional (só com autorização de quem falou).
+  testimonial?: { quote: string; author: string };
   technical: TechnicalSection[];
 };
 
@@ -317,6 +319,86 @@ export const cases: Record<string, CaseStudy> = {
         title: "Limites",
         paragraphs: [
           "Ainda não há aviso automático por WhatsApp, integração com impressora ou meios de pagamento, nem testes automatizados. O custo por produto guarda só o valor atual, sem histórico. O item AI Growth do menu da demo é apenas visual.",
+        ],
+      },
+    ],
+  },
+  "painel-barbearia": {
+    description: [
+      "Painel de performance para uma barbearia local: metas, faturamento, ranking e clube de assinaturas por barbeiro, com o fechamento diário, semanal e mensal gerado automaticamente em PowerPoint.",
+      "O relatório sai pronto da tela, com resultado e meta, cadeiras, ranking, vendas, clube, cultura, destaques e alertas. A demonstração abaixo é uma cópia separada, com dados fictícios e outro nome; o sistema em uso atende uma barbearia local. Para ver o relatório, entre como dono e abra Relatórios.",
+    ],
+    status: "Em uso, com demo pública",
+    role: "Projeto autoral, em uso por uma barbearia local",
+    highlights: [
+      "Fechamento em PowerPoint em um clique, diário, semanal ou mensal, com gráficos nativos e editáveis",
+      "Meta do dia e do mês, com projeção de fechamento e faixa provável",
+      "Meta de cada barbeiro pelo histórico dos mesmos dias da semana, mais 5%",
+      "Ranking por faturamento, vendas, produtos e clube",
+      "Clube de assinaturas com divisão do pote por participação",
+      "Visão do barbeiro no celular, só com a própria cadeira",
+      "Módulo de cultura, com pontos por ocorrência e campanhas",
+    ],
+    problem:
+      "A barbearia só tinha um dashboard com faturamento e total de cortes. Os fechamentos diário, semanal e mensal eram feitos à mão, e o dono não via o desempenho de cada barbeiro.",
+    decision:
+      "Montei um painel com acesso por perfil: o dono vê o resultado da barbearia e cada barbeiro vê a própria cadeira. O fechamento em PowerPoint é gerado no navegador a partir dos mesmos números da tela, então a reunião usa o mesmo dado que o painel mostra.",
+    result: [
+      "O fechamento diário, semanal e mensal sai pronto em PowerPoint, direto do painel, no lugar da montagem manual.",
+      "11 telas (10 do dono e 3 do barbeiro, com Ranking e Cultura em comum), sobre 13 tabelas, 10 scripts SQL numerados, 15 políticas de segurança nos scripts e 2 perfis de acesso: admin e pro.",
+      "Os dados se atualizam de hora em hora, de segunda a sábado, a partir do sistema de gestão que a barbearia já usa.",
+      "O dono usa o painel para acompanhar faturamento, metas, horários de pico e ticket médio de cada barbeiro, e para preparar reuniões com a equipe e promoções.",
+    ],
+    testimonial: {
+      quote:
+        "Antes eu decidia no achismo e perdia tempo tentando entender para onde o dinheiro estava indo. Hoje acompanho faturamento, metas, horários de pico e ticket médio de cada barbeiro em um só painel, e uso isso nas reuniões com a equipe e nas promoções.",
+      author: "Dono de barbearia local",
+    },
+    stack: [
+      "HTML, CSS e JavaScript",
+      "Supabase (Postgres, Auth, RLS)",
+      "PptxGenJS",
+      "Chart.js",
+      "Python",
+      "GitHub Actions",
+      "Vercel",
+    ],
+    demo: {
+      embedUrl: "/demos/barbearia/index.html",
+      autoUrl: "/videos/barbearia-painel-demo.mp4",
+      title: "Demo do painel de performance de uma barbearia",
+      openLabel: "Abrir demo ao vivo",
+      dataLabel: "Dados fictícios",
+    },
+    technical: [
+      {
+        title: "Relatório em PowerPoint",
+        paragraphs: [
+          "O arquivo é gerado no navegador com PptxGenJS, a partir dos mesmos dados que o painel já carregou. Os gráficos são objetos nativos do PowerPoint, editáveis, e não imagens. Há três modos, diário, semanal e mensal, e a cadeira do dono fica fora da apresentação dos barbeiros.",
+        ],
+      },
+      {
+        title: "Regras de negócio",
+        paragraphs: [
+          "O pote do clube é 45% das assinaturas, dividido por fichas: corte e barba valem 1, raspar na máquina 0,75 e pezinho 0,25, editáveis em tabela. A meta do dia é o que falta para a meta do mês dividido pelos dias de funcionamento restantes, e a projeção considera a folga de cada barbeiro e os dias fechados.",
+        ],
+      },
+      {
+        title: "Segurança e permissões",
+        paragraphs: [
+          "Todas as tabelas têm RLS. Quem não tem perfil ativo não lê dados; só o administrador escreve em metas, equipe e cultura, e o barbeiro lê apenas as próprias ocorrências de cultura. O site usa só a chave publicável do Supabase.",
+        ],
+      },
+      {
+        title: "Como a demo funciona",
+        paragraphs: [
+          "A demo não usa banco nem servidor. Os dados fictícios ficam em arquivos, o relógio é fixado em 09/10/2026 e as alterações valem só na memória do navegador. O código do sistema fica em repositório privado.",
+        ],
+      },
+      {
+        title: "Limites",
+        paragraphs: [
+          "Não há agenda, aviso por WhatsApp, pagamento online, app mobile nem testes automatizados com verificações. A exportação para Google Slides depende de um Client ID do Google e ainda não foi validada em produção. A carga dos dados depende do sistema de gestão da barbearia e pode precisar de ajuste se ele mudar.",
         ],
       },
     ],

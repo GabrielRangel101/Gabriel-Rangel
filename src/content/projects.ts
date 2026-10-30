@@ -4,6 +4,7 @@ import comprasImage from "@/assets/cases/powerbi-compras.png";
 import lojasImage from "@/assets/cases/powerbi-lojas.png";
 import projetosImage from "@/assets/cases/powerbi-projetos.png";
 import saborImage from "@/assets/cases/sabor-da-casa.png";
+import barbeariaImage from "@/assets/cases/barbearia-painel.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
 import fluxoImage from "@/assets/cases/fluxo-media-compass.png";
 import gazetaImage from "@/assets/cases/gazeta-meridiano.png";
@@ -56,6 +57,15 @@ export const projects: Project[] = [
       "Sistema web de gestão para restaurante de bairro: pedidos, mesas, entregas, financeiro e clientes, com pedido pelo link público que cai direto no painel.",
     synthetic: true,
     image: saborImage,
+  },
+  {
+    slug: "painel-barbearia",
+    title: "Painel de Performance para Barbearia",
+    type: "sistema",
+    summary:
+      "Painel de metas, ranking e clube de assinaturas por barbeiro, com o fechamento diário, semanal e mensal gerado automaticamente em PowerPoint.",
+    synthetic: true,
+    image: barbeariaImage,
   },
   {
     slug: "acompanhamento-de-compras",

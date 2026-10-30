@@ -166,6 +166,17 @@ export default async function CasePage({ params }: Props) {
           </ul>
         </section>
       </div>
+
+      {study.testimonial && (
+        <figure className="mt-section-mobile rounded-xl border border-hairline bg-surface-1 p-6 md:mt-section">
+          <blockquote className="text-body text-ink">
+            “{study.testimonial.quote}”
+          </blockquote>
+          <figcaption className="text-body-sm mt-4 text-ink-subtle">
+            {study.testimonial.author}
+          </figcaption>
+        </figure>
+      )}
     </>
   );
 
