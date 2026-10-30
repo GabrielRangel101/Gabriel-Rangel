@@ -6,19 +6,33 @@ import { ArrowRightIcon } from "./icons";
 import { TypeTag } from "./Tag";
 
 // O link cobre o card inteiro (after:absolute), então o clique e o foco valem para toda a área.
-export function CaseCard({ project }: { project: Project }) {
+export function CaseCard({
+  project,
+  compact = false,
+}: {
+  project: Project;
+  compact?: boolean;
+}) {
   const study = cases[project.slug];
-  const stack = study?.stack.slice(0, 4) ?? [];
+  const stack = study?.stack.slice(0, compact ? 3 : 4) ?? [];
 
   return (
     <article className="transition-ui group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-surface-1 hover:border-hairline-strong hover:bg-surface-2">
       {project.image && (
-        <div className="relative aspect-[16/9] overflow-hidden border-b border-hairline bg-surface-2">
+        <div
+          className={`relative overflow-hidden border-b border-hairline bg-surface-2 ${
+            compact ? "aspect-[16/10]" : "aspect-[16/9]"
+          }`}
+        >
           <Image
             src={project.image}
             alt={`Prévia do dashboard ${project.title}`}
             fill
-            sizes="(min-width: 1024px) 420px, (min-width: 768px) 50vw, 100vw"
+            sizes={
+              compact
+                ? "(min-width: 1280px) 320px, (min-width: 768px) 33vw, 100vw"
+                : "(min-width: 1024px) 420px, (min-width: 768px) 50vw, 100vw"
+            }
             placeholder="blur"
             className="transition-ui object-cover object-top group-hover:scale-[1.02]"
           />
@@ -28,7 +42,7 @@ export function CaseCard({ project }: { project: Project }) {
         </div>
       )}
 
-      <div className="flex flex-1 flex-col gap-4 p-6">
+      <div className={`flex flex-1 flex-col ${compact ? "gap-3 p-5" : "gap-4 p-6"}`}>
         {!project.image && <TypeTag type={project.type} />}
         <h3 className="text-card-title">
           <Link
@@ -38,7 +52,12 @@ export function CaseCard({ project }: { project: Project }) {
             {project.title}
           </Link>
         </h3>
-        {study && (
+        {compact && (
+          <p className="text-body-sm line-clamp-3 text-ink-muted">
+            {project.summary}
+          </p>
+        )}
+        {study && !compact && (
           <dl className="flex flex-col gap-3">
             <div>
               <dt className="text-eyebrow text-ink">Desafio</dt>
