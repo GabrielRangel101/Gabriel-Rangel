@@ -347,13 +347,7 @@ export const cases: Record<string, CaseStudy> = {
       "O fechamento diário, semanal e mensal sai pronto em PowerPoint, direto do painel, no lugar da montagem manual.",
       "11 telas (10 do dono e 3 do barbeiro, com Ranking e Cultura em comum), sobre 13 tabelas, 10 scripts SQL numerados, 15 políticas de segurança nos scripts e 2 perfis de acesso: admin e pro.",
       "Os dados se atualizam de hora em hora, de segunda a sábado, a partir do sistema de gestão que a barbearia já usa.",
-      "O dono usa o painel para acompanhar faturamento, metas, horários de pico e ticket médio de cada barbeiro, e para preparar reuniões com a equipe e promoções.",
     ],
-    testimonial: {
-      quote:
-        "Antes eu decidia no achismo e perdia tempo tentando entender para onde o dinheiro estava indo. Hoje acompanho faturamento, metas, horários de pico e ticket médio de cada barbeiro em um só painel, e uso isso nas reuniões com a equipe e nas promoções.",
-      author: "Dono de barbearia local",
-    },
     stack: [
       "HTML, CSS e JavaScript",
       "Supabase (Postgres, Auth, RLS)",
