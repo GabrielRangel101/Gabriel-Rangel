@@ -32,7 +32,7 @@ const sections = [
   {
     title: "Onde ficam e por quanto tempo",
     body: [
-      "As mensagens ficam num banco de dados gerenciado (Supabase), com acesso restrito. Eu as mantenho pelo tempo necessário para responder e para a conversa que resultar dela. Você pode pedir a exclusão quando quiser.",
+      "A mensagem não fica num banco de dados do site: ela é enviada por e-mail (por meio do serviço Resend) para a minha caixa de entrada, onde fica pelo tempo necessário para responder e para a conversa que resultar dela. Você pode pedir a exclusão quando quiser.",
     ],
   },
   {

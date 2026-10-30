@@ -16,7 +16,7 @@ const WINDOW_MS = 10 * 60 * 1000;
 const MAX_PER_WINDOW = 3;
 
 // Limite por IP em memória: protege contra rajadas de uma instância. O limite definitivo
-// (compartilhado entre instâncias) fica para quando houver Supabase configurado.
+// (compartilhado entre instâncias) exigiria um banco; para um portfólio, o limite em memória basta.
 const hits = new Map<string, number[]>();
 
 function tooManyRequests(ip: string) {
@@ -79,9 +79,9 @@ export async function submitContact(
     };
   }
 
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.CONTACT_TO_EMAIL;
+  if (!apiKey || !to) {
     return {
       status: "unavailable",
       message:
@@ -91,18 +91,28 @@ export async function submitContact(
   }
 
   try {
-    const response = await fetch(`${url}/rest/v1/leads`, {
+    // Só texto puro: nada do que o visitante escreve vira HTML no e-mail.
+    const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        apikey: key,
-        Authorization: `Bearer ${key}`,
+        Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        Prefer: "return=minimal",
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify({
+        from: "Portfólio <onboarding@resend.dev>",
+        to: [to],
+        reply_to: values.email,
+        subject: `Contato pelo portfólio: ${values.name.replace(/\s+/g, " ")}`,
+        text: [
+          `Nome: ${values.name}`,
+          `E-mail: ${values.email}`,
+          "",
+          values.message,
+        ].join("\n"),
+      }),
       signal: AbortSignal.timeout(8000),
     });
-    if (!response.ok) throw new Error(`Supabase respondeu ${response.status}`);
+    if (!response.ok) throw new Error(`Resend respondeu ${response.status}`);
     return { status: "success" };
   } catch {
     return {

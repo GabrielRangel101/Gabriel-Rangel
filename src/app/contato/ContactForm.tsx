@@ -125,7 +125,7 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
       </Button>
 
       <p className="text-body-sm text-ink-subtle">
-        Guardo só nome, e-mail e mensagem, para responder. Detalhes na{" "}
+        Uso só nome, e-mail e mensagem, para responder. Detalhes na{" "}
         <Link href="/privacidade" className="text-primary underline">
           Política de Privacidade
         </Link>
