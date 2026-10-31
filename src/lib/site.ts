@@ -3,6 +3,8 @@ import type { CaseType } from "@/components/ui/Tag";
 // Dados do site em um só lugar. Links externos sem URL confirmada ficam de fora do Footer.
 export const site = {
   name: "Gabriel Rangel",
+  // Marca que aparece no cabeçalho, no rodapé e nos títulos das páginas.
+  brand: "Rangel Analytics",
   tagline:
     "Analista de dados e automação com IA. Dashboards, sistemas e agentes que tiram o trabalho manual do caminho.",
   nav: [

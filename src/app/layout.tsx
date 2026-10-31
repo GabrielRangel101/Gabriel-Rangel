@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   robots: indexable ? undefined : { index: false, follow: false },
   title: {
-    default: "Gabriel Rangel",
-    template: "%s · Gabriel Rangel",
+    default: "Rangel Analytics",
+    template: "%s · Rangel Analytics",
   },
   description:
     "Analista de dados e automação com IA. Dashboards, sistemas e agentes que tiram o trabalho manual do caminho.",

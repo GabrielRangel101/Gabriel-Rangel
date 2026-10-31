@@ -12,7 +12,7 @@ export function Footer() {
     <footer className="mt-section-mobile bg-canvas py-16 md:mt-section">
       <Container className="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">
         <div className="max-w-sm">
-          <p className="text-body font-semibold text-ink">{site.name}</p>
+          <p className="text-body font-semibold text-ink">{site.brand}</p>
           <p className="text-body-sm mt-3 text-ink-subtle">{site.tagline}</p>
         </div>
 
@@ -69,7 +69,7 @@ export function Footer() {
 
       <Container className="mt-12 border-t border-hairline pt-6">
         <p className="text-body-sm text-ink-subtle">
-          © {new Date().getFullYear()} {site.name}. Cases com dados sintéticos.
+          © {new Date().getFullYear()} {site.brand}. Cases com dados sintéticos.
         </p>
       </Container>
     </footer>

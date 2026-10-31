@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { LogoMark } from "@/components/ui/Logo";
 import { CloseIcon, MenuIcon } from "@/components/ui/icons";
 import { caseTypes } from "@/components/ui/Tag";
 import type { CaseType } from "@/components/ui/Tag";
@@ -39,7 +40,7 @@ function TypePills({
 }
 
 export function TopNav({ types }: { types: CaseType[] }) {
-  const [first, ...rest] = site.name.split(" ");
+  const [first, ...rest] = site.brand.split(" ");
   const pathname = usePathname();
   // O menu guarda a página em que foi aberto; ao navegar, deixa de valer e fecha sozinho.
   const [openOn, setOpenOn] = useState<string | null>(null);
@@ -77,12 +78,7 @@ export function TopNav({ types }: { types: CaseType[] }) {
           href="/"
           className="touch-target inline-flex items-center gap-3 rounded-md"
         >
-          <span
-            aria-hidden="true"
-            className="text-caption grid size-8 place-items-center rounded-md bg-primary font-semibold text-on-primary"
-          >
-            GR
-          </span>
+          <LogoMark className="size-9 shrink-0" />
           <span className="text-body font-semibold">
             {first} <span className="text-primary">{rest.join(" ")}</span>
           </span>
