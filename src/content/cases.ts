@@ -38,11 +38,12 @@ const PB = "https://app.powerbi.com/view?r=";
 export const cases: Record<string, CaseStudy> = {
   "radar-agenda": {
     description: [
-      "Dashboard de uma clínica odontológica fictícia, com uma camada semântica em SQL e um servidor MCP próprio. Em vez de o modelo escrever SQL, o Claude responde perguntas sobre agenda, no-show, receita e orçamentos chamando 8 ferramentas fixas e somente leitura.",
-      "O dashboard e o MCP leem as mesmas views, então mostram os mesmos números. Os dados são 100% sintéticos, gerados em SQL com semente fixa, com padrões plantados para a análise revelar (um dentista com no-show fora da curva, margem em recuperação, dinheiro parado em orçamentos).",
+      "Sistema de gestão de uma clínica odontológica fictícia (agenda, pacientes, orçamentos e financeiro), com uma camada semântica em SQL e um servidor MCP próprio. Em vez de escrever SQL, o Claude responde perguntas sobre agenda, no-show, receita e orçamentos chamando 8 ferramentas fixas e somente leitura.",
+      "O dashboard e o MCP leem as mesmas views, então mostram os mesmos números. A demonstração abre o sistema completo em modo visitante, somente leitura. As perguntas ao Claude funcionam pelo MCP, conectado ao Claude; ainda não existe chat dentro do site. Os dados são 100% sintéticos, com padrões plantados para a análise revelar (um dentista com no-show fora da curva, margem em recuperação, dinheiro parado em orçamentos).",
+      "Parti de um sistema-base de clínica. O que construí foi a camada de dados, o MCP, a segurança e a demo pública.",
     ],
     status: "Publicado",
-    role: "Projeto autoral · Rangel Analytics",
+    role: "Dados, SQL, MCP e segurança · Rangel Analytics",
     highlights: [
       "Servidor MCP próprio (Cloudflare Worker) com 8 ferramentas fixas, somente leitura e sem SQL livre",
       "Camada semântica no schema bi: views e funções com RLS, sem dados pessoais",
