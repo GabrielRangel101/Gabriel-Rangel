@@ -47,9 +47,10 @@ export const cases: Record<string, CaseStudy> = {
       "Servidor MCP próprio (Cloudflare Worker) com 8 ferramentas fixas, somente leitura e sem SQL livre",
       "Camada semântica no schema bi: views e funções com RLS, sem dados pessoais",
       "Dashboard e MCP leem as mesmas views, com os mesmos números para o mesmo período",
-      "Demo pública que lê só agregados, sem nenhum dado de paciente",
+      "Demo pública no sistema completo, em modo visitante: entra sozinha com uma conta somente leitura, sem cadastro",
       "Endpoint do MCP com token, limite de requisições e log sem dados pessoais",
       "Agendamento público que na demo devolve um protocolo simulado e não grava nada",
+      "Menu completo para o visitante (Pacientes, Tratamentos, Orçamentos, Financeiro, Relatórios, Equipe), com dados do dono mascarados",
     ],
     problem:
       "Deixar um modelo de IA responder perguntas sobre os dados de uma clínica sem dar a ele acesso livre ao banco e sem recalcular regra de negócio no navegador.",
@@ -82,14 +83,14 @@ export const cases: Record<string, CaseStudy> = {
       {
         title: "Arquitetura",
         paragraphs: [
-          "O navegador lê funções públicas que devolvem só agregados. O MCP roda em um Worker separado, autentica por token e chama views do schema bi com um usuário somente leitura.",
+          "O visitante entra no sistema com uma conta somente leitura, e as telas leem as mesmas views. O MCP roda em um Worker separado, autentica por token e chama views do schema bi com um usuário somente leitura.",
         ],
         code: "Claude → MCP (Worker) → public.bi_* → bi.* (views security_invoker) → Postgres com RLS",
       },
       {
         title: "Segurança",
         paragraphs: [
-          "O anônimo só tem 3 políticas de leitura e nenhuma coluna sensível. As funções com privilégio elevado têm search_path vazio, e o usuário do MCP tem papel somente leitura reforçado por políticas restritivas.",
+          "O anônimo só tem 3 políticas de leitura e nenhuma coluna sensível. A conta de visitante da demo é pública de propósito, tem papel somente leitura (inserção, alteração e exclusão são barradas por políticas restritivas) e enxerga só a clínica fictícia, com dono, CNPJ e e-mails mascarados. As funções com privilégio elevado têm search_path vazio, e o usuário do MCP tem papel somente leitura reforçado por políticas restritivas.",
         ],
       },
       {
