@@ -8,6 +8,7 @@ import barbeariaImage from "@/assets/cases/barbearia-painel.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
 import fluxoImage from "@/assets/cases/fluxo-media-compass.png";
 import gazetaImage from "@/assets/cases/gazeta-meridiano.png";
+import radarImage from "@/assets/cases/radar-agenda.png";
 import type { CaseType } from "@/components/ui/Tag";
 import { hasCase } from "./cases";
 
@@ -22,6 +23,15 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    slug: "radar-agenda",
+    title: "Radar de Agenda",
+    type: "web-ia",
+    summary:
+      "Dashboard de uma clínica odontológica fictícia com camada semântica em SQL e um servidor MCP próprio, que deixa o Claude responder perguntas sobre os números com 8 ferramentas fixas e somente leitura.",
+    synthetic: true,
+    image: radarImage,
+  },
   {
     slug: "gazeta-meridiano",
     title: "Gazeta Meridiano",

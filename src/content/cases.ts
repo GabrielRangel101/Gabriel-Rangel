@@ -36,6 +36,76 @@ export type CaseStudy = {
 const PB = "https://app.powerbi.com/view?r=";
 
 export const cases: Record<string, CaseStudy> = {
+  "radar-agenda": {
+    description: [
+      "Dashboard de uma clínica odontológica fictícia, com uma camada semântica em SQL e um servidor MCP próprio. Em vez de o modelo escrever SQL, o Claude responde perguntas sobre agenda, no-show, receita e orçamentos chamando 8 ferramentas fixas e somente leitura.",
+      "O dashboard e o MCP leem as mesmas views, então mostram os mesmos números. Os dados são 100% sintéticos, gerados em SQL com semente fixa, com padrões plantados para a análise revelar (um dentista com no-show fora da curva, margem em recuperação, dinheiro parado em orçamentos).",
+    ],
+    status: "Publicado",
+    role: "Projeto autoral · Rangel Analytics",
+    highlights: [
+      "Servidor MCP próprio (Cloudflare Worker) com 8 ferramentas fixas, somente leitura e sem SQL livre",
+      "Camada semântica no schema bi: views e funções com RLS, sem dados pessoais",
+      "Dashboard e MCP leem as mesmas views, com os mesmos números para o mesmo período",
+      "Demo pública que lê só agregados, sem nenhum dado de paciente",
+      "Endpoint do MCP com token, limite de requisições e log sem dados pessoais",
+      "Agendamento público que na demo devolve um protocolo simulado e não grava nada",
+    ],
+    problem:
+      "Deixar um modelo de IA responder perguntas sobre os dados de uma clínica sem dar a ele acesso livre ao banco e sem recalcular regra de negócio no navegador.",
+    decision:
+      "A regra de negócio mora no SQL (schema bi) e o MCP expõe só 8 ferramentas fixas, cada uma ligada a uma view ou função. O Worker valida a entrada, a clínica é fixa no servidor e o acesso ao banco usa um usuário somente leitura, sem service role.",
+    result: [
+      "Nos 12 meses da demo, o Dr. Rafael Menezes tem 18,3% de no-show (200 faltas em 1.092 consultas realizáveis), contra 8,0% a 11,5% dos outros cinco dentistas.",
+      "A margem sobe de 9,3% (nov/25) para 21,2% (out/26), com receita de caixa de R$ 113 mil para R$ 164 mil por mês.",
+      "70 orçamentos parados há mais de 7 dias somam R$ 234 mil, e 399 pacientes estão na lista de reativação (147 de prioridade alta).",
+      "O limitador do MCP foi provado no Worker publicado: em 300 chamadas paralelas, 127 receberam 429.",
+      "A revisão de segurança achou e corrigiu uma escalada de privilégio herdada da base, em que qualquer usuário autenticado podia se tornar dono de qualquer clínica.",
+      "O Modo IA dentro do próprio dashboard ainda não está implementado; hoje as perguntas ao Claude são feitas pelo MCP.",
+    ],
+    stack: [
+      "Supabase (Postgres)",
+      "SQL",
+      "TanStack Start",
+      "React",
+      "TypeScript",
+      "Cloudflare Workers",
+      "Model Context Protocol",
+      "Claude",
+      "Tailwind",
+    ],
+    demo: {
+      embedUrl: "https://radar-agenda.lovable.app/",
+      title: "Dashboard Radar de Agenda, clínica odontológica",
+    },
+    technical: [
+      {
+        title: "Arquitetura",
+        paragraphs: [
+          "O navegador lê funções públicas que devolvem só agregados. O MCP roda em um Worker separado, autentica por token e chama views do schema bi com um usuário somente leitura.",
+        ],
+        code: "Claude → MCP (Worker) → public.bi_* → bi.* (views security_invoker) → Postgres com RLS",
+      },
+      {
+        title: "Segurança",
+        paragraphs: [
+          "O anônimo só tem 3 políticas de leitura e nenhuma coluna sensível. As funções com privilégio elevado têm search_path vazio, e o usuário do MCP tem papel somente leitura reforçado por políticas restritivas.",
+        ],
+      },
+      {
+        title: "Dados",
+        paragraphs: [
+          "Clínica fictícia com 6 dentistas, 1.600 pacientes e 8.786 consultas em 24 meses, geradas em SQL com semente fixa. A data de hoje da demo é congelada em 31/10/2026, então os números não mudam.",
+        ],
+      },
+      {
+        title: "Limites declarados",
+        paragraphs: [
+          "Orçamentos aprovados não geram recebimento no financeiro, para evitar dupla contagem. A ocupação da agenda parece baixa porque a grade é de 1 hora e vários procedimentos duram 30 minutos. O limitador da Cloudflare é aproximado e por localização.",
+        ],
+      },
+    ],
+  },
   "gazeta-meridiano": {
     description: [
       "Dashboard de inteligência de assinaturas B2C para um jornal fictício. A IA roteia as perguntas de negócio para um motor de métricas próprio, sem calcular números por conta própria.",
