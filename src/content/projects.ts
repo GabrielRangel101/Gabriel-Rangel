@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image";
+import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
 import atendimentosImage from "@/assets/cases/powerbi-atendimentos.png";
 import comprasImage from "@/assets/cases/powerbi-compras.png";
 import lojasImage from "@/assets/cases/powerbi-lojas.png";
@@ -76,6 +77,15 @@ export const projects: Project[] = [
       "Painel de metas, ranking e clube de assinaturas por barbeiro, com o fechamento diário, semanal e mensal gerado automaticamente em PowerPoint.",
     synthetic: true,
     image: barbeariaImage,
+  },
+  {
+    slug: "peoplelab",
+    title: "PeopleLab: RH e Turnover",
+    type: "power-bi",
+    summary:
+      "Headcount, turnover, perfil do time e desempenho em quatro páginas, com modelo em estrela, 63 medidas DAX e tooltips em SVG.",
+    synthetic: true,
+    image: peoplelabImage,
   },
   {
     slug: "acompanhamento-de-compras",

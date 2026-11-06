@@ -469,6 +469,73 @@ export const cases: Record<string, CaseStudy> = {
       },
     ],
   },
+  peoplelab: {
+    description: [
+      "Dashboard de pessoas e turnover feito do zero no Power BI Desktop. Mostra headcount, turnover, perfil do time e desempenho em quatro páginas, com menu lateral, filtro de ano sincronizado e tooltips personalizados que abrem ao passar o mouse.",
+      "Todos os dados são sintéticos, gerados em Python para a demonstração: 640 funcionários, dos quais 468 estavam ativos em 31/10/2026, em 8 departamentos.",
+    ],
+    status: "Publicado",
+    role: "Relatório em Power BI, do modelo de dados ao layout",
+    highlights: [
+      "Headcount, turnover dos últimos 12 meses, salário médio e admissões, cada um com a variação contra o mês e o ano anteriores",
+      "Evolução do headcount mês a mês desde 2019",
+      "Desligamentos por motivo, separados em voluntários e não voluntários",
+      "Departamentos lado a lado, com headcount, salário médio, nota e turnover",
+      "Texto de insight que muda conforme o período filtrado",
+      "Quatro páginas: Visão Geral, Turnover, Pessoas e Desempenho",
+    ],
+    problem:
+      "Responder, para uma área de RH, quantas pessoas estão ativas, como o time cresceu desde 2019, qual departamento perde mais gente e por quê.",
+    decision:
+      "Montei um modelo em estrela e calculei as medidas “em um ponto no tempo”, para que headcount e turnover mudem conforme o período filtrado. O layout é próprio, com menu lateral, cartões e tooltips com gráficos.",
+    result: [
+      "A Visão Geral mostra 468 pessoas ativas (25,1% acima do ano anterior), turnover de 11,6% nos últimos 12 meses e 143 admissões no período.",
+      "Atendimento lidera o turnover dos últimos 12 meses, com 20,0%. Entre os motivos de desligamento, proposta externa (38) e remuneração (37) pesam mais.",
+      "O relatório responde também como o time se distribui por departamento, contrato, faixa etária, gênero e unidade, e como notas de desempenho e engajamento variam por departamento e nível.",
+    ],
+    stack: ["Power BI", "DAX", "Modelagem de dados", "Python"],
+    demo: {
+      embedUrl:
+        PB +
+        "eyJrIjoiM2VhOWMzNjMtNGIxOC00NGM1LWI0YjYtYTUwYzYwNjQ1N2ZlIiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9",
+      title: "Relatório Power BI de RH e turnover, PeopleLab",
+      openLabel: "Abrir relatório ao vivo",
+      ratio: "16 / 9",
+      dataLabel: "Dados sintéticos",
+    },
+    technical: [
+      {
+        title: "Modelo de dados",
+        paragraphs: [
+          "Modelo em estrela com 5 tabelas: Funcionários, Departamentos, Movimentações, Avaliações e Calendário.",
+        ],
+      },
+      {
+        title: "Medidas DAX",
+        paragraphs: [
+          "São 63 medidas, calculadas em um ponto no tempo: o headcount e o turnover mudam conforme o período filtrado, em vez de depender de uma coluna fixa.",
+        ],
+      },
+      {
+        title: "Tooltips e layout",
+        paragraphs: [
+          "Os tooltips têm gráficos desenhados em SVG, gerados por medidas DAX. O layout é próprio, com fundo, menu lateral, cartões e insights dinâmicos.",
+        ],
+      },
+      {
+        title: "Dados sintéticos",
+        paragraphs: [
+          "Os dados foram gerados em Python: 640 funcionários e 8 departamentos, com movimentações e avaliações desde 2019. Não há dado real de pessoa ou empresa.",
+        ],
+      },
+      {
+        title: "Publicação",
+        paragraphs: [
+          "O relatório está publicado na web pelo Power BI e embutido nesta página. O código e o dicionário de medidas ainda não estão em repositório público.",
+        ],
+      },
+    ],
+  },
   "acompanhamento-de-compras": {
     description: [
       "Painel de acompanhamento de compras: valor total, volume de pedidos e o OTIF (On-Time In-Full), o indicador de eficiência da cadeia de suprimentos.",
