@@ -88,6 +88,14 @@ export const projects: Project[] = [
     image: peoplelabImage,
   },
   {
+    slug: "saleslab",
+    title: "SalesLab: Vendas B2B",
+    type: "power-bi",
+    summary:
+      "Receita contra meta, funil e desempenho por vendedor, região e produto, com modelo em estrela de 9 tabelas, 64 medidas DAX e tooltips em SVG.",
+    synthetic: true,
+  },
+  {
     slug: "acompanhamento-de-compras",
     title: "Acompanhamento de Compras",
     type: "power-bi",

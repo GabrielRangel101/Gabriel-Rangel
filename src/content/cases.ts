@@ -536,6 +536,73 @@ export const cases: Record<string, CaseStudy> = {
       },
     ],
   },
+  saleslab: {
+    description: [
+      "Projeto de portfólio: um dashboard comercial completo para uma empresa B2B fictícia de tecnologia. Reúne receita, meta, funil e desempenho de vendedores, regiões e produtos em um modelo só, com números consistentes entre as páginas.",
+      "Os dados são 100% sintéticos, gerados em Python (seed 42) com volume e comportamento realistas: 2.017 clientes, 13.876 oportunidades e 9.649 vendas, de jan/2023 a out/2026. Nenhum dado é de empresa real.",
+    ],
+    status: "Publicado",
+    role: "Relatório em Power BI, do modelo de dados ao layout",
+    highlights: [
+      "Receita líquida, meta, win rate, pipeline aberto e vendedores na meta, com filtro de período sincronizado entre as páginas",
+      "Funil de vendas com win rate por origem da oportunidade",
+      "Desempenho por vendedor, região e produto contra a meta",
+      "Quatro páginas visíveis e quatro de tooltip, com navegação por botões",
+      "KPIs e tooltips em SVG, gerados por medidas DAX",
+      "Projeto em formato PBIP (versionável), com dicionário de métricas no README",
+    ],
+    problem:
+      "Times comerciais costumam olhar receita, meta e funil em relatórios separados, o que dificulta saber se a meta está no caminho, onde o funil perde oportunidades e quem puxa o resultado. Vendas, metas e oportunidades têm datas diferentes, e o pipeline aberto é um valor em um ponto no tempo, que não se soma como uma venda.",
+    decision:
+      "Montei um modelo em estrela único, com um relacionamento inativo ativado por USERELATIONSHIP para contar oportunidades pela data de fechamento. O pipeline aberto é calculado em um ponto no tempo, com base no fim do período selecionado.",
+    result: [
+      "No painel (01/01 a 31/10/2026, dados sintéticos), a receita líquida é de R$ 28,79 mi, 12,4% acima do ano anterior e 99% da meta de R$ 28,98 mi.",
+      "O win rate é de 38,1%: Indicação converte 57,7% e Outbound, 25,1%. O pipeline aberto é de R$ 14,26 mi.",
+      "11 dos 23 vendedores bateram a meta. Por região, o Centro-Oeste está em 118,0% da meta e o Norte em 72,4%.",
+    ],
+    stack: ["Power BI", "DAX", "Modelagem de dados", "Python"],
+    demo: {
+      embedUrl:
+        PB +
+        "eyJrIjoiODI4YzIzZTYtOTc3Yi00ZGM1LTg4NzYtMjIzZGU0MjlhY2VlIiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9",
+      title: "Relatório Power BI de vendas B2B, SalesLab",
+      openLabel: "Abrir relatório ao vivo",
+      ratio: "16 / 9",
+      dataLabel: "Dados sintéticos",
+    },
+    technical: [
+      {
+        title: "Modelo de dados",
+        paragraphs: [
+          "Esquema estrela com 9 tabelas e 11 relacionamentos. Um deles é inativo e é ativado por USERELATIONSHIP para contar oportunidades pela data de fechamento, já que a oportunidade nasce numa data e fecha em outra.",
+        ],
+      },
+      {
+        title: "Medidas DAX",
+        paragraphs: [
+          "São 64 medidas em 6 pastas: Vendas, Metas, Funil, Clientes e Produtos, Insights e SVG. O Pipeline Aberto é calculado em um ponto no tempo, com base no fim do período selecionado.",
+        ],
+      },
+      {
+        title: "Visual",
+        paragraphs: [
+          "KPIs e tooltips em SVG (medidas DAX), 4 páginas visíveis e 4 de tooltip, navegação por botões e filtro de período sincronizado entre as páginas.",
+        ],
+      },
+      {
+        title: "Dados sintéticos",
+        paragraphs: [
+          "Gerados em Python com seed 42. Os nomes de pessoas e empresas são aleatórios. O dashboard não tem vínculo com nenhuma empresa real, nem com o Grupo RBS.",
+        ],
+      },
+      {
+        title: "Entrega",
+        paragraphs: [
+          "O projeto está em formato PBIP (versionável), com dicionário de métricas no README. O repositório ainda não é público.",
+        ],
+      },
+    ],
+  },
   "acompanhamento-de-compras": {
     description: [
       "Painel de acompanhamento de compras: valor total, volume de pedidos e o OTIF (On-Time In-Full), o indicador de eficiência da cadeia de suprimentos.",
