@@ -556,6 +556,7 @@ export const cases: Record<string, CaseStudy> = {
     decision:
       "Montei um modelo em estrela único, com um relacionamento inativo ativado por USERELATIONSHIP para contar oportunidades pela data de fechamento. O pipeline aberto é calculado em um ponto no tempo, com base no fim do período selecionado.",
     result: [
+      "No cenário do case, ninguém utiliza mais planilhas: o acompanhamento comercial é feito pelo dashboard.",
       "No painel (01/01 a 31/10/2026, dados sintéticos), a receita líquida é de R$ 28,79 mi, 12,4% acima do ano anterior e 99% da meta de R$ 28,98 mi.",
       "O win rate é de 38,1%: Indicação converte 57,7% e Outbound, 25,1%. O pipeline aberto é de R$ 14,26 mi.",
       "11 dos 23 vendedores bateram a meta. Por região, o Centro-Oeste está em 118,0% da meta e o Norte em 72,4%.",

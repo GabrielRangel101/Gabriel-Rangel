@@ -1,5 +1,6 @@
 import type { StaticImageData } from "next/image";
 import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
+import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
 import atendimentosImage from "@/assets/cases/powerbi-atendimentos.png";
 import comprasImage from "@/assets/cases/powerbi-compras.png";
 import lojasImage from "@/assets/cases/powerbi-lojas.png";
@@ -94,6 +95,7 @@ export const projects: Project[] = [
     summary:
       "Receita contra meta, funil e desempenho por vendedor, região e produto, com modelo em estrela de 9 tabelas, 64 medidas DAX e tooltips em SVG.",
     synthetic: true,
+    image: saleslabImage,
   },
   {
     slug: "acompanhamento-de-compras",
