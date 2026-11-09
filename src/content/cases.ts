@@ -556,9 +556,8 @@ export const cases: Record<string, CaseStudy> = {
     decision:
       "Montei um modelo em estrela único, com um relacionamento inativo ativado por USERELATIONSHIP para contar oportunidades pela data de fechamento. O pipeline aberto é calculado em um ponto no tempo, com base no fim do período selecionado.",
     result: [
-      "No cenário do case, ninguém utiliza mais planilhas: o acompanhamento comercial é feito pelo dashboard.",
       "No painel (01/01 a 31/10/2026, dados sintéticos), a receita líquida é de R$ 28,79 mi, 12,4% acima do ano anterior e 99% da meta de R$ 28,98 mi.",
-      "O win rate é de 38,1%: Indicação converte 57,7% e Outbound, 25,1%. O pipeline aberto é de R$ 14,26 mi.",
+      "O win rate é de 38,1%: Indicação converte 57,7% e Outbound, 25,1%. O funil vai de 3.692 oportunidades criadas a 1.236 ganhas (33,5%).",
       "11 dos 23 vendedores bateram a meta. Por região, o Centro-Oeste está em 118,0% da meta e o Norte em 72,4%.",
     ],
     stack: ["Power BI", "DAX", "Modelagem de dados", "Python"],
@@ -581,8 +580,24 @@ export const cases: Record<string, CaseStudy> = {
       {
         title: "Medidas DAX",
         paragraphs: [
-          "São 64 medidas em 6 pastas: Vendas, Metas, Funil, Clientes e Produtos, Insights e SVG. O Pipeline Aberto é calculado em um ponto no tempo, com base no fim do período selecionado.",
+          "São 64 medidas em 6 pastas: Vendas, Metas, Funil, Clientes e Produtos, Insights e SVG. O Pipeline Aberto é calculado em um ponto no tempo, com base no fim do período selecionado. Duas medidas mostram o tratamento das datas:",
         ],
+        code: `Oportunidades Ganhas =
+CALCULATE(
+    COUNTROWS(Oportunidades),
+    USERELATIONSHIP(Oportunidades[Data de Fechamento], 'Calendário'[Data]),
+    Oportunidades[Status] = "Ganha"
+)
+
+Pipeline Aberto =
+VAR _fim = MAX('Calendário'[Data])
+RETURN
+CALCULATE(
+    SUM(Oportunidades[Valor Estimado]),
+    REMOVEFILTERS('Calendário'),
+    Oportunidades[Data de Criação] <= _fim,
+    OR(ISBLANK(Oportunidades[Data de Fechamento]), Oportunidades[Data de Fechamento] > _fim)
+)`,
       },
       {
         title: "Visual",
