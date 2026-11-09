@@ -109,7 +109,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       {
         title: "Da tela da demo à ferramenta do MCP",
         paragraphs: [
-          "O MCP não tem tela: quem o usa é o Claude. O que o visitante vê na demo são os mesmos números, porque o painel e o servidor leem as mesmas views. Na tela AI Growth da demo, cada card tem uma ferramenta correspondente, e os valores são os mesmos nos dois lados:",
+          "O MCP não tem tela: quem o usa é o Claude. O que o visitante vê na demo são os mesmos números, porque o painel e o servidor leem as mesmas views. A tela AI Growth da demo não usa modelo de linguagem: é uma lista calculada por regras no SQL (90 dias sem retorno, orçamento pendente há mais de 7 dias, tratamento sem atividade há mais de 90 dias). Cada card tem uma ferramenta correspondente, e os valores são os mesmos nos dois lados:",
         ],
         list: [
           "Card “Pacientes para reativar” (399, sendo 147 de prioridade alta) e a ferramenta pacientes_para_reativar",
