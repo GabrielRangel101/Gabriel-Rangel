@@ -1,10 +1,6 @@
 import type { StaticImageData } from "next/image";
 import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
 import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
-import atendimentosImage from "@/assets/cases/powerbi-atendimentos.png";
-import comprasImage from "@/assets/cases/powerbi-compras.png";
-import lojasImage from "@/assets/cases/powerbi-lojas.png";
-import projetosImage from "@/assets/cases/powerbi-projetos.png";
 import saborImage from "@/assets/cases/sabor-da-casa.png";
 import barbeariaImage from "@/assets/cases/barbearia-painel.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
@@ -96,42 +92,6 @@ export const projects: Project[] = [
       "Receita contra meta, funil e desempenho por vendedor, região e produto, com modelo em estrela de 9 tabelas, 64 medidas DAX e tooltips em SVG.",
     synthetic: true,
     image: saleslabImage,
-  },
-  {
-    slug: "acompanhamento-de-compras",
-    title: "Acompanhamento de Compras",
-    type: "power-bi",
-    summary:
-      "Valor, volume e OTIF das compras, com recortes por comprador, solicitante e fornecedor.",
-    synthetic: true,
-    image: comprasImage,
-  },
-  {
-    slug: "gestao-de-lojas",
-    title: "Gestão de Lojas",
-    type: "power-bi",
-    summary:
-      "Faturamento, lucro, ticket médio e entrega de uma rede de lojas, contra o ano anterior e as metas.",
-    synthetic: true,
-    image: lojasImage,
-  },
-  {
-    slug: "acompanhamento-de-projetos",
-    title: "Acompanhamento de Projetos",
-    type: "power-bi",
-    summary:
-      "Orçamento contra custo real, curva S e gasto por fornecedor, com indicador de consumo.",
-    synthetic: true,
-    image: projetosImage,
-  },
-  {
-    slug: "acompanhamento-de-atendimentos",
-    title: "Acompanhamento de Atendimentos",
-    type: "power-bi",
-    summary:
-      "Tempo de cada etapa de um atendimento de emergência, com destaque para as estações mais lentas.",
-    synthetic: true,
-    image: atendimentosImage,
   },
 ];
 
