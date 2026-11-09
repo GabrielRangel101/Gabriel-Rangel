@@ -13,7 +13,7 @@ export const caseTypes = {
   "power-bi": { label: "Power BI", Icon: BarChartIcon },
   looker: { label: "Looker", Icon: PieChartIcon },
   "web-ia": { label: "Web com IA", Icon: SparkIcon },
-  agente: { label: "Agente / n8n", Icon: WorkflowIcon },
+  agente: { label: "Agentes e MCP", Icon: WorkflowIcon },
   sistema: { label: "Sistema", Icon: LayersIcon },
 } satisfies Record<
   string,

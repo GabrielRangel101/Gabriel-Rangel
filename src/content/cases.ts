@@ -89,6 +89,24 @@ export const cases: Record<string, CaseStudy> = {
         code: "Claude → MCP (Worker) → public.bi_* → bi.* (views security_invoker) → Postgres com RLS",
       },
       {
+        title: "Exemplo de uso do MCP",
+        paragraphs: [
+          "O endpoint do MCP exige token, então o visitante não consegue chamá-lo daqui. Estas são respostas reais do servidor, obtidas por chamadas feitas pelo Claude com o MCP conectado, no período da demo (01/11/2025 a 31/10/2026). Os nomes são fictícios.",
+        ],
+        code: `Pergunta: qual dentista tem o no-show fora da curva?
+Ferramenta: no_show_por_profissional(data_inicio: 2025-11-01, data_fim: 2026-10-31)
+Resposta: Dr. Rafael Menezes, 18,3% (200 faltas em 1.092 consultas realizáveis,
+          R$ 41.550 de receita perdida). Os outros cinco ficam entre 8,0% e 11,5%.
+
+Pergunta: como a margem evoluiu?
+Ferramenta: resultado_mensal(meses: 12)
+Resposta: de 9,3% em nov/2025 para 21,2% em out/2026.
+
+Pergunta: quanto dinheiro está parado em orçamentos?
+Ferramenta: orcamentos_parados()
+Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
+      },
+      {
         title: "Segurança",
         paragraphs: [
           "O anônimo só tem 3 políticas de leitura e nenhuma coluna sensível. A conta de visitante da demo é pública de propósito, tem papel somente leitura (inserção, alteração e exclusão são barradas por políticas restritivas) e enxerga só a clínica fictícia, com dono, CNPJ e e-mails mascarados. As funções com privilégio elevado têm search_path vazio, e o usuário do MCP tem papel somente leitura reforçado por políticas restritivas.",
@@ -97,7 +115,7 @@ export const cases: Record<string, CaseStudy> = {
       {
         title: "Dados",
         paragraphs: [
-          "Clínica fictícia com 6 dentistas, 1.600 pacientes e 8.786 consultas em 24 meses, geradas em SQL com semente fixa. A data de hoje da demo é congelada em 31/10/2026, então os números não mudam.",
+          "Clínica fictícia com 6 dentistas, 1.600 pacientes e 8.786 consultas em 24 meses, geradas em SQL com semente fixa. O dashboard e o MCP só enxergam os últimos 12 meses (01/11/2025 a 31/10/2026): períodos anteriores são cortados e a resposta informa o período efetivamente usado. A data de hoje da demo é congelada em 31/10/2026, então os números não mudam.",
         ],
       },
       {

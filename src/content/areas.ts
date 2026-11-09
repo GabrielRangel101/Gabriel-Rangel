@@ -28,7 +28,6 @@ export const areas: {
     icon: WorkflowIcon,
     title: "Agentes e automações",
     text: "Fluxos em n8n e agentes de IA que assumem o trabalho repetitivo.",
-    note: "Case em breve neste portfólio",
   },
   {
     icon: DatabaseIcon,
