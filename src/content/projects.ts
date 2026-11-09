@@ -3,7 +3,6 @@ import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
 import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
 import gestaoBarbeariaImage from "@/assets/cases/barbearia-gestao.png";
 import saborImage from "@/assets/cases/sabor-da-casa.png";
-import barbeariaImage from "@/assets/cases/barbearia-painel.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
 import fluxoImage from "@/assets/cases/fluxo-media-compass.png";
 import gazetaImage from "@/assets/cases/gazeta-meridiano.png";
@@ -75,15 +74,6 @@ export const projects: Project[] = [
       "Agenda por barbeiro, agendamento online, comandas, comissões, clube de assinatura e cobrança pelo Asaas, com três perfis de acesso e app instalável no celular.",
     synthetic: true,
     image: gestaoBarbeariaImage,
-  },
-  {
-    slug: "painel-barbearia",
-    title: "Painel de Performance para Barbearia",
-    type: "sistema",
-    summary:
-      "Painel de metas, ranking e clube de assinaturas por barbeiro, com o fechamento diário, semanal e mensal gerado automaticamente em PowerPoint.",
-    synthetic: true,
-    image: barbeariaImage,
   },
   {
     slug: "peoplelab",
