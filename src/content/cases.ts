@@ -21,6 +21,8 @@ export type CaseStudy = {
   demo: {
     embedUrl: string;
     autoUrl?: string;
+    // Botões extras ao lado do principal (ex.: versão para celular).
+    links?: { label: string; href: string }[];
     title: string;
     // Opcionais, para demos que não são apps (ex.: relatório do Power BI).
     openLabel?: string;
@@ -420,6 +422,100 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
         title: "Limites",
         paragraphs: [
           "Ainda não há aviso automático por WhatsApp, integração com impressora ou meios de pagamento, nem testes automatizados. O custo por produto guarda só o valor atual, sem histórico. O item AI Growth do menu da demo é apenas visual.",
+        ],
+      },
+    ],
+  },
+  "gestao-barbearia": {
+    description: [
+      "Sistema web de gestão para uma barbearia local: agenda por barbeiro, agendamento online pelo cliente, comandas e caixa, comissões, clube de assinatura e financeiro, com três perfis de acesso (dono, barbeiro e cliente) e app instalável no celular.",
+      "A demonstração abaixo é uma cópia separada, com banco próprio e dados fictícios, refeitos a cada 3 horas. Ela entra direto como dono; a tela de login tem os botões para entrar como barbeiro e como cliente, e o botão ao lado abre a versão para celular. O pagamento é simulado e nada é cobrado.",
+      "Parti de um template de terceiros e o desenvolvimento seguiu com apoio de IA, então o código não é 100% autoral.",
+    ],
+    status: "Demo pública",
+    role: "Adaptação de template com IA: clube, regras de negócio, segurança no banco e demo",
+    highlights: [
+      "Agenda por barbeiro, com bloqueio de horário e lista de espera",
+      "Agendamento online pelo cliente, com janela de 7 dias e confirmação por link",
+      "Comandas, produtos e caixa, com a comissão gerada ao concluir o atendimento",
+      "Clube de assinatura com pote de 45% da receita das mensalidades, dividido por fichas",
+      "Cobrança pelo Asaas, com checkout por link, webhook e Pix manual por QR",
+      "App web instalável (PWA) no celular, com barra inferior e botão de novo agendamento",
+      "Três perfis: o barbeiro vê só a própria agenda e os atendimentos",
+    ],
+    problem:
+      "Reunir em um só sistema a agenda, a comanda, as comissões, o clube de assinatura e o financeiro de uma barbearia, com cada pessoa vendo só o que precisa.",
+    decision:
+      "Impedi o conflito de horários com triggers no banco, ativei RLS em todas as tabelas e verifiquei as permissões no servidor. Para pagamentos, o sistema não tem campo de número de cartão ou CVV: a cobrança passa pelo Asaas, que guarda os dados do cartão.",
+    result: [
+      "O banco tem 53 tabelas, todas com RLS, 70 políticas de segurança, 82 funções SQL e 48 triggers (contagem de 09/11/2026).",
+      "O Pix manual foi testado em produção com um pagamento real de R$ 5.",
+      "10 checagens SQL de invariantes, somente leitura, passam no banco de produção.",
+      "Assinante do clube tem um horário em aberto por vez, e a venda coberta pelo clube lança um desconto igual ao valor coberto, com o total da comanda líquido.",
+    ],
+    stack: [
+      "TanStack Start",
+      "React 19",
+      "Supabase (Postgres, Auth, RLS)",
+      "Asaas",
+      "PWA",
+    ],
+    demo: {
+      embedUrl: "https://barbearia-demo-portfolio.lovable.app/demo",
+      title: "Demo do sistema de gestão para barbearia",
+      openLabel: "Abrir demo ao vivo",
+      dataLabel: "Dados fictícios",
+      links: [
+        {
+          label: "Abrir versão celular",
+          href: "https://barbearia-demo-portfolio.lovable.app/mobile",
+        },
+      ],
+    },
+    technical: [
+      {
+        title: "Origem do projeto",
+        paragraphs: [
+          "O sistema parte de um template de terceiros para barbearias, com outro sistema de gestão como referência. A primeira rodada foi feita com o agente de IA da Lovable e as seguintes com Claude: botão de cancelar assinatura, aviso de agendamento duplicado, as checagens SQL e a demo. O código completo fica em repositório privado.",
+        ],
+      },
+      {
+        title: "Fluxo do atendimento",
+        paragraphs: [
+          "O cliente agenda sozinho em uma área própria, e o barbeiro ou o dono atende, abre a comanda e recebe. A comissão é gerada quando o atendimento é concluído.",
+        ],
+        code: "cliente (agendamento online) → agenda do barbeiro → atendimento → comanda → pagamento → comissão",
+      },
+      {
+        title: "Pagamentos",
+        paragraphs: [
+          "Dinheiro, cartão e Pix são recebidos na comanda, de forma presencial. O clube usa cartão recorrente e Pix manual por QR avulso mensal, cobrados pelo Asaas com checkout por link e webhook. O Pix Automático não está disponível no Asaas para essa conta, então ficou escondido.",
+          "O barbeiro cancela a assinatura no sistema, e o cancelamento também acontece no Asaas. O cliente não cancela sozinho: um botão o leva ao WhatsApp do barbeiro.",
+        ],
+      },
+      {
+        title: "Regras de negócio",
+        paragraphs: [
+          "O pote do clube destina 45% da receita das mensalidades, dividido por fichas, e uma ficha vale um minuto de serviço do clube. Quem assina tem um horário em aberto por vez. A venda coberta pelo clube lança um desconto igual ao valor coberto, e o total da comanda fica líquido.",
+        ],
+      },
+      {
+        title: "Segurança e banco",
+        paragraphs: [
+          "Dois agendamentos no mesmo horário são barrados por triggers de conflito de horário e de trava por agenda. O login usa o Supabase Auth, as permissões são verificadas no servidor e as chaves ficam só no servidor. As 10 checagens SQL de invariantes ficam em um arquivo de testes somente leitura.",
+        ],
+      },
+      {
+        title: "Como a demo funciona",
+        paragraphs: [
+          "A demo é um deploy separado, com banco próprio e populado com dados fictícios. As datas são relativas a hoje, de 45 dias atrás a 6 dias à frente, e os dados são refeitos a cada 3 horas. As alterações feitas na demo valem só até o próximo reset.",
+          "O pagamento é simulado: a tela avisa e nada é cobrado. A versão celular mostra o app dentro de uma moldura de celular.",
+        ],
+      },
+      {
+        title: "Limites",
+        paragraphs: [
+          "Não há testes automatizados nem migrações versionadas no repositório. O Pix recorrente está indisponível, e o bot de WhatsApp com IA ainda não está em produção, porque depende de aprovação da Meta. Não há app nativo de loja: o app é web e instalável.",
         ],
       },
     ],

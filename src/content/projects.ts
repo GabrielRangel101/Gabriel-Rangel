@@ -1,6 +1,7 @@
 import type { StaticImageData } from "next/image";
 import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
 import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
+import gestaoBarbeariaImage from "@/assets/cases/barbearia-gestao.png";
 import saborImage from "@/assets/cases/sabor-da-casa.png";
 import barbeariaImage from "@/assets/cases/barbearia-painel.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
@@ -65,6 +66,15 @@ export const projects: Project[] = [
       "Sistema web de gestão para restaurante de bairro: pedidos, mesas, entregas, financeiro e clientes, com pedido pelo link público que cai direto no painel.",
     synthetic: true,
     image: saborImage,
+  },
+  {
+    slug: "gestao-barbearia",
+    title: "Sistema de Gestão para Barbearia",
+    type: "sistema",
+    summary:
+      "Agenda por barbeiro, agendamento online, comandas, comissões, clube de assinatura e cobrança pelo Asaas, com três perfis de acesso e app instalável no celular.",
+    synthetic: true,
+    image: gestaoBarbeariaImage,
   },
   {
     slug: "painel-barbearia",

@@ -113,6 +113,12 @@ export default async function CasePage({ params }: Props) {
             Ver código
           </Button>
         )}
+        {study.demo.links?.map((link) => (
+          <Button key={link.href} href={link.href} variant="secondary" {...external}>
+            <ExternalLinkIcon />
+            {link.label}
+          </Button>
+        ))}
         {study.demo.autoUrl && (
           <Button href={study.demo.autoUrl} variant="tertiary" {...external}>
             <PlayIcon />
