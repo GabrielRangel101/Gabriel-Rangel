@@ -107,6 +107,17 @@ Ferramenta: orcamentos_parados()
 Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       },
       {
+        title: "Da tela da demo à ferramenta do MCP",
+        paragraphs: [
+          "O MCP não tem tela: quem o usa é o Claude. O que o visitante vê na demo são os mesmos números, porque o painel e o servidor leem as mesmas views. Na tela AI Growth da demo, cada card tem uma ferramenta correspondente, e os valores são os mesmos nos dois lados:",
+        ],
+        list: [
+          "Card “Pacientes para reativar” (399, sendo 147 de prioridade alta) e a ferramenta pacientes_para_reativar",
+          "Card “Orçamentos sem resposta” (70, valor parado de R$ 234.255) e a ferramenta orcamentos_parados",
+          "Card “Tratamentos paralisados” (13, receita em risco de R$ 46.957,50) e a ferramenta tratamentos_paralisados",
+        ],
+      },
+      {
         title: "Segurança",
         paragraphs: [
           "O anônimo só tem 3 políticas de leitura e nenhuma coluna sensível. A conta de visitante da demo é pública de propósito, tem papel somente leitura (inserção, alteração e exclusão são barradas por políticas restritivas) e enxerga só a clínica fictícia, com dono, CNPJ e e-mails mascarados. As funções com privilégio elevado têm search_path vazio, e o usuário do MCP tem papel somente leitura reforçado por políticas restritivas.",
