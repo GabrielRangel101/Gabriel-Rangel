@@ -25,11 +25,26 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   robots: indexable ? undefined : { index: false, follow: false },
   title: {
-    default: "Rangel Analytics",
-    template: "%s · Rangel Analytics",
+    default: `${site.name} | Analista de Dados e IA`,
+    template: `%s | ${site.name}`,
   },
   description:
     "Analista de dados e automação com IA. Dashboards, sistemas e agentes que tiram o trabalho manual do caminho.",
+  // A imagem de pré-visualização vem de opengraph-image.png (mesma pasta).
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: site.brand,
+    title: `${site.name} | Analista de Dados e IA`,
+    description:
+      "Dashboards, sistemas e agentes que tiram o trabalho manual do caminho.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} | Analista de Dados e IA`,
+    description:
+      "Dashboards, sistemas e agentes que tiram o trabalho manual do caminho.",
+  },
 };
 
 export const viewport: Viewport = {
