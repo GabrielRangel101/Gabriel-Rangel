@@ -11,6 +11,12 @@ export type CaseStudy = {
   // Texto do início da página, em parágrafos.
   description: string[];
   status: string;
+  // Tipo de dado do exemplo (sintético, fictício...) e período que ele cobre; o período só entra quando se sabe.
+  dataKind: string;
+  period?: string;
+  // Título do bloco de resultados e, quando houver, o impacto medido de verdade em um cliente.
+  resultLabel: string;
+  impact?: string[];
   role: string;
   // Lista curta da aba Detalhes Técnicos.
   highlights: string[];
@@ -45,6 +51,9 @@ export const cases: Record<string, CaseStudy> = {
       "Parti de um sistema-base de clínica. O que construí foi a camada de dados, o MCP, a segurança e a demo pública.",
     ],
     status: "Publicado",
+    dataKind: "Sintético",
+    period: "nov/2025 a out/2026",
+    resultLabel: "Insight do dado de exemplo",
     role: "Dados, SQL, MCP e segurança · Rangel Analytics",
     highlights: [
       "Servidor MCP próprio (Cloudflare Worker) com 8 ferramentas fixas, somente leitura e sem SQL livre",
@@ -145,6 +154,8 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Inclui funil de compra de ponta a ponta, CAC, LTV e payback por canal, ponte de MRR, retenção por safra, risco de cancelamento por assinante, simulador “e se” e a explicação das fórmulas de cada métrica.",
     ],
     status: "Publicado",
+    dataKind: "Sintético",
+    resultLabel: "Insight do dado de exemplo",
     role: "Projeto autoral",
     repoUrl: "https://github.com/GabrielRangel101/meridiano-subscriber-compass",
     highlights: [
@@ -197,6 +208,9 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Mostra como a perda de atribuição de instalações iOS no MMP (AppsFlyer) faz o CPI parecer mais alto do que é, e qual o impacto disso na decisão de verba. Todos os dados são sintéticos, gerados por simulação com seed fixa.",
     ],
     status: "Publicado",
+    dataKind: "Sintético",
+    period: "90 dias",
+    resultLabel: "Insight do dado de exemplo",
     role: "Projeto autoral",
     repoUrl: "https://github.com/GabrielRangel101/fluxo-media-compass",
     highlights: [
@@ -274,6 +288,9 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Mostra onde a margem real escapa da margem bruta (vencimento, avaria, quebra e furto) e quanto de venda se perde por ruptura, com uma fila de alertas ordenada por dinheiro em risco. Os dados são 100% sintéticos, gerados em Python com seed fixa.",
     ],
     status: "Publicado",
+    dataKind: "Sintético",
+    period: "12 meses",
+    resultLabel: "Insight do dado de exemplo",
     role: "Projeto autoral",
     repoUrl: "https://github.com/GabrielRangel101/mercado-aurora",
     highlights: [
@@ -351,6 +368,8 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "O cliente pede por um link público e o pedido cai direto no painel, com alerta sonoro. A demonstração abaixo é uma cópia separada, com dados fictícios e outro nome; o sistema em produção atende um restaurante local. Para testar o pedido do cliente, abra /cliente em outra aba e acompanhe o pedido em /demo/pedidos.",
     ],
     status: "Em produção, com demo pública",
+    dataKind: "Fictício",
+    resultLabel: "O que foi entregue",
     role: "Projeto autoral, entregue a cliente real",
     highlights: [
       "Pedidos em quadro, de novo a entregue, com alerta para pedidos parados",
@@ -433,6 +452,9 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Parti de um template de terceiros e o desenvolvimento seguiu com apoio de IA, então o código não é 100% autoral.",
     ],
     status: "Demo pública",
+    dataKind: "Fictício",
+    period: "45 dias atrás a 6 dias à frente",
+    resultLabel: "O que foi entregue",
     role: "Adaptação de template com IA: clube, regras de negócio, segurança no banco e demo",
     highlights: [
       "Agenda por barbeiro, com bloqueio de horário e lista de espera",
@@ -526,6 +548,9 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Os dados são de exemplo: um CSV de um curso de Looker Studio, com 47 pedidos, 10 clientes e 12 produtos, carregado no BigQuery. As datas foram deslocadas para ago/2026 a out/2026 (no arquivo original são de 2020 e 2021). Projeto de portfólio, sem usuário real.",
     ],
     status: "Publicado",
+    dataKind: "Exemplo (CSV de curso)",
+    period: "ago a out/2026, datas deslocadas",
+    resultLabel: "Insight do dado de exemplo",
     role: "Relatório em Looker Studio e camada de views em BigQuery",
     highlights: [
       "Receita fechada separada da carteira em aberto, com comparação contra o mês anterior",
@@ -604,6 +629,9 @@ classe ABC = acumulado - própria fatia < 0,80: A | < 0,95: B | senão C`,
       "Todos os dados são sintéticos, gerados em Python para a demonstração: 640 funcionários, dos quais 468 estavam ativos em 31/10/2026, em 8 departamentos.",
     ],
     status: "Publicado",
+    dataKind: "Sintético",
+    period: "2019 a out/2026",
+    resultLabel: "Insight do dado de exemplo",
     role: "Relatório em Power BI, do modelo de dados ao layout",
     highlights: [
       "Headcount, turnover dos últimos 12 meses, salário médio e admissões, cada um com a variação contra o mês e o ano anteriores",
@@ -671,6 +699,9 @@ classe ABC = acumulado - própria fatia < 0,80: A | < 0,95: B | senão C`,
       "Os dados são 100% sintéticos, gerados em Python (seed 42) com volume e comportamento realistas: 2.017 clientes, 13.876 oportunidades e 9.649 vendas, de jan/2023 a out/2026. Nenhum dado é de empresa real.",
     ],
     status: "Publicado",
+    dataKind: "Sintético",
+    period: "jan/2023 a out/2026",
+    resultLabel: "Insight do dado de exemplo",
     role: "Relatório em Power BI, do modelo de dados ao layout",
     highlights: [
       "Receita líquida, meta, win rate, pipeline aberto e vendedores na meta, com filtro de período sincronizado entre as páginas",

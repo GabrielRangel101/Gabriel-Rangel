@@ -15,6 +15,7 @@ import {
   CheckCircleIcon,
   CheckIcon,
   CodeIcon,
+  DatabaseIcon,
   ExternalLinkIcon,
   PlayIcon,
   UserIcon,
@@ -53,16 +54,12 @@ function InfoCard({
   children: ReactNode;
 }) {
   return (
-    <li className="rounded-lg border border-hairline bg-surface-1 p-4 md:p-5">
-      <span className="grid size-10 place-items-center rounded-md bg-surface-2 text-ink-muted">
-        <Icon width={20} height={20} />
+    <li className="rounded-lg border border-hairline bg-surface-1 p-3">
+      <span className="flex items-center gap-2 text-ink-subtle">
+        <Icon width={16} height={16} />
+        <span className="text-eyebrow uppercase">{label}</span>
       </span>
-      <span className="text-eyebrow mt-4 block uppercase text-ink-subtle">
-        {label}
-      </span>
-      <span className="text-body-sm mt-1 block font-medium md:text-base">
-        {children}
-      </span>
+      <span className="text-body-sm mt-1.5 block font-medium">{children}</span>
     </li>
   );
 }
@@ -96,9 +93,6 @@ export default async function CasePage({ params }: Props) {
   const study = cases[slug];
   if (!project || !study) notFound();
 
-  const extra = study.stack.length - 3;
-  const stackSummary =
-    study.stack.slice(0, 3).join(", ") + (extra > 0 ? ` +${extra}` : "");
   const external = { target: "_blank", rel: "noopener" } as const;
   const isPowerBi = study.demo.embedUrl.includes("app.powerbi.com");
 
@@ -146,7 +140,13 @@ export default async function CasePage({ params }: Props) {
         </DemoFrame>
       </div>
 
-      <div className="mt-section-mobile grid gap-12 md:mt-section md:grid-cols-3 md:gap-8">
+      <div className="text-body-lg mt-10 flex max-w-3xl flex-col gap-4 text-ink-muted">
+        {study.description.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </div>
+
+      <div className="mt-12 grid gap-10 md:mt-16 md:grid-cols-3 md:gap-8">
         <section aria-labelledby="problema">
           <h2 id="problema" className="text-eyebrow text-ink-subtle">
             Problema
@@ -161,7 +161,7 @@ export default async function CasePage({ params }: Props) {
         </section>
         <section aria-labelledby="resultado">
           <h2 id="resultado" className="text-eyebrow text-ink-subtle">
-            Resultado
+            {study.resultLabel}
           </h2>
           <ul className="text-body mt-3 flex flex-col gap-3 text-ink-muted">
             {study.result.map((item) => (
@@ -170,6 +170,28 @@ export default async function CasePage({ params }: Props) {
           </ul>
         </section>
       </div>
+
+      <aside
+        aria-labelledby="impacto"
+        className="mt-10 rounded-lg border border-dashed border-hairline-strong p-5"
+      >
+        <h2 id="impacto" className="text-eyebrow text-ink-subtle">
+          Impacto real
+        </h2>
+        {study.impact && study.impact.length > 0 ? (
+          <ul className="text-body mt-3 flex flex-col gap-3 text-ink">
+            {study.impact.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-body-sm mt-2 text-ink-muted">
+            {study.resultLabel === "O que foi entregue"
+              ? "Sem métrica de impacto medida em cliente. O que está acima descreve o que foi construído, não ganho de negócio."
+              : "Sem métrica de impacto medida em cliente. Os números acima mostram o que o projeto faz com dados de exemplo e não são resultado de negócio."}
+          </p>
+        )}
+      </aside>
 
       {study.testimonial && (
         <figure className="mt-section-mobile rounded-xl border border-hairline bg-surface-1 p-6 md:mt-section">
@@ -256,34 +278,32 @@ export default async function CasePage({ params }: Props) {
           Voltar para Projetos
         </Link>
 
-        <header className="mt-6 grid items-start gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
-          <div>
-            <TypeTag type={project.type} />
-            <h1 className="text-display-md mt-4">{project.title}</h1>
-            <div className="text-body-lg mt-6 flex max-w-2xl flex-col gap-4 text-ink-muted">
-              {study.description.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-          </div>
+        <header className="mt-4">
+          <TypeTag type={project.type} />
+          <h1 className="text-display-md mt-3">{project.title}</h1>
+          <p className="text-body mt-2 max-w-3xl text-ink-muted">
+            {project.summary}
+          </p>
 
-          <ul className="grid grid-cols-2 gap-3 md:gap-4">
-            <InfoCard icon={ActivityIcon} label="Status">
-              {study.status}
+          <ul className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-[1fr_1fr_1.4fr_1.8fr]">
+            <InfoCard icon={DatabaseIcon} label="Tipo de dado">
+              {study.dataKind}
             </InfoCard>
+            {study.period && (
+              <InfoCard icon={ActivityIcon} label="Período">
+                {study.period}
+              </InfoCard>
+            )}
             <InfoCard icon={UserIcon} label="Meu papel">
               {study.role}
             </InfoCard>
-            <InfoCard icon={ChipIcon} label="Stack">
-              {stackSummary}
-            </InfoCard>
-            <InfoCard icon={ExternalLinkIcon} label="Demo">
-              Ao vivo
+            <InfoCard icon={ChipIcon} label="Stack completa">
+              {study.stack.join(", ")}
             </InfoCard>
           </ul>
         </header>
 
-        <div className="mt-12 md:mt-16">
+        <div className="mt-5 md:mt-6">
           <Tabs
             label="Seções do projeto"
             tabs={[
