@@ -5,5 +5,20 @@ export const siteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000");
 
-// Antes do lançamento o site fica fora dos buscadores. Ligue com NEXT_PUBLIC_INDEXABLE=true.
-export const indexable = process.env.NEXT_PUBLIC_INDEXABLE === "true";
+// Quem pode ser indexado: só produção. Preview e local ficam fora dos
+// buscadores sozinhos — duas cópias do mesmo site disputando a busca pelo
+// nome é pior do que não aparecer.
+//
+// NEXT_PUBLIC_INDEXABLE continua valendo como trava manual, nos dois
+// sentidos: "false" segura a produção fora da busca (para voltar ao estado
+// de pré-lançamento sem mexer em código) e "true" libera um preview.
+// Estas leituras são todas de servidor (layout, robots.ts, sitemap.ts), por
+// isso VERCEL_ENV basta e não precisa do prefixo NEXT_PUBLIC_.
+const travaManual = process.env.NEXT_PUBLIC_INDEXABLE;
+
+export const indexable =
+  travaManual === "true"
+    ? true
+    : travaManual === "false"
+      ? false
+      : process.env.VERCEL_ENV === "production";
