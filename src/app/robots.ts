@@ -16,13 +16,14 @@ export default function robots(): MetadataRoute.Robots {
             "Slackbot",
           ],
           allow: "/",
+          disallow: "/cv",
         },
         { userAgent: "*", disallow: "/" },
       ],
     };
   }
   return {
-    rules: { userAgent: "*", allow: "/" },
+    rules: { userAgent: "*", allow: "/", disallow: "/cv" },
     sitemap: `${siteUrl}/sitemap.xml`,
   };
 }
