@@ -2,7 +2,12 @@
 
 import { headers } from "next/headers";
 
-export type ContactField = "name" | "email" | "message";
+export type ContactField = "name" | "email" | "message" | "topic";
+
+const topics = {
+  empresa: "Projeto para minha empresa",
+  outro: "Outro assunto",
+} as const;
 
 export type ContactState = {
   status: "idle" | "success" | "error" | "unavailable";
@@ -38,6 +43,9 @@ function validate(values: Record<ContactField, string>) {
   ) {
     errors.email = "Confira o e-mail: ele precisa ter o formato nome@empresa.com.";
   }
+  if (!(values.topic in topics)) {
+    errors.topic = "Escolha o assunto da mensagem.";
+  }
   if (values.message.length < 10 || values.message.length > 4000) {
     errors.message =
       "Conte um pouco mais sobre o que você precisa, com pelo menos 10 caracteres.";
@@ -53,6 +61,7 @@ export async function submitContact(
     name: String(formData.get("name") ?? "").trim(),
     email: String(formData.get("email") ?? "").trim(),
     message: String(formData.get("message") ?? "").trim(),
+    topic: String(formData.get("topic") ?? "empresa"),
   };
 
   // Honeypot e tempo mínimo: bots preenchem o campo escondido ou enviam rápido demais.
@@ -102,8 +111,9 @@ export async function submitContact(
         from: "Portfólio <onboarding@resend.dev>",
         to: [to],
         reply_to: values.email,
-        subject: `Contato pelo portfólio: ${values.name.replace(/\s+/g, " ")}`,
+        subject: `Contato pelo portfólio (${topics[values.topic as keyof typeof topics]}): ${values.name.replace(/\s+/g, " ")}`,
         text: [
+          `Assunto: ${topics[values.topic as keyof typeof topics]}`,
           `Nome: ${values.name}`,
           `E-mail: ${values.email}`,
           "",

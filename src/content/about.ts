@@ -65,12 +65,12 @@ export const experience: Experience[] = [
     intro:
       "Atuo no time de Business Analytics, apoiando Redação, Audiência, Streaming e produtos digitais B2C com dados e análises para decisões estratégicas, da performance do conteúdo à geração e retenção de assinantes.",
     highlights: [
-      "Mantenho 4 dashboards completos no Looker Studio (de 5 a 60 páginas), incluindo o principal, de conversão (funis Android, iOS e site; conversões por dia e hora; página de CRO), e o de mídia paga (Google Ads e Meta Ads).",
-      "Migrei o GA4 para uma nova propriedade (30+ campos novos) e participei, com o time, do redesenho da atribuição de UTMs (canais internos e externos), reduzindo o volume de vendas sem canal identificado (“não trackeado”) de ~40% para ~7% (−83%).",
-      "Validei a nova propriedade comparando seus dados com os da anterior, criei novas métricas, implementei o dashboard e expliquei o funcionamento ao time.",
-      "Automatizei 3 relatórios com Power Automate, eliminando cerca de 6 horas por semana de trabalho manual.",
-      "Integrei GA4 e BigQuery (ETL e modelagem dimensional) e estruturei o rastreio da jornada completa do usuário, do anúncio da Meta ao clique no CRO, para Audiência, Redação e Marketing.",
-      "Automação de tarefas com Playwright (Python) e Chromium.",
+      "**4 dashboards completos** que mantenho no Looker Studio (de 5 a 60 páginas), incluindo o principal, de conversão (funis Android, iOS e site; conversões por dia e hora; página de CRO), e o de mídia paga (Google Ads e Meta Ads).",
+      "**Vendas sem canal identificado (“não trackeado”) de ~40% para ~7% (−83%):** migrei o GA4 para uma nova propriedade (30+ campos novos) e participei, com o time, do redesenho da atribuição de UTMs (canais internos e externos).",
+      "**Validação da nova propriedade:** comparei seus dados com os da anterior, criei novas métricas, implementei o dashboard e expliquei o funcionamento ao time.",
+      "**Cerca de 6 horas por semana a menos de trabalho manual:** automatizei 3 relatórios com Power Automate.",
+      "**Jornada completa do usuário, do anúncio da Meta ao clique no CRO:** integrei GA4 e BigQuery (ETL e modelagem dimensional) e estruturei o rastreio para Audiência, Redação e Marketing.",
+      "**Playwright (Python) e Chromium:** automação de tarefas.",
     ],
     tools: [
       "BigQuery",
@@ -87,10 +87,10 @@ export const experience: Experience[] = [
     role: "Assistente de Dados",
     period: "08/2024 – 04/2025",
     highlights: [
-      "Entreguei dashboards corporativos em Power BI para TI, Financeiro e RH, com governança e qualidade das informações.",
-      "Automatizei rotinas com SQL, VBA e Power Automate, eliminando 10 horas por semana de trabalho manual.",
-      "Construí pipelines ETL integrando múltiplas fontes, com qualidade e consistência dos dados.",
-      "Defini KPIs de desempenho da operação e mapeei processos, identificando melhorias a partir de análises de dados.",
+      "**Entreguei dashboards corporativos em Power BI** para TI, Financeiro e RH, com governança e qualidade das informações.",
+      "**10 horas por semana a menos de trabalho manual:** automatizei rotinas com SQL, VBA e Power Automate.",
+      "**Construí pipelines ETL** integrando múltiplas fontes, com qualidade e consistência dos dados.",
+      "**Defini KPIs de desempenho da operação** e mapeei processos, identificando melhorias a partir de análises de dados.",
     ],
   },
   {
@@ -99,10 +99,10 @@ export const experience: Experience[] = [
     period: "06/2023 – atual",
     scope: "Varejo · 5 empresas atendidas",
     highlights: [
-      "Desenvolvi um relatório em Power BI que sustentou a redução de 30% nos custos e o crescimento de 1,7x no faturamento mensal de um cliente.",
-      "Criei uma automação de alerta por e-mail para o ponto crítico de estoque, evitando a falta de itens essenciais e otimizando a reposição.",
-      "Construí fluxos em n8n integrando WhatsApp, e-mail e APIs, e apliquei IA (Claude API) à automação e à análise de dados.",
-      "Modelei dados com RLS por perfil e Direct Query para relatórios rápidos em tempo real, e documentei cada projeto do tratamento à entrega.",
+      "**−30% nos custos e 1,7x no faturamento mensal** de um cliente do varejo: desenvolvi o relatório em Power BI que contribuiu para esse resultado.",
+      "**Alerta por e-mail do ponto crítico de estoque:** criei a automação, evitando a falta de itens essenciais e otimizando a reposição.",
+      "**Fluxos em n8n** integrando WhatsApp, e-mail e APIs, com IA (Claude API) aplicada à automação e à análise de dados.",
+      "**RLS por perfil e Direct Query:** modelei dados para relatórios rápidos em tempo real e documentei cada projeto do tratamento à entrega.",
     ],
   },
 ];

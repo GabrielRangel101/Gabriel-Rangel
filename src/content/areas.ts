@@ -6,7 +6,7 @@ import {
   WorkflowIcon,
 } from "@/components/ui/icons";
 
-// Áreas de atuação, usadas na Home ("O que construo") e em /sobre ("Em que posso ajudar").
+// Áreas de atuação da Home ("O que construo"). As entregas detalhadas ficam em /servicos.
 export const areas: {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   title: string;
@@ -34,16 +34,4 @@ export const areas: {
     title: "Dados organizados",
     text: "Modelagem e SQL para ter uma fonte confiável por trás de cada número.",
   },
-];
-
-// Ferramentas citadas no PRD e nos cases publicados.
-export const tools = [
-  "Power BI",
-  "Looker",
-  "SQL",
-  "Python",
-  "n8n",
-  "Supabase",
-  "Claude API",
-  "React",
 ];

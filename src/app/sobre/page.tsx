@@ -5,10 +5,8 @@ import { Accordion, AccordionItem } from "@/components/ui/Accordion";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { CtaBanner } from "@/components/ui/CtaBanner";
-import { FeatureCard } from "@/components/ui/FeatureCard";
 import { Section } from "@/components/ui/Section";
 import { ExternalLinkIcon, SparkIcon } from "@/components/ui/icons";
-import { areas } from "@/content/areas";
 import {
   aboutBio,
   aboutFacts,
@@ -26,6 +24,19 @@ export const metadata: Metadata = {
 };
 
 const external = { target: "_blank", rel: "noopener" } as const;
+
+// Trechos entre ** viram negrito: a métrica abre cada item de experiência.
+function Highlight({ text }: { text: string }) {
+  return text.split("**").map((part, index) =>
+    index % 2 === 1 ? (
+      <strong key={index} className="font-semibold text-ink">
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+}
 
 export default function AboutPage() {
   const { github, linkedin } = site.external;
@@ -135,16 +146,6 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section id="ajuda" eyebrow="Em que posso ajudar" title="Do dado bruto à decisão.">
-        <div className="grid gap-4 sm:grid-cols-2">
-          {areas.map(({ icon, title, text, note }) => (
-            <FeatureCard key={title} icon={icon} title={title} note={note}>
-              {text}
-            </FeatureCard>
-          ))}
-        </div>
-      </Section>
-
       <Section id="experiencia" eyebrow="Experiência profissional" title="Onde já trabalhei com dados.">
         <div className="max-w-4xl">
           <Accordion>
@@ -164,7 +165,9 @@ export default function AboutPage() {
                 {job.intro && <p className="mb-4">{job.intro}</p>}
                 <ul className="flex list-disc flex-col gap-3 pl-5">
                   {job.highlights.map((item) => (
-                    <li key={item}>{item}</li>
+                    <li key={item}>
+                      <Highlight text={item} />
+                    </li>
                   ))}
                 </ul>
                 {job.tools && (

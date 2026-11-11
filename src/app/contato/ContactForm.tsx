@@ -51,9 +51,9 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
       className="flex flex-col gap-5 rounded-xl border border-hairline bg-surface-1 p-6 md:p-8"
     >
       <div>
-        <h2 className="text-card-title">Conte o que você precisa</h2>
+        <h2 className="text-card-title">Envie uma mensagem</h2>
         <p className="text-body-sm mt-1 text-ink-muted">
-          Três campos. Eu respondo com os próximos passos.
+          Escolha o assunto e conte o resto. Eu respondo por e-mail.
         </p>
       </div>
 
@@ -84,6 +84,30 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
         </div>
       )}
 
+      <fieldset className="flex flex-col gap-2">
+        <legend className="text-body-sm mb-2 font-medium text-ink">Assunto</legend>
+        {[
+          { value: "empresa", label: "Projeto para minha empresa" },
+          { value: "outro", label: "Outro assunto" },
+        ].map((option) => (
+          <label
+            key={option.value}
+            className="text-body flex min-h-11 cursor-pointer items-center gap-3 rounded-md border border-input-border bg-surface-1 px-3 has-[:checked]:border-primary has-[:checked]:bg-surface-2"
+          >
+            <input
+              type="radio"
+              name="topic"
+              value={option.value}
+              defaultChecked={(values?.topic ?? "empresa") === option.value}
+              className="size-4 accent-primary"
+            />
+            {option.label}
+          </label>
+        ))}
+        {state.errors?.topic && (
+          <p className="text-body-sm text-error">{state.errors.topic}</p>
+        )}
+      </fieldset>
       <TextField
         label="Nome"
         name="name"
@@ -103,10 +127,10 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
         error={state.errors?.email}
       />
       <TextArea
-        label="O que você precisa?"
+        label="Mensagem"
         name="message"
         required
-        hint="Conte o que hoje é manual ou o que você quer enxergar nos seus números."
+        hint="Se for um projeto, conte o que hoje é manual ou o que você quer enxergar nos seus números."
         defaultValue={values?.message}
         error={state.errors?.message}
       />
