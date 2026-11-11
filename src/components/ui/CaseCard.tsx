@@ -20,9 +20,7 @@ export function CaseCard({
     <article className="transition-ui group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-surface-1 hover:border-hairline-strong hover:bg-surface-2">
       {project.image && (
         <div
-          className={`relative overflow-hidden border-b border-hairline bg-surface-2 ${
-            compact ? "aspect-[16/10]" : "aspect-[16/9]"
-          }`}
+          className="relative aspect-[16/9] overflow-hidden border-b border-hairline bg-surface-2"
         >
           <Image
             src={project.image}
@@ -30,10 +28,11 @@ export function CaseCard({
             fill
             sizes={
               compact
-                ? "(min-width: 1280px) 320px, (min-width: 768px) 33vw, 100vw"
+                ? "(min-width: 1280px) 640px, (min-width: 768px) 66vw, 100vw"
                 : "(min-width: 1024px) 420px, (min-width: 768px) 50vw, 100vw"
             }
             placeholder="blur"
+            quality={90}
             className="transition-ui object-cover object-top group-hover:scale-[1.02]"
           />
           <div className="absolute right-3 top-3">
