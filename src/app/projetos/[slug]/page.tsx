@@ -26,6 +26,7 @@ import { Tabs } from "@/components/ui/Tabs";
 import { TypeTag } from "@/components/ui/Tag";
 import { cases } from "@/content/cases";
 import { projects } from "@/content/projects";
+import { site } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -39,7 +40,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((p) => p.slug === slug);
   if (!project || !(slug in cases)) return {};
-  return { title: project.title, description: project.summary };
+
+  // openGraph e twitter precisam ser escritos aqui. O Next so herda os do
+  // layout quando a pagina nao declara os seus, e o do layout fala do site
+  // inteiro: sem isto, todo case compartilhado aparece como "Analista de
+  // Dados e IA". A imagem vem de opengraph-image.tsx, nesta mesma pasta.
+  const url = `/projetos/${slug}`;
+  const title = `${project.title} | ${site.name}`;
+
+  return {
+    title: project.title,
+    description: project.summary,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      locale: "pt_BR",
+      siteName: site.name,
+      url,
+      title,
+      description: project.summary,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: project.summary,
+    },
+  };
 }
 
 type IconType = ComponentType<SVGProps<SVGSVGElement>>;

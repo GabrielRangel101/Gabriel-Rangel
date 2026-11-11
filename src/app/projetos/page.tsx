@@ -7,11 +7,30 @@ import { SortMenu } from "@/components/ui/SortMenu";
 import { caseTypes } from "@/components/ui/Tag";
 import type { CaseType } from "@/components/ui/Tag";
 import { publishedProjects } from "@/content/projects";
+import { site } from "@/lib/site";
 
+// O openGraph tem que ser declarado aqui: o do layout fala do site inteiro e
+// e o que o Next herda quando a pagina nao declara o seu.
 export const metadata: Metadata = {
   title: "Projetos",
   description:
     "Cases de dashboards, sistemas e agentes com demo ao vivo e dados sintéticos.",
+  alternates: { canonical: "/projetos" },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: site.name,
+    url: "/projetos",
+    title: `Projetos | ${site.name}`,
+    description:
+      "Cases de dashboards, sistemas e agentes com demo ao vivo e dados sintéticos.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Projetos | ${site.name}`,
+    description:
+      "Cases de dashboards, sistemas e agentes com demo ao vivo e dados sintéticos.",
+  },
 };
 
 // Até 12 projetos aparecem juntos; a paginação só surge quando passar disso (3 linhas de 4).
