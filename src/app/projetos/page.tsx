@@ -24,12 +24,16 @@ export const metadata: Metadata = {
     title: `Projetos | ${site.name}`,
     description:
       "Cases de dashboards, sistemas e agentes com demo ao vivo e dados sintéticos.",
+    // A imagem precisa ser repetida: declarar openGraph aqui substitui o do
+    // layout inteiro, e o opengraph-image.png da raiz deixa de ser herdado.
+    images: ["/opengraph-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: `Projetos | ${site.name}`,
     description:
       "Cases de dashboards, sistemas e agentes com demo ao vivo e dados sintéticos.",
+    images: ["/twitter-image.png"],
   },
 };
 
