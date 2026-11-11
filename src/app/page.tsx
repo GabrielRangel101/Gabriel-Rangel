@@ -37,7 +37,7 @@ export default function Home() {
               placeholder="blur"
               className="size-14 rounded-full border border-hairline-strong object-cover object-[50%_25%]"
             />
-            <h1 id="hero-titulo" className="text-display-xl mt-6">
+            <h1 id="hero-titulo" className="text-display-lg mt-6 max-w-3xl">
               {site.name},{" "}
               <span className="text-accent-gradient">
                 analista de dados e automação com IA.

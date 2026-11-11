@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { CodeBlock } from "@/components/ui/CodeBlock";
 import { Container } from "@/components/ui/Container";
 import { DemoFrame } from "@/components/ui/DemoFrame";
+import { EmbedFrame } from "@/components/ui/EmbedFrame";
 import {
   ActivityIcon,
   ArrowLeftIcon,
@@ -99,6 +100,7 @@ export default async function CasePage({ params }: Props) {
   const stackSummary =
     study.stack.slice(0, 3).join(", ") + (extra > 0 ? ` +${extra}` : "");
   const external = { target: "_blank", rel: "noopener" } as const;
+  const isPowerBi = study.demo.embedUrl.includes("app.powerbi.com");
 
   const demoPanel = (
     <>
@@ -133,17 +135,13 @@ export default async function CasePage({ params }: Props) {
           fallbackLabel="Abrir o dashboard em nova aba"
           badgeLabel={study.demo.dataLabel}
         >
-          <iframe
+          <EmbedFrame
             src={study.demo.embedUrl}
             title={study.demo.title}
-            loading="lazy"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-            style={study.demo.ratio ? { aspectRatio: study.demo.ratio } : undefined}
-            className={`w-full bg-surface-2 ${
-              study.demo.ratio
-                ? "h-[70dvh] min-h-[420px] md:h-auto md:min-h-0"
-                : "h-[70dvh] min-h-[520px] md:h-auto md:aspect-[16/10]"
-            }`}
+            ratio={study.demo.ratio}
+            baseWidth={isPowerBi ? 1310 : undefined}
+            baseHeight={isPowerBi ? 810 : undefined}
+            settleMs={isPowerBi ? 2500 : 0}
           />
         </DemoFrame>
       </div>
