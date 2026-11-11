@@ -9,12 +9,15 @@ import { TypeTag } from "./Tag";
 export function CaseCard({
   project,
   compact = false,
+  lean = false,
 }: {
   project: Project;
   compact?: boolean;
+  // Versão enxuta da Home: título, uma linha de resultado e três tags.
+  lean?: boolean;
 }) {
   const study = cases[project.slug];
-  const stack = study?.stack.slice(0, compact ? 3 : 4) ?? [];
+  const stack = study?.stack.slice(0, compact || lean ? 3 : 4) ?? [];
 
   return (
     <article className="transition-ui group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-surface-1 hover:border-hairline-strong hover:bg-surface-2">
@@ -51,12 +54,17 @@ export function CaseCard({
             {project.title}
           </Link>
         </h3>
-        {compact && (
+        {lean && (
+          <p className="text-body-sm line-clamp-2 text-ink-muted">
+            {project.headline}
+          </p>
+        )}
+        {compact && !lean && (
           <p className="text-body-sm line-clamp-3 text-ink-muted">
             {project.summary}
           </p>
         )}
-        {study && !compact && (
+        {study && !compact && !lean && (
           <dl className="flex flex-col gap-3">
             <div>
               <dt className="text-eyebrow text-ink">Desafio</dt>

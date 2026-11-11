@@ -7,16 +7,19 @@ export function Section({
   eyebrow,
   title,
   children,
+  tight = false,
 }: {
   id: string;
   eyebrow?: string;
   title: string;
   children: ReactNode;
+  // Aproxima da seção de cima (usado logo depois do hero).
+  tight?: boolean;
 }) {
   return (
     <section
       aria-labelledby={`${id}-titulo`}
-      className="mt-section-mobile md:mt-section"
+      className={tight ? "mt-8 md:mt-12" : "mt-section-mobile md:mt-section"}
     >
       <Container>
         {eyebrow && <p className="text-eyebrow text-ink-subtle">{eyebrow}</p>}

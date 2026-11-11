@@ -17,6 +17,8 @@ export type Project = {
   title: string;
   type: CaseType;
   summary: string;
+  // Uma linha de resultado, para os cards enxutos da Home.
+  headline: string;
   synthetic: boolean;
   image?: StaticImageData;
 };
@@ -28,6 +30,8 @@ export const projects: Project[] = [
     type: "agente",
     summary:
       "Dashboard de uma clínica odontológica fictícia com camada semântica em SQL e um servidor MCP próprio, que deixa o Claude responder perguntas sobre os números com 8 ferramentas fixas e somente leitura.",
+    headline:
+      "MCP próprio com 8 ferramentas somente leitura",
     synthetic: true,
     image: radarImage,
   },
@@ -37,6 +41,8 @@ export const projects: Project[] = [
     type: "web-ia",
     summary:
       "Dashboard de inteligência de assinaturas B2C para um jornal fictício. A IA roteia as perguntas para um motor de métricas próprio, sem calcular números por conta própria.",
+    headline:
+      "CAC, LTV e payback por canal, com IA",
     synthetic: true,
     image: gazetaImage,
   },
@@ -46,6 +52,8 @@ export const projects: Project[] = [
     type: "web-ia",
     summary:
       "Dashboard de mídia paga, aquisição de app e saúde da coleta para uma fintech fictícia. Mostra como a perda de atribuição no iOS distorce o CPI e a decisão de verba.",
+    headline:
+      "CPI iOS: R$ 10,54 contra R$ 9,03 corrigido",
     synthetic: true,
     image: fluxoImage,
   },
@@ -55,6 +63,8 @@ export const projects: Project[] = [
     type: "web-ia",
     summary:
       "Dashboard de uma rede fictícia de supermercados: onde a margem é ganha e perdida, ruptura, perdas e alertas por dinheiro em risco.",
+    headline:
+      "Margem de 24,8% contra meta de 25,0%",
     synthetic: true,
     image: auroraImage,
   },
@@ -64,6 +74,8 @@ export const projects: Project[] = [
     type: "sistema",
     summary:
       "Sistema web de gestão para restaurante de bairro: pedidos, mesas, entregas, financeiro e clientes, com pedido pelo link público que cai direto no painel.",
+    headline:
+      "15 telas e 71 políticas de segurança",
     synthetic: true,
     image: saborImage,
   },
@@ -73,17 +85,10 @@ export const projects: Project[] = [
     type: "sistema",
     summary:
       "Agenda por barbeiro, agendamento online, comandas, comissões, clube de assinatura e cobrança pelo Asaas, com três perfis de acesso e app instalável no celular.",
+    headline:
+      "53 tabelas com RLS e cobrança no Asaas",
     synthetic: true,
     image: gestaoBarbeariaImage,
-  },
-  {
-    slug: "relatorio-pedidos",
-    title: "Relatório de Pedidos: E-commerce",
-    type: "looker",
-    summary:
-      "Receita fechada contra carteira em aberto, produtos, clientes e preço pago contra a tabela, em 6 páginas no Looker Studio sobre views no BigQuery.",
-    synthetic: true,
-    image: lookerPedidosImage,
   },
   {
     slug: "peoplelab",
@@ -91,6 +96,8 @@ export const projects: Project[] = [
     type: "power-bi",
     summary:
       "Headcount, turnover, perfil do time e desempenho em quatro páginas, com modelo em estrela, 63 medidas DAX e tooltips em SVG.",
+    headline:
+      "468 ativos e turnover de 12M de 11,6%",
     synthetic: true,
     image: peoplelabImage,
   },
@@ -100,9 +107,32 @@ export const projects: Project[] = [
     type: "power-bi",
     summary:
       "Receita contra meta, funil e desempenho por vendedor, região e produto, com modelo em estrela de 9 tabelas, 64 medidas DAX e tooltips em SVG.",
+    headline:
+      "R$ 28,79 mi de receita, 99% da meta",
     synthetic: true,
     image: saleslabImage,
   },
+  {
+    slug: "relatorio-pedidos",
+    title: "Relatório de Pedidos: E-commerce",
+    type: "looker",
+    summary:
+      "Receita fechada contra carteira em aberto, produtos, clientes e preço pago contra a tabela, em 6 páginas no Looker Studio sobre views no BigQuery.",
+    headline:
+      "Receita fechada separada da carteira aberta",
+    synthetic: true,
+    image: lookerPedidosImage,
+  },
+];
+
+// Destaques da Home, em ordem: um de cada frente, com PeopleLab entre eles.
+export const featuredSlugs = [
+  "radar-agenda",
+  "gazeta-meridiano",
+  "peoplelab",
+  "saleslab",
+  "sabor-da-casa",
+  "gestao-barbearia",
 ];
 
 // O que aparece na Home e em /projetos: apenas cases com página publicada.
