@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
 import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
 import gestaoBarbeariaImage from "@/assets/cases/barbearia-gestao.png";
+import lookerPedidosImage from "@/assets/cases/looker-pedidos.png";
 import saborImage from "@/assets/cases/sabor-da-casa.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
 import fluxoImage from "@/assets/cases/fluxo-media-compass.png";
@@ -74,6 +75,15 @@ export const projects: Project[] = [
       "Agenda por barbeiro, agendamento online, comandas, comissões, clube de assinatura e cobrança pelo Asaas, com três perfis de acesso e app instalável no celular.",
     synthetic: true,
     image: gestaoBarbeariaImage,
+  },
+  {
+    slug: "relatorio-pedidos",
+    title: "Relatório de Pedidos: E-commerce",
+    type: "looker",
+    summary:
+      "Receita fechada contra carteira em aberto, produtos, clientes e preço pago contra a tabela, em 6 páginas no Looker Studio sobre views no BigQuery.",
+    synthetic: true,
+    image: lookerPedidosImage,
   },
   {
     slug: "peoplelab",

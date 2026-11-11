@@ -520,6 +520,84 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       },
     ],
   },
+  "relatorio-pedidos": {
+    description: [
+      "Relatório no Looker Studio para uma loja online fictícia (Verdi Shop), em 6 páginas, alimentado por views no BigQuery. Compara a receita do mês com a do mês anterior e mostra quem e o que a sustenta, quanto está preso em pedidos abertos e onde o preço pago foge da tabela.",
+      "Os dados são de exemplo: um CSV de um curso de Looker Studio, com 47 pedidos, 10 clientes e 12 produtos, carregado no BigQuery. As datas foram deslocadas para ago/2026 a out/2026 (no arquivo original são de 2020 e 2021). Projeto de portfólio, sem usuário real.",
+    ],
+    status: "Publicado",
+    role: "Relatório em Looker Studio e camada de views em BigQuery",
+    highlights: [
+      "Receita fechada separada da carteira em aberto, com comparação contra o mês anterior",
+      "Receita por dia, últimos 3 meses, status do mês e ranking de produtos e de clientes",
+      "Carteira em aberto por idade do pedido e por cliente",
+      "Página de preço e desconto, com receita cedida e exceções contra a tabela",
+      "Cards de insight que apontam concentração de receita, pedidos parados e qualidade da base",
+      "Filtros de período, sexo, faixa etária, cliente e status em todas as páginas",
+    ],
+    problem:
+      "Responder como a receita de outubro/2026 se compara à de setembro, quem e o que a sustenta, quanto está preso em pedidos abertos e onde o preço pago foge da tabela.",
+    decision:
+      "Deixei as regras no BigQuery, em views, e o relatório só lê essas views: a tabela base nunca é consultada direto. O card principal mostra só pedidos fechados e a carteira em aberto fica em um card à parte, para que pedidos abertos não inflem o número principal. Os cards de insight vêm de uma tabela já calculada, porque a view original levava em média 5,2 s por consulta.",
+    result: [
+      "Em outubro/2026, a receita fechada foi de R$ 47.725,90, 183,2% acima de setembro, com 18 pedidos, ticket de R$ 4.338,72 nos fechados e 61,11% de fechamento (11 fechados e 7 abertos).",
+      "A carteira em aberto soma 16 pedidos e R$ 37.488,40, e a página de preço mostra 9,95% de desconto médio, com R$ 6.758,20 de receita cedida.",
+      "O Chromecast concentra R$ 6.160 dos R$ 6.758,20 cedidos, o que o card de insight da página aponta como ponto de revisão da política de preço.",
+    ],
+    stack: ["Looker Studio", "BigQuery", "SQL"],
+    demo: {
+      embedUrl:
+        "https://datastudio.google.com/embed/reporting/329d0351-8d24-4e2a-aaee-d3b102d414b8/page/xEIDG",
+      title: "Relatório Looker Studio de pedidos de uma loja online",
+      openLabel: "Abrir relatório ao vivo",
+      ratio: "16 / 10",
+      dataLabel: "Dados de exemplo",
+    },
+    technical: [
+      {
+        title: "Fonte e modelagem",
+        paragraphs: [
+          "Os dados ficam no BigQuery, em um projeto pessoal. Há uma tabela base com 103 linhas, todas em texto, e uma tabela com os pontos de atenção dos cards (36 linhas), além de 16 views. O relatório usa 12 fontes de dados, todas views, sem consulta personalizada e sem mesclagem de dados.",
+        ],
+      },
+      {
+        title: "Campos calculados",
+        paragraphs: [
+          "As regras de negócio ficam no SQL das views. As principais:",
+        ],
+        code: `receita_liquida = total * 0.95  (alíquota fixa de 5%)
+cedido = GREATEST(preco_atual * qtde_comprada - total, 0)
+desconto_pct = SUM(cedido) / SUM(valor_tabela)
+faixa_horario = hora < 6 Madrugada, < 12 Manhã, < 18 Tarde, senão Noite
+segmento = <=30 dias sem comprar e >=5 pedidos: Campeão
+           <=30 dias: Ativo | <=60 dias: Em risco | acima: Inativo
+classe ABC = acumulado - própria fatia < 0,80: A | < 0,95: B | senão C`,
+      },
+      {
+        title: "Páginas do relatório",
+        list: [
+          "Visão geral: receita fechada, líquida, pedidos, ticket, fechamento e valor em aberto",
+          "Receita e pedidos no tempo: média diária, melhor dia, pedidos por semana",
+          "Produtos e mix: unidades, receita por item e preço de tabela",
+          "Clientes: clientes ativos, receita por cliente e recorrentes",
+          "Status e carteira em aberto: pedidos abertos, idade e maior pedido",
+          "Preço, desconto e qualidade dos dados: receita cedida, exceções de preço e linhas repetidas",
+        ],
+      },
+      {
+        title: "Desempenho",
+        paragraphs: [
+          "Os cards de insight vinham de uma view pesada, com média de 5,2 s e máximo de 11 s por consulta. Gravei o resultado em uma tabela e os cards passaram a ler dela. O tempo novo não foi medido.",
+        ],
+      },
+      {
+        title: "Limites",
+        paragraphs: [
+          "A base é pequena e de exemplo, e a carga foi feita uma vez, sem atualização automática, segurança por linha ou testes. Os textos dos cards são uma foto de 11/11/2026. Como as views usam a data de hoje, indicadores como dias em aberto e segmento de cliente mudam todo dia. Na página de preço, o indicador “Acima da tabela” soma 3 meses e destoa do gráfico ao lado, que é do mês: é um defeito conhecido e ainda não corrigido.",
+        ],
+      },
+    ],
+  },
   peoplelab: {
     description: [
       "Dashboard de pessoas e turnover feito do zero no Power BI Desktop. Mostra headcount, turnover, perfil do time e desempenho em quatro páginas, com menu lateral, filtro de ano sincronizado e tooltips personalizados que abrem ao passar o mouse.",
