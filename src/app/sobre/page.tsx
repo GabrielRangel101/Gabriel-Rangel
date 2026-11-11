@@ -98,11 +98,6 @@ export default function AboutPage() {
                   <ExternalLinkIcon />
                 </Button>
               )}
-              {site.cv && (
-                <Button href={site.cv} variant="secondary" download>
-                  Baixar CV
-                </Button>
-              )}
             </div>
           </div>
 

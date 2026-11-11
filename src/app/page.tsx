@@ -72,11 +72,6 @@ export default function Home() {
               <Button href="/projetos" variant="secondary">
                 Ver projetos
               </Button>
-              {site.cv && (
-                <Button href={site.cv} variant="secondary" download>
-                  Baixar CV
-                </Button>
-              )}
             </div>
           </div>
           <div className="max-lg:hidden">

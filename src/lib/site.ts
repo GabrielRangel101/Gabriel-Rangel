@@ -1,23 +1,23 @@
-import type { CaseType } from "@/components/ui/Tag";
-
 // Dados do site em um só lugar. Links externos sem URL confirmada ficam de fora do Footer.
 export const site = {
   name: "Gabriel Rangel",
-  // Marca que aparece no cabeçalho, no rodapé e nos títulos das páginas.
-  brand: "Rangel Analytics",
+  // Empresa que presta o serviço: aparece só em /servicos e no rodapé.
+  // Preencha razão social e CNPJ para exibi-los (ficam ocultos enquanto estiverem vazios).
+  company: {
+    name: "Rangel Analytics",
+    legalName: undefined as string | undefined,
+    cnpj: undefined as string | undefined,
+  },
   tagline:
     "Analista de dados e automação com IA. Dashboards, sistemas e agentes que tiram o trabalho manual do caminho.",
   nav: [
-    { href: "/", label: "Início" },
     { href: "/projetos", label: "Projetos" },
     { href: "/sobre", label: "Sobre" },
+    { href: "/servicos", label: "Serviços" },
     { href: "/contato", label: "Contato" },
   ],
-  // Atalhos por tipo de projeto no cabeçalho; os demais tipos ficam nas abas de /projetos.
-  navTypes: ["power-bi", "looker", "web-ia", "sistema", "agente"] satisfies CaseType[],
-  // Preencha para exibir no site: e-mail público e caminho do CV em /public (ex.: "/cv-gabriel-rangel.pdf").
-  email: undefined as string | undefined,
-  cv: undefined as string | undefined,
+  // E-mail público, exibido em Contato e no rodapé.
+  email: "gabrielrangel.analytics@gmail.com" as string | undefined,
   // Cargo e ferramentas da primeira dobra.
   stack: ["Power BI", "Looker Studio", "SQL", "BigQuery", "Python", "n8n"],
   cta: { href: "/contato", label: "Falar comigo" },

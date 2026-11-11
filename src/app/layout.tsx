@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { TopNav } from "@/components/layout/TopNav";
-import { publishedProjects } from "@/content/projects";
 import { site } from "@/lib/site";
 import { indexable, siteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    siteName: site.brand,
+    siteName: site.name,
     title: `${site.name} | Analista de Dados e IA`,
     description:
       "Dashboards, sistemas e agentes que tiram o trabalho manual do caminho.",
@@ -69,11 +68,7 @@ export default function RootLayout({
         >
           Pular para o conteúdo
         </a>
-        <TopNav
-          types={site.navTypes.filter((type) =>
-            publishedProjects.some((project) => project.type === type),
-          )}
-        />
+        <TopNav />
         <main id="conteudo" className="flex-1">
           {children}
         </main>
