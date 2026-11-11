@@ -15,6 +15,7 @@ export const caseTypes = {
   "web-ia": { label: "Web com IA", Icon: SparkIcon },
   agente: { label: "Agentes e MCP", Icon: WorkflowIcon },
   sistema: { label: "Sistema", Icon: LayersIcon },
+  dados: { label: "Engenharia de dados", Icon: DatabaseIcon },
 } satisfies Record<
   string,
   { label: string; Icon: ComponentType<SVGProps<SVGSVGElement>> }

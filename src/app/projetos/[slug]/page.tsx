@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ComponentType, ReactNode, SVGProps } from "react";
@@ -94,29 +95,36 @@ export default async function CasePage({ params }: Props) {
   if (!project || !study) notFound();
 
   const external = { target: "_blank", rel: "noopener" } as const;
-  const isPowerBi = study.demo.embedUrl.includes("app.powerbi.com");
+  const demo = study.demo;
+  const isPowerBi = demo?.embedUrl.includes("app.powerbi.com") ?? false;
 
   const demoPanel = (
     <>
       <div className="flex flex-wrap items-center gap-3">
-        <Button href={study.demo.embedUrl} {...external}>
-          <ExternalLinkIcon />
-          {study.demo.openLabel ?? "Abrir app ao vivo"}
-        </Button>
-        {study.repoUrl && (
-          <Button href={study.repoUrl} variant="secondary" {...external}>
-            <CodeIcon />
-            Ver código
+        {demo && (
+          <Button href={demo.embedUrl} {...external}>
+            <ExternalLinkIcon />
+            {demo.openLabel ?? "Abrir app ao vivo"}
           </Button>
         )}
-        {study.demo.links?.map((link) => (
+        {study.repoUrl && (
+          <Button
+            href={study.repoUrl}
+            variant={demo ? "secondary" : "primary"}
+            {...external}
+          >
+            <CodeIcon />
+            Ver código no GitHub
+          </Button>
+        )}
+        {demo?.links?.map((link) => (
           <Button key={link.href} href={link.href} variant="secondary" {...external}>
             <ExternalLinkIcon />
             {link.label}
           </Button>
         ))}
-        {study.demo.autoUrl && (
-          <Button href={study.demo.autoUrl} variant="tertiary" {...external}>
+        {demo?.autoUrl && (
+          <Button href={demo.autoUrl} variant="tertiary" {...external}>
             <PlayIcon />
             Demo automático (cerca de 45 s)
           </Button>
@@ -124,20 +132,41 @@ export default async function CasePage({ params }: Props) {
       </div>
 
       <div className="mt-6">
-        <DemoFrame
-          fallbackHref={study.demo.embedUrl}
-          fallbackLabel="Abrir o dashboard em nova aba"
-          badgeLabel={study.demo.dataLabel}
-        >
-          <EmbedFrame
-            src={study.demo.embedUrl}
-            title={study.demo.title}
-            ratio={study.demo.ratio}
-            baseWidth={isPowerBi ? 1310 : undefined}
-            baseHeight={isPowerBi ? 810 : undefined}
-            settleMs={isPowerBi ? 2500 : 0}
-          />
-        </DemoFrame>
+        {demo ? (
+          <DemoFrame
+            fallbackHref={demo.embedUrl}
+            fallbackLabel="Abrir o dashboard em nova aba"
+            badgeLabel={demo.dataLabel}
+          >
+            <EmbedFrame
+              src={demo.embedUrl}
+              title={demo.title}
+              ratio={demo.ratio}
+              baseWidth={isPowerBi ? 1310 : undefined}
+              baseHeight={isPowerBi ? 810 : undefined}
+              settleMs={isPowerBi ? 2500 : 0}
+            />
+          </DemoFrame>
+        ) : (
+          study.diagram && (
+            <figure className="rounded-xl border border-hairline bg-surface-1 p-4">
+              <div className="overflow-hidden rounded-md bg-white">
+                <Image
+                  src={study.diagram.src}
+                  alt={study.diagram.alt}
+                  width={1220}
+                  height={500}
+                  unoptimized
+                  className="h-auto w-full"
+                />
+              </div>
+              <figcaption className="text-body-sm mt-3 text-ink-subtle">
+                Arquitetura do pipeline. O código, os testes e o CI estão no
+                repositório público.
+              </figcaption>
+            </figure>
+          )
+        )}
       </div>
 
       <div className="text-body-lg mt-10 flex max-w-3xl flex-col gap-4 text-ink-muted">
@@ -186,9 +215,10 @@ export default async function CasePage({ params }: Props) {
           </ul>
         ) : (
           <p className="text-body-sm mt-2 text-ink-muted">
-            {study.resultLabel === "O que foi entregue"
+            {study.impactNote ??
+              (study.resultLabel === "O que foi entregue"
               ? "Sem métrica de impacto medida em cliente. O que está acima descreve o que foi construído, não ganho de negócio."
-              : "Sem métrica de impacto medida em cliente. Os números acima mostram o que o projeto faz com dados de exemplo e não são resultado de negócio."}
+              : "Sem métrica de impacto medida em cliente. Os números acima mostram o que o projeto faz com dados de exemplo e não são resultado de negócio.")}
           </p>
         )}
       </aside>
@@ -309,7 +339,7 @@ export default async function CasePage({ params }: Props) {
             tabs={[
               {
                 id: "demo",
-                label: "Demonstração",
+                label: demo ? "Demonstração" : "Arquitetura",
                 icon: <PlayIcon />,
                 panel: demoPanel,
               },

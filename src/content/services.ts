@@ -56,6 +56,6 @@ export const services: {
       "BigQuery e PostgreSQL",
       "Rotinas para que os números batam entre as áreas",
     ],
-    href: "/projetos",
+    href: "/projetos?tipo=dados",
   },
 ];

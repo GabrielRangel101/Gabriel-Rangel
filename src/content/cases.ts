@@ -17,6 +17,8 @@ export type CaseStudy = {
   // Título do bloco de resultados e, quando houver, o impacto medido de verdade em um cliente.
   resultLabel: string;
   impact?: string[];
+  // Nota do bloco de impacto quando o texto padrão não cabe (ex.: medições de engenharia).
+  impactNote?: string;
   role: string;
   // Lista curta da aba Detalhes Técnicos.
   highlights: string[];
@@ -24,7 +26,8 @@ export type CaseStudy = {
   decision: string;
   result: string[];
   stack: string[];
-  demo: {
+  // Projetos sem tela (ex.: pipeline de dados) não têm demo embutida; mostram um diagrama no lugar.
+  demo?: {
     embedUrl: string;
     autoUrl?: string;
     // Botões extras ao lado do principal (ex.: versão para celular).
@@ -35,6 +38,7 @@ export type CaseStudy = {
     ratio?: string;
     dataLabel?: string;
   };
+  diagram?: { src: string; alt: string };
   repoUrl?: string;
   // Depoimento opcional (só com autorização de quem falou).
   testimonial?: { quote: string; author: string };
@@ -538,6 +542,90 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
         title: "Limites",
         paragraphs: [
           "Não há testes automatizados nem migrações versionadas no repositório. O Pix recorrente está indisponível, e o bot de WhatsApp com IA ainda não está em produção, porque depende de aprovação da Meta. Não há app nativo de loja: o app é web e instalável.",
+        ],
+      },
+    ],
+  },
+  "erp-pipeline-varejo": {
+    description: [
+      "Pipeline que integra o ERP de um supermercado a um data warehouse em estrela: extração incremental, camada de qualidade com quarentena e uma conferência que derruba a carga quando a conta não fecha. Usa Postgres, Python e SQL puro, sem dbt, sem orquestrador e sem serviço pago.",
+      "Os dados são 100% sintéticos: o “ERP A” é um banco gerado pelo próprio repositório, desenhado para imitar um ERP legado, inclusive nos defeitos. Não há empresa real nem dado pessoal. O código é público no GitHub e foi construído com apoio do Claude Code (os commits registram a coautoria).",
+    ],
+    status: "Código público no GitHub",
+    dataKind: "Sintético",
+    period: "30 e 120 dias (duas escalas)",
+    resultLabel: "Medições do pipeline",
+    impactNote:
+      "Sem métrica de impacto em cliente. Os números acima são medições de engenharia, feitas em dados sintéticos e registradas no repositório.",
+    role: "Projeto autoral de engenharia de dados, com apoio de IA",
+    highlights: [
+      "Extração incremental com janela de reprocessamento sobre a data de alteração",
+      "Toda linha da origem vira fato ou vira quarentena, com o código da regra que a reprovou",
+      "Conferência por dia e loja, em contagem e valor, que derruba a carga se a conta não fecha",
+      "Mapeamento origem → staging em um arquivo YAML",
+      "Origem lida por usuário somente leitura, com teste que tenta escrever e exige a recusa",
+      "CI no GitHub Actions que roda os testes e exige que a carga com atraso fora da janela reprove",
+    ],
+    problem:
+      "Em integração de ERP, os erros que machucam são silenciosos: uma venda gravada com data de alteração retroativa nunca é lida pela carga incremental, cancelar a venda atualiza só o cabeçalho e a receita fica inflada, e um item que aponta para produto ainda não cadastrado some num JOIN sem deixar rastro.",
+    decision:
+      "Organizei o desenho em torno de uma pergunta com resposta sim ou não: origem = destino + quarentena, por dia e por loja. O staging é persistente para reavaliar a quarentena, o fato mantém os cancelados e a marca-d’água só avança se a conferência passa.",
+    result: [
+      "Na escala de 1 milhão de itens de venda, a carga completa levou 69,51 s, um dia de operação (72 mil itens novos) entrou em 12,71 s e a conferência da história inteira levou 2,52 s.",
+      "Quando o gerador injeta uma venda com 15 dias de atraso e a janela é de 7, a carga reprova com código de saída 1, aponta o dia e quantas linhas faltam, e a marca-d’água não avança.",
+      "O repositório reporta 107 testes, e o CI no GitHub Actions está verde.",
+      "Três achados mudaram o código, como a dimensão recarregada sem ANALYZE, que custava 57 s por carga, e o PGHOST=localhost, que custava 10 s por conexão.",
+    ],
+    stack: [
+      "Python 3.13",
+      "PostgreSQL 16",
+      "SQL",
+      "Docker",
+      "GitHub Actions",
+      "psycopg 3",
+      "YAML",
+    ],
+    diagram: {
+      src: "/cases/erp-pipeline.svg",
+      alt: "Fluxo do pipeline: ERP de origem, staging, camada tratada, estrela e conferência",
+    },
+    repoUrl: "https://github.com/GabrielRangel101/erp-pipeline-varejo",
+    technical: [
+      {
+        title: "Camadas",
+        paragraphs: [
+          "Cada camada tem um trabalho só. O staging (stg) copia e não julga, é persistente e guarda nomes canônicos. A camada tratada (trt) valida e tipa, e manda a linha recusada para a quarentena com o motivo. A estrela (dw) tem 2 fatos e 3 dimensões, com calendário e feriados nacionais. O controle (ctl) registra execuções, marca-d’água e conferência.",
+        ],
+        code: "erp_origem → stg → trt → dw (estrela)\n                  ↘ quarentena (relida a cada carga)\nconferência: origem = destino + quarentena, por dia e loja",
+      },
+      {
+        title: "Conferência",
+        paragraphs: [
+          "A carga compara origem e destino por dia e por loja, em contagem e em valor. Se não fecha, sai com código 1 e a marca-d’água fica parada. Como tudo é upsert por chave natural, reler uma carga que morreu no meio não duplica nada.",
+        ],
+      },
+      {
+        title: "Segurança",
+        paragraphs: [
+          "O pipeline lê a origem com um usuário que só tem SELECT, garantido por GRANT e por um teste que tenta escrever e exige que o banco recuse. As credenciais entram só por variável de ambiente, e o CI não usa nenhum secret.",
+        ],
+      },
+      {
+        title: "Como integrar um ERP novo",
+        list: [
+          "Levantar tabelas, chaves e a coluna que o ERP carimba quando a linha muda",
+          "Escrever o mapeamento em um arquivo de conector YAML",
+          "Rodar a carga completa, que já termina com a conferência",
+          "Conferir os totais e a quarentena com quem conhece o negócio",
+          "Ligar o incremental",
+          "Liberar o agendamento só depois de ver a conferência fechar em cargas seguidas",
+        ],
+      },
+      {
+        title: "Limites",
+        paragraphs: [
+          "O fato de estoque é denso e não escala para milhões de pares por anos. A conferência de estoque vai até a camada tratada, não até a estrela. Origem e DW ficam no mesmo servidor Postgres, embora em bancos separados. A invalidação não cascateia: se um cadastro válido passa a inválido, os fatos antigos continuam na estrela. O arquivo de conector é código, porque aceita expressões SQL.",
+          "Ainda falta provar o conector com um segundo ERP de layout diferente: o vocabulário do ERP está no código de tratamento e não no YAML, e a marca-d’água assume timestamp. Os dados são sintéticos, e as medições vêm de uma única máquina.",
         ],
       },
     ],

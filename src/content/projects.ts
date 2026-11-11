@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
 import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
 import gestaoBarbeariaImage from "@/assets/cases/barbearia-gestao.png";
+import erpPipelineImage from "@/assets/cases/erp-pipeline.png";
 import lookerPedidosImage from "@/assets/cases/looker-pedidos.png";
 import saborImage from "@/assets/cases/sabor-da-casa.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
@@ -111,6 +112,16 @@ export const projects: Project[] = [
       "R$ 28,79 mi de receita, 99% da meta",
     synthetic: true,
     image: saleslabImage,
+  },
+  {
+    slug: "erp-pipeline-varejo",
+    title: "Pipeline de Integração com ERP de Varejo",
+    type: "dados",
+    summary:
+      "Integra o ERP de um supermercado a um data warehouse em estrela, com quarentena e uma conferência que derruba a carga quando a conta não fecha. Código público no GitHub.",
+    headline: "1 milhão de itens carregados em 69,51 s",
+    synthetic: true,
+    image: erpPipelineImage,
   },
   {
     slug: "relatorio-pedidos",

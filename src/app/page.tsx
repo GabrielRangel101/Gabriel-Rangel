@@ -72,12 +72,12 @@ export default function Home() {
           </div>
           <div className="max-lg:hidden">
             <DemoFrame
-              fallbackHref={cases["gazeta-meridiano"].demo.embedUrl}
+              fallbackHref={cases["gazeta-meridiano"].demo!.embedUrl}
               fallbackLabel="Abrir o dashboard em nova aba"
             >
               <ScaledFrame
-                src={cases["gazeta-meridiano"].demo.embedUrl}
-                title={cases["gazeta-meridiano"].demo.title}
+                src={cases["gazeta-meridiano"].demo!.embedUrl}
+                title={cases["gazeta-meridiano"].demo!.title}
               />
             </DemoFrame>
           </div>
