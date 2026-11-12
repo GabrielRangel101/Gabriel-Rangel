@@ -3,6 +3,7 @@ import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
 import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
 import gestaoBarbeariaImage from "@/assets/cases/barbearia-gestao.png";
 import erpPipelineImage from "@/assets/cases/erp-pipeline.png";
+import trechoImage from "@/assets/cases/trecho-logistica.png";
 import lookerPedidosImage from "@/assets/cases/looker-pedidos.png";
 import saborImage from "@/assets/cases/sabor-da-casa.png";
 import auroraImage from "@/assets/cases/mercado-aurora.png";
@@ -122,6 +123,16 @@ export const projects: Project[] = [
     headline: "1 milhão de itens carregados em 83,48 s",
     synthetic: true,
     image: erpPipelineImage,
+  },
+  {
+    slug: "trecho-logistica",
+    title: "Trecho Logística",
+    type: "sistema",
+    summary:
+      "Inteligência de entregas e frete: dashboard de e-commerce do ponto de vista de uma transportadora, com mapa do Brasil, prazo contra a promessa, margem por rota e um simulador “vale a pena?”. Dados simulados, código público.",
+    headline: "91,8% no prazo contra meta de 95%",
+    synthetic: true,
+    image: trechoImage,
   },
   {
     slug: "relatorio-pedidos",

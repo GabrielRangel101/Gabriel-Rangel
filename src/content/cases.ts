@@ -661,6 +661,87 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       },
     ],
   },
+  "trecho-logistica": {
+    description: [
+      "Dashboard de entregas, frete e custo do ponto de vista de uma transportadora que atende e-commerce, em um único arquivo HTML de cerca de 1 MB, sem back-end e sem banco. Tem um mapa 3D do Brasil com um caminhão por pedido a caminho, uma Mesa de análise (Ctrl K) em que perguntas em texto viram consultas, e um simulador “vale a pena?” que mostra quando acelerar a entrega compensa e quando não.",
+      "Os dados são simulados: 99.090 pedidos de jan/2017 a ago/2018, gerados por um script e calibrados em estatísticas públicas do Olist (valores de referência escritos à mão, não extraídos do dataset). O custo por pedido e a margem nacional de 22% são premissas do modelo, não medições. O mapa animado é uma simulação sobre esses dados, não rastreamento ao vivo. Projeto pessoal, com código público no GitHub e escrito com apoio do Claude, sob minha direção.",
+    ],
+    status: "Código público no GitHub",
+    dataKind: "Sintético",
+    period: "jan/2017 a ago/2018 (simulado)",
+    resultLabel: "O que o painel mostra",
+    impactNote:
+      "Sem métrica de impacto em cliente. Os números acima vêm de dados simulados e de um modelo de custo com premissas declaradas, não de medição em operação real.",
+    role: "Projeto pessoal de dashboard e análise, com apoio de IA",
+    highlights: [
+      "Cinco telas: visão geral, prazo e SLA, receita e custo, rotas e simulador",
+      "Atraso, prazo, folga e margem calculados no navegador a partir de um cubo de agregados",
+      "Intervalo de Wilson de 95% e mínimo de 100 pedidos para ranquear corredores",
+      "Mesa de análise com 20 ferramentas tipadas, sem LLM em execução",
+      "Simulador com piso físico: ninguém ganha dias abaixo do mínimo possível",
+      "Arquivo único em HTML, CSS e JavaScript, sem framework, sem back-end e sem chave de API",
+    ],
+    problem:
+      "Uma transportadora que atende e-commerce precisa saber onde a promessa de prazo falha, por região e por corredor, se o frete cobrado paga o custo e quanto vale reduzir dias de postagem ou de transporte. Em planilha, essas três perguntas ficam em arquivos separados.",
+    decision:
+      "Juntei as três perguntas em um só painel que lê um cubo de agregados (mês × UF), com as fórmulas à vista: atraso é atrasados sobre entregues, folga é prometido menos real, e a margem nacional de 22% entra como premissa e calibra o custo, em vez de aparecer como resultado. Para o ranking de corredores, uso o intervalo de Wilson e o mínimo de 100 pedidos, para que um corredor com poucos pedidos não ganhe posição por sorte.",
+    result: [
+      "Na visão geral, 91,8% das entregas chegam no prazo, contra a meta de 95%, com 7.860 atrasos. O prazo médio é de 12,2 dias contra 22,5 prometidos, com frete de R$ 2,37 mi, GMV de R$ 13,51 mi e nota média de 4,09.",
+      "No cenário padrão do simulador o ganho é pequeno, +R$ 257,99, com o custo de um atraso (R$ 20, premissa) à vista, e a própria tela diz que o equilíbrio está perto: acelerar só compensa se um atraso custar mais que isso.",
+    ],
+    stack: [
+      "Python",
+      "JavaScript",
+      "SVG",
+      "HTML",
+      "CSS",
+      "Vercel",
+    ],
+    demo: {
+      embedUrl: "https://trecho-logistica.vercel.app/",
+      title: "Dashboard Trecho Logística, inteligência de entregas e frete",
+      openLabel: "Abrir demo ao vivo",
+      dataLabel: "Dados simulados",
+    },
+    repoUrl: "https://github.com/GabrielRangel101/trecho-logistica",
+    technical: [
+      {
+        title: "Dados e arquitetura",
+        paragraphs: [
+          "Um script em Python (semente 42) gera os pedidos em memória e grava só os agregados em um data.json de 701 KB: cubo de 20 meses × 27 UFs, 3.507 linhas de corredor, 5.343 de categoria e 80 vendedores por mês. Um build concatena tudo em um único index.html, que calcula os indicadores no navegador. O mapa é um SVG desenhado à mão, sem biblioteca de mapa e sem fonte de tiles.",
+          "Existe também um script de ETL para o conjunto real do Olist, que gera o mesmo data.json. Ele foi testado só com um CSV falso de 6.000 pedidos; nunca foi rodado com o Olist real.",
+        ],
+      },
+      {
+        title: "Piso físico no simulador",
+        paragraphs: [
+          "O ganho de dias é limitado pelo mínimo físico de cada etapa, então o simulador não promete reduzir o que já está no piso.",
+        ],
+        code: "const gt = on ? Math.min(tv, Math.max(0, c.trans - c.floorT)) : 0,\n      gh = on ? Math.min(hv, Math.max(0, c.hand - FLOOR.hand)) : 0;",
+      },
+      {
+        title: "Calibração do custo",
+        paragraphs: [
+          "A margem nacional de 22% é uma premissa de entrada. O coeficiente do custo é calibrado para chegar nela, então a margem por região mostra a diferença entre rotas, não a margem real de uma operação.",
+        ],
+        code: "COST.b = Math.max(0, ((1 - MARGEM_REF) * fr - COST.a * del) / (CIRCK() * (kw || 1)));",
+      },
+      {
+        title: "Mesa de análise",
+        paragraphs: [
+          "É um interpretador de perguntas por regras, com 20 ferramentas tipadas, e todo número é calculado no navegador. Nada aqui chama um modelo de linguagem. O botão “Copiar contexto” só monta um texto para colar em um chat de IA fora do projeto.",
+        ],
+      },
+      {
+        title: "Limites",
+        paragraphs: [
+          "Não há login, upload de dados, tempo real, previsão nem testes automatizados; as verificações que rodei (carregar as cinco telas, interações, 26 perguntas na Mesa e largura de 390 px sem rolagem horizontal) não ficam no projeto.",
+          "Custo e margem são modelo, não medição. Os achados de vendedor (r ≈ 0,80) e de capacidade (r ≈ 0,02) são construídos pelo gerador de dados. A triagem com 100% de acerto no simulador é um teto otimista, e as distâncias são em linha reta × 1,3. Não existem OTIF nem atraso por transportadora, porque o Olist não traz esses dados.",
+          "Os dados têm período fixo. A fonte Archivo e a JetBrains Mono vêm do Google Fonts.",
+        ],
+      },
+    ],
+  },
   "relatorio-pedidos": {
     description: [
       "Relatório no Looker Studio para uma loja online fictícia (Verdi Shop), em 6 páginas, alimentado por views no BigQuery. Compara a receita do mês com a do mês anterior e mostra quem e o que a sustenta, quanto está preso em pedidos abertos e onde o preço pago foge da tabela.",
