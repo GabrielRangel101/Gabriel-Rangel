@@ -563,9 +563,14 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
     role:
       "Autor da integração em produção e desta reconstrução aberta, feita com apoio de IA",
     highlights: [
+      "Publicação atômica: estrela, conferência e marca-d’água num COMMIT só, "
+        + "então a carga que reprova não deixa nada publicado",
       "Extração incremental com janela de reprocessamento sobre a data de alteração",
       "Toda linha da origem vira fato ou vira quarentena, com o código da regra que a reprovou",
       "Conferência por dia e loja, em contagem e valor, que derruba a carga se a conta não fecha",
+      "Origem lida num retrato fixo (REPEATABLE READ), para que uma venda gravada "
+        + "durante a carga não vire falso positivo na conferência",
+      "Quatro consultas de negócio em SQL sobre a estrela, com a saída medida no repositório",
       "Mapeamento origem → staging em um arquivo YAML",
       "Origem lida por usuário somente leitura, com teste que tenta escrever e exige a recusa",
       "CI no GitHub Actions que roda os testes e exige que a carga com atraso fora da janela reprove",
@@ -576,8 +581,9 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Organizei o desenho em torno de uma pergunta com resposta sim ou não: origem = destino + quarentena, por dia e por loja. O staging é persistente para reavaliar a quarentena, o fato mantém os cancelados e a marca-d’água só avança se a conferência passa.",
     result: [
       "Na escala de 1 milhão de itens de venda, a carga completa levou 83,48 s, um dia de operação (72 mil itens novos) entrou em 14,42 s e a conferência da história inteira levou 2,52 s. O mesmo comando varia conforme o estado da máquina, e o repositório registra a faixa inteira em vez do melhor número.",
-      "Quando o gerador injeta uma venda com 15 dias de atraso e a janela é de 7, a carga reprova com código de saída 1, aponta o dia e quantas linhas faltam, e a marca-d’água não avança.",
+      "Quando o gerador injeta uma venda com 15 dias de atraso e a janela é de 7, a carga reprova com código de saída 1, aponta o dia e quantas linhas faltam, e a marca-d’água não avança. O DW fica exatamente como estava: o CI tira um retrato do banco antes e depois da carga reprovada e exige que sejam idênticos.",
       "O repositório reporta 111 testes, e o CI no GitHub Actions está verde.",
+      "As quatro consultas de negócio sobre a estrela respondem em menos de 1,2 s sobre 1.000.016 linhas de venda e 720.000 de estoque, sem índice extra e sem materialização.",
       "Três achados mudaram o código, como a dimensão recarregada sem ANALYZE, que custava 57 s por carga, e o PGHOST=localhost, que custava 10 s por conexão.",
     ],
     stack: [
@@ -609,6 +615,26 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
         ],
       },
       {
+        title: "Publicação atômica",
+        paragraphs: [
+          "Conferir depois de publicar não serve de muita coisa: o relatório já estaria errado quando o alerta chegasse. Por isso a limpeza da estrela, a carga dos fatos, a conferência e a marca-d’água acontecem dentro de uma transação só. Quem consulta o DW durante a carga continua vendo o estado anterior inteiro, e o estado novo aparece de uma vez, no COMMIT.",
+          "A limpeza da carga completa usa DELETE e não TRUNCATE, porque TRUNCATE pega ACCESS EXCLUSIVE e prenderia os leitores durante toda a carga. O VACUUM (ANALYZE) vem depois do commit, já fora da transação. O registro da execução (ctl.execucao, ctl.etapa, ctl.conferencia) sai por uma segunda conexão em autocommit, senão o ROLLBACK que protege o DW apagaria junto o diagnóstico de por que a carga falhou.",
+        ],
+        code: "extração → staging → tratada        (commit por entidade)\n────────── transação de publicação ──────────\nlimpeza → estrela → conferência → marca-d’água\n                                   └─ COMMIT  ou  ROLLBACK inteiro",
+      },
+      {
+        title: "O que a estrela responde",
+        paragraphs: [
+          "Um pipeline que ninguém consulta não provou nada. São quatro consultas em SQL puro, com a saída real medida sobre 1 milhão de itens e registrada no repositório. Cada uma existe para defender uma decisão do modelo:",
+        ],
+        list: [
+          "Receita, margem e ticket por loja e mês — por que o fato guarda o item cancelado em vez de apagá-lo: em um mês, na loja maior, são R$ 37 mil que um pipeline ingênuo somaria a mais",
+          "Onde a rede perde venda por ruptura — por que o fato de estoque é denso: ruptura é ausência de venda, e ausência não tem linha num fato esparso",
+          "Curva de venda na semana e no mês — que a sazonalidade da origem chega intacta na estrela, depois de staging, quarentena, upsert e incremental",
+          "O que a quarentena segurou, e quanto vale — que linha recusada tem endereço, motivo e valor, e nenhum JOIN descarta nada em silêncio",
+        ],
+      },
+      {
         title: "Segurança",
         paragraphs: [
           "O pipeline lê a origem com um usuário que só tem SELECT, garantido por GRANT e por um teste que tenta escrever e exige que o banco recuse. As credenciais entram só por variável de ambiente, e o CI não usa nenhum secret.",
@@ -629,7 +655,8 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
         title: "Limites",
         paragraphs: [
           "O fato de estoque é denso e não escala para milhões de pares por anos. A conferência de estoque vai até a camada tratada, não até a estrela. Origem e DW ficam no mesmo servidor Postgres, embora em bancos separados. A invalidação não cascateia: se um cadastro válido passa a inválido, os fatos antigos continuam na estrela. O arquivo de conector é código, porque aceita expressões SQL.",
-          "Ainda falta provar o conector com um segundo ERP de layout diferente: o vocabulário do ERP está no código de tratamento e não no YAML, e a marca-d’água assume timestamp. Os dados são sintéticos, e as medições vêm de uma única máquina.",
+          "A publicação em uma transação só tem preço: nada é liberado antes do COMMIT, então o tamanho de uma carga passa a ser limitado por WAL e espaço em disco. Em volume muito maior, o caminho é publicar por partição, uma transação por mês ou por loja. O retrato fixo da origem também cobra: ele segura o xmin do ERP durante a carga inteira, e resolve para origem Postgres — para outro motor, o caminho portável seria um corte em data de alteração aplicado dos dois lados.",
+          "Ainda falta provar o conector com um segundo ERP de layout diferente: o vocabulário do ERP está no código de tratamento e não no YAML, e a marca-d’água assume timestamp. Os dados são sintéticos, as medições vêm de uma única máquina, e o próprio gerador tem um defeito registrado: ele compra menos do que vende, então o nível de ruptura que as consultas mostram é artefato do dado sintético, não retrato de supermercado.",
         ],
       },
     ],
