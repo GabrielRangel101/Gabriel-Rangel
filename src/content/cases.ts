@@ -548,7 +548,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
   },
   "erp-pipeline-varejo": {
     description: [
-      "Pipeline que integra o ERP de um supermercado a um data warehouse em estrela: extração incremental, camada de qualidade com quarentena e uma conferência que derruba a carga quando a conta não fecha. Usa Postgres, Python e SQL puro, sem dbt, sem orquestrador e sem serviço pago.",
+      "Reconstrução aberta de uma integração de ERP que entreguei em produção. O pipeline integra o ERP de um supermercado a um data warehouse em estrela: extração incremental, camada de qualidade com quarentena e uma conferência que derruba a carga quando a conta não fecha. Usa Postgres, Python e SQL puro, sem dbt, sem orquestrador e sem serviço pago.",
       "Os dados são 100% sintéticos: o “ERP A” é um banco gerado pelo próprio repositório, desenhado para imitar um ERP legado, inclusive nos defeitos. Nenhum dado de empresa real e nenhum dado pessoal entram no repositório. O código é público no GitHub e foi construído com apoio do Claude Code (os commits registram a coautoria).",
     ],
     status: "Código público no GitHub",
@@ -560,7 +560,8 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "O ganho foi tirar trabalho repetitivo da frente dos analistas de dados. Eles deixaram de remontar a base a cada atualização e passaram a trabalhar em cima de dado já integrado e conferido.",
       "O que está publicado aqui é uma reconstrução sobre um ERP sintético, para que o código pudesse ser aberto: as mesmas armadilhas e as mesmas decisões, com dados gerados pelo próprio repositório. Os tempos e volumes do bloco ao lado são medições de engenharia sobre esses dados sintéticos, registradas em docs/resultados.md — não são métricas de negócio da empresa.",
     ],
-    role: "Projeto autoral de engenharia de dados, com apoio de IA",
+    role:
+      "Autor da integração em produção e desta reconstrução aberta, feita com apoio de IA",
     highlights: [
       "Extração incremental com janela de reprocessamento sobre a data de alteração",
       "Toda linha da origem vira fato ou vira quarentena, com o código da regra que a reprovou",

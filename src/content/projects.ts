@@ -119,7 +119,7 @@ export const projects: Project[] = [
     type: "dados",
     summary:
       "Integra o ERP de um supermercado a um data warehouse em estrela, com quarentena e uma conferência que derruba a carga quando a conta não fecha. Código público no GitHub.",
-    headline: "1 milhão de itens carregados em 69,51 s",
+    headline: "1 milhão de itens carregados em 83,48 s",
     synthetic: true,
     image: erpPipelineImage,
   },
