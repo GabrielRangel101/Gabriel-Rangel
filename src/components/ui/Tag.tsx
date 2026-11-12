@@ -1,5 +1,6 @@
 import type { ComponentType, SVGProps } from "react";
 import {
+  ActivityIcon,
   BarChartIcon,
   DatabaseIcon,
   LayersIcon,
@@ -16,6 +17,7 @@ export const caseTypes = {
   agente: { label: "Agentes e MCP", Icon: WorkflowIcon },
   sistema: { label: "Sistema", Icon: LayersIcon },
   dados: { label: "Engenharia de dados", Icon: DatabaseIcon },
+  experimento: { label: "Experimentos e causalidade", Icon: ActivityIcon },
 } satisfies Record<
   string,
   { label: string; Icon: ComponentType<SVGProps<SVGSVGElement>> }

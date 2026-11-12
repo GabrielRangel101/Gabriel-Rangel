@@ -3,6 +3,7 @@ import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
 import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
 import gestaoBarbeariaImage from "@/assets/cases/barbearia-gestao.png";
 import erpPipelineImage from "@/assets/cases/erp-pipeline.png";
+import abTestImage from "@/assets/cases/teste-ab-assinaturas.png";
 import trechoImage from "@/assets/cases/trecho-logistica.png";
 import lookerPedidosImage from "@/assets/cases/looker-pedidos.png";
 import saborImage from "@/assets/cases/sabor-da-casa.png";
@@ -133,6 +134,16 @@ export const projects: Project[] = [
     headline: "91,8% no prazo contra meta de 95%",
     synthetic: true,
     image: trechoImage,
+  },
+  {
+    slug: "teste-ab-assinaturas",
+    title: "Teste A/B e Impacto: Assinaturas",
+    type: "experimento",
+    summary:
+      "Teste A/B de um novo checkout e mensuração de impacto de uma política de retenção por diferenças-em-diferenças, com SRM, CUPED, bootstrap, correção de Holm e 26 testes. Dados sintéticos, código aberto.",
+    headline: "+0,82 p.p. de conversão, p = 0,0009",
+    synthetic: true,
+    image: abTestImage,
   },
   {
     slug: "relatorio-pedidos",

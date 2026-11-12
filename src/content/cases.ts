@@ -745,6 +745,80 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       },
     ],
   },
+  "teste-ab-assinaturas": {
+    description: [
+      "Análise de experimentação para um jornal digital fictício (Gazeta Meridiano), em duas partes: um teste A/B de um novo fluxo de checkout (menos etapas e ancoragem de preço) e a mensuração do impacto de um desconto de reativação sobre a retenção, por diferenças-em-diferenças. A decisão em jogo era lançar ou não cada mudança.",
+      "Os dados são 100% sintéticos, gerados por scripts em Python com semente fixa, e os efeitos foram plantados de propósito: +0,6 p.p. de conversão no A/B e +3,5 p.p. de retenção no DiD. O que o projeto mostra é que o método recupera o efeito certo (mediu +0,82 e +3,35 p.p.), e não uma descoberta sobre o mundo real. O código foi escrito com apoio do Claude, sob minha direção, e a demo é um relatório estático com uma calculadora de poder interativa.",
+    ],
+    status: "Código público no GitHub",
+    dataKind: "Sintético",
+    period: "21 dias (A/B) e 24 meses (DiD)",
+    resultLabel: "O que a análise mostra",
+    impactNote:
+      "Sem impacto medido em operação real: os dados são sintéticos e o valor em R$ é uma projeção feita com premissas declaradas (base anual, ticket de R$ 29,90 e 12 meses de vida útil), não um resultado.",
+    role: "Projeto pessoal de análise estatística, com apoio de IA",
+    highlights: [
+      "Tamanho de amostra e poder calculados antes, com checagem de SRM no resultado",
+      "Teste de duas proporções com IC 95%, CUPED e bootstrap",
+      "Guardrails (cancelamento em 30 dias e ARPU) avaliados junto da métrica principal",
+      "Análise por segmento com correção de Holm: 1 segmento significativo sem correção, 0 depois",
+      "Simulações de erros comuns: SRM injetado, peeking e subpotência",
+      "DiD com efeitos fixos, erros clusterizados por região e teste de tendências paralelas",
+    ],
+    problem:
+      "Duas decisões de produto precisavam de uma resposta honesta: o novo checkout converte mais, e o desconto de reativação retém mais? Comparar antes e depois, ou olhar o p-valor todo dia, leva a decidir com um efeito que pode ser acaso.",
+    decision:
+      "Desenhei o experimento antes de olhar o resultado: randomização determinística por hash do usuário, amostra planejada para detectar +0,6 p.p. com 80% de poder, checagem de SRM e guardrails definidos de antemão. Para a retenção, usei diferenças-em-diferenças com erros clusterizados, e os segmentos olhados depois do resultado passaram por correção de Holm e não entram na decisão.",
+    result: [
+      "Checkout: a conversão foi de 4,384% para 5,203%, +0,819 p.p. (IC 95% de +0,337 a +1,302; p = 0,00088), em 30.103 usuários. O SRM não indicou desbalanceamento (p = 0,127) e os guardrails não pioraram. O poder observado foi de 72,4%, abaixo dos 80% planejados, porque a amostra rodada ficou menor que a calculada.",
+      "Retenção: o DiD mediu +3,346 p.p. (IC 95% de +3,100 a +3,591), em 12 regiões por 24 meses, e a premissa de tendências paralelas não foi rejeitada (p = 0,76).",
+      "Peeking: em 1.000 experimentos A/A simulados, olhar o p-valor todo dia elevou o falso positivo de 5% para 23%.",
+      "Projeção, não medição: com as premissas declaradas, os efeitos equivalem a cerca de R$ 1,47 mi por ano no checkout e R$ 1,80 mi por ano na reativação. São alavancas distintas e não se somam.",
+    ],
+    stack: [
+      "Python",
+      "pandas",
+      "NumPy",
+      "SciPy",
+      "statsmodels",
+      "Jupyter",
+      "pytest",
+    ],
+    demo: {
+      embedUrl: "/demos/ab-test-assinaturas.html",
+      title: "Relatório do teste A/B e do impacto em assinaturas",
+      openLabel: "Abrir relatório",
+      dataLabel: "Dados sintéticos",
+    },
+    repoUrl: "https://github.com/GabrielRangel101/ab-test-assinaturas",
+    technical: [
+      {
+        title: "Dados e reprodutibilidade",
+        paragraphs: [
+          "Os scripts de simulação usam numpy com semente 42 e parâmetros centralizados em um arquivo de configuração. A atribuição ao grupo vem de um hash SHA-256 do usuário, então a mesma semente gera o mesmo split. O A/B tem 30.103 usuários (14.919 no controle e 15.184 no tratamento), e o DiD é um painel de 288 linhas.",
+        ],
+      },
+      {
+        title: "Tamanho de amostra e SRM",
+        paragraphs: [
+          "O tamanho de amostra sai do poder de um teste de duas proporções, e a integridade do split é checada por qui-quadrado.",
+        ],
+        code: "effect_size = proportion_effectsize(p2, p1)\nNormalIndPower().solve_power(effect_size, alpha=0.05, power=0.8)  # 17.923 por braço",
+      },
+      {
+        title: "Testes e verificação",
+        paragraphs: [
+          "O projeto tem 26 testes automatizados (pytest), que rodei em um ambiente limpo e passaram, e dois notebooks executáveis de ponta a ponta. A demo traz uma calculadora de poder em JavaScript que reproduz o poder do projeto (79,96% com 17.923 por braço e 72,4% com 14.919).",
+        ],
+      },
+      {
+        title: "Limites",
+        paragraphs: [
+          "Dados sintéticos não provam nada sobre uma empresa real. O A/B cobre 21 dias de conversão e não diz nada sobre retenção de longo prazo, efeito de novidade ou sazonalidade. Nenhum achado por segmento sobrevive à correção de Holm. O DiD depende da suposição de tendências paralelas, testada e não rejeitada, mas ainda assim uma suposição.",
+        ],
+      },
+    ],
+  },
   "relatorio-pedidos": {
     description: [
       "Relatório no Looker Studio para uma loja online fictícia (Verdi Shop), em 6 páginas, alimentado por views no BigQuery. Compara a receita do mês com a do mês anterior e mostra quem e o que a sustenta, quanto está preso em pedidos abertos e onde o preço pago foge da tabela.",

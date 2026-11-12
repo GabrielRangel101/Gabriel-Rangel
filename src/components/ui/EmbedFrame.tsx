@@ -29,6 +29,7 @@ export function EmbedFrame({
   const [ready, setReady] = useState(false);
   const [scale, setScale] = useState(0.5);
   const boxRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<HTMLIFrameElement>(null);
   const scaled = baseWidth !== undefined && baseHeight !== undefined;
 
   useEffect(() => {
@@ -40,6 +41,18 @@ export function EmbedFrame({
     observer.observe(box);
     return () => observer.disconnect();
   }, [scaled, baseWidth]);
+
+  // Iframes do mesmo domínio podem terminar de carregar antes da hidratação, e o onLoad se perde.
+  // Nesse caso o documento já está completo; em domínio de terceiros o acesso falha e vale o onLoad.
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      try {
+        const doc = frameRef.current?.contentDocument;
+        if (doc && doc.readyState === "complete" && doc.location.href !== "about:blank") setLoaded(true);
+      } catch {}
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (!loaded) return;
@@ -68,6 +81,7 @@ export function EmbedFrame({
         </Skeleton>
       )}
       <iframe
+        ref={frameRef}
         src={src}
         title={title}
         loading="lazy"
