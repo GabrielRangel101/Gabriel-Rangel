@@ -549,14 +549,17 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
   "erp-pipeline-varejo": {
     description: [
       "Pipeline que integra o ERP de um supermercado a um data warehouse em estrela: extração incremental, camada de qualidade com quarentena e uma conferência que derruba a carga quando a conta não fecha. Usa Postgres, Python e SQL puro, sem dbt, sem orquestrador e sem serviço pago.",
-      "Os dados são 100% sintéticos: o “ERP A” é um banco gerado pelo próprio repositório, desenhado para imitar um ERP legado, inclusive nos defeitos. Não há empresa real nem dado pessoal. O código é público no GitHub e foi construído com apoio do Claude Code (os commits registram a coautoria).",
+      "Os dados são 100% sintéticos: o “ERP A” é um banco gerado pelo próprio repositório, desenhado para imitar um ERP legado, inclusive nos defeitos. Nenhum dado de empresa real e nenhum dado pessoal entram no repositório. O código é público no GitHub e foi construído com apoio do Claude Code (os commits registram a coautoria).",
     ],
     status: "Código público no GitHub",
     dataKind: "Sintético",
     period: "30 e 120 dias (duas escalas)",
     resultLabel: "Medições do pipeline",
-    impactNote:
-      "Sem métrica de impacto em cliente. Os números acima são medições de engenharia, feitas em dados sintéticos e registradas no repositório.",
+    impact: [
+      "O desenho deste pipeline não nasceu no repositório. Ele veio de uma integração de ERP que entreguei em produção: o ERP passou a alimentar as visões de Power BI da empresa direto da base, em vez de depender de extração manual.",
+      "O ganho foi tirar trabalho repetitivo da frente dos analistas de dados. Eles deixaram de remontar a base a cada atualização e passaram a trabalhar em cima de dado já integrado e conferido.",
+      "O que está publicado aqui é uma reconstrução sobre um ERP sintético, para que o código pudesse ser aberto: as mesmas armadilhas e as mesmas decisões, com dados gerados pelo próprio repositório. Os tempos e volumes do bloco ao lado são medições de engenharia sobre esses dados sintéticos, registradas em docs/resultados.md — não são métricas de negócio da empresa.",
+    ],
     role: "Projeto autoral de engenharia de dados, com apoio de IA",
     highlights: [
       "Extração incremental com janela de reprocessamento sobre a data de alteração",
@@ -571,9 +574,9 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
     decision:
       "Organizei o desenho em torno de uma pergunta com resposta sim ou não: origem = destino + quarentena, por dia e por loja. O staging é persistente para reavaliar a quarentena, o fato mantém os cancelados e a marca-d’água só avança se a conferência passa.",
     result: [
-      "Na escala de 1 milhão de itens de venda, a carga completa levou 69,51 s, um dia de operação (72 mil itens novos) entrou em 12,71 s e a conferência da história inteira levou 2,52 s.",
+      "Na escala de 1 milhão de itens de venda, a carga completa levou 83,48 s, um dia de operação (72 mil itens novos) entrou em 14,42 s e a conferência da história inteira levou 2,52 s. O mesmo comando varia conforme o estado da máquina, e o repositório registra a faixa inteira em vez do melhor número.",
       "Quando o gerador injeta uma venda com 15 dias de atraso e a janela é de 7, a carga reprova com código de saída 1, aponta o dia e quantas linhas faltam, e a marca-d’água não avança.",
-      "O repositório reporta 107 testes, e o CI no GitHub Actions está verde.",
+      "O repositório reporta 111 testes, e o CI no GitHub Actions está verde.",
       "Três achados mudaram o código, como a dimensão recarregada sem ANALYZE, que custava 57 s por carga, e o PGHOST=localhost, que custava 10 s por conexão.",
     ],
     stack: [
