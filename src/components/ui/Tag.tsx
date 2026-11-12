@@ -12,7 +12,7 @@ import {
 export const caseTypes = {
   "power-bi": { label: "Power BI", Icon: BarChartIcon },
   looker: { label: "Looker", Icon: PieChartIcon },
-  "web-ia": { label: "Web com IA", Icon: SparkIcon },
+  "web-ia": { label: "Dashboard web", Icon: SparkIcon },
   agente: { label: "Agentes e MCP", Icon: WorkflowIcon },
   sistema: { label: "Sistema", Icon: LayersIcon },
   dados: { label: "Engenharia de dados", Icon: DatabaseIcon },

@@ -127,9 +127,9 @@ export const projects: Project[] = [
   {
     slug: "trecho-logistica",
     title: "Trecho Logística",
-    type: "sistema",
+    type: "web-ia",
     summary:
-      "Inteligência de entregas e frete: dashboard de e-commerce do ponto de vista de uma transportadora, com mapa do Brasil, prazo contra a promessa, margem por rota e um simulador “vale a pena?”. Dados simulados, código público.",
+      "Inteligência de entregas e frete: dashboard de e-commerce do ponto de vista de uma transportadora, com mapa do Brasil, prazo contra a promessa, margem por rota e um simulador “vale a pena?”. Dados simulados, código público e layout responsivo.",
     headline: "91,8% no prazo contra meta de 95%",
     synthetic: true,
     image: trechoImage,

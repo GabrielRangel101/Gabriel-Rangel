@@ -665,13 +665,14 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
     description: [
       "Dashboard de entregas, frete e custo do ponto de vista de uma transportadora que atende e-commerce, em um único arquivo HTML de cerca de 1 MB, sem back-end e sem banco. Tem um mapa 3D do Brasil com um caminhão por pedido a caminho, uma Mesa de análise (Ctrl K) em que perguntas em texto viram consultas, e um simulador “vale a pena?” que mostra quando acelerar a entrega compensa e quando não.",
       "Os dados são simulados: 99.090 pedidos de jan/2017 a ago/2018, gerados por um script e calibrados em estatísticas públicas do Olist (valores de referência escritos à mão, não extraídos do dataset). O custo por pedido e a margem nacional de 22% são premissas do modelo, não medições. O mapa animado é uma simulação sobre esses dados, não rastreamento ao vivo. Projeto pessoal, com código público no GitHub e escrito com apoio do Claude, sob minha direção.",
+      "O layout é responsivo: testei de 360 a 1440 px em Chrome com viewport emulado, sem rolagem horizontal da página e sem erro de console nas cinco telas. Não testei em aparelho físico, e as tabelas largas (vendedores e corredores) rolam na horizontal por escolha de projeto.",
     ],
     status: "Código público no GitHub",
     dataKind: "Sintético",
     period: "jan/2017 a ago/2018 (simulado)",
     resultLabel: "O que o painel mostra",
     impactNote:
-      "Sem métrica de impacto em cliente. Os números acima vêm de dados simulados e de um modelo de custo com premissas declaradas, não de medição em operação real.",
+      "O que muda na decisão: as três perguntas, que em planilha ficam em arquivos separados, são respondidas na mesma tela, e o simulador mostra o ponto em que acelerar deixa de compensar. Não há impacto medido em operação real: os números vêm de dados simulados e de um modelo com premissas declaradas, e não existe cliente nem usuário real por trás.",
     role: "Projeto pessoal de dashboard e análise, com apoio de IA",
     highlights: [
       "Cinco telas: visão geral, prazo e SLA, receita e custo, rotas e simulador",
@@ -680,14 +681,16 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Mesa de análise com 20 ferramentas tipadas, sem LLM em execução",
       "Simulador com piso físico: ninguém ganha dias abaixo do mínimo possível",
       "Arquivo único em HTML, CSS e JavaScript, sem framework, sem back-end e sem chave de API",
+      "Layout responsivo, testado de 360 a 1440 px com viewport emulado",
     ],
     problem:
       "Uma transportadora que atende e-commerce precisa saber onde a promessa de prazo falha, por região e por corredor, se o frete cobrado paga o custo e quanto vale reduzir dias de postagem ou de transporte. Em planilha, essas três perguntas ficam em arquivos separados.",
     decision:
       "Juntei as três perguntas em um só painel que lê um cubo de agregados (mês × UF), com as fórmulas à vista: atraso é atrasados sobre entregues, folga é prometido menos real, e a margem nacional de 22% entra como premissa e calibra o custo, em vez de aparecer como resultado. Para o ranking de corredores, uso o intervalo de Wilson e o mínimo de 100 pedidos, para que um corredor com poucos pedidos não ganhe posição por sorte.",
     result: [
-      "Na visão geral, 91,8% das entregas chegam no prazo, contra a meta de 95%, com 7.860 atrasos. O prazo médio é de 12,2 dias contra 22,5 prometidos, com frete de R$ 2,37 mi, GMV de R$ 13,51 mi e nota média de 4,09.",
-      "No cenário padrão do simulador o ganho é pequeno, +R$ 257,99, com o custo de um atraso (R$ 20, premissa) à vista, e a própria tela diz que o equilíbrio está perto: acelerar só compensa se um atraso custar mais que isso.",
+      "Onde a promessa falha: 91,8% das entregas chegam no prazo, contra a meta de 95%, com 7.860 atrasos. O prazo médio é de 12,2 dias contra 22,5 prometidos, e o painel abre isso por região, UF e corredor, com frete de R$ 2,37 mi, GMV de R$ 13,51 mi e nota média de 4,09.",
+      "Se o frete paga o custo: o painel calcula custo e margem por corredor, mas o custo é um modelo e a margem nacional de 22% é premissa. Ele serve para comparar corredores entre si, não para dizer a margem real de uma operação.",
+      "Se vale acelerar: no cenário padrão do simulador o ganho é pequeno, +R$ 257,99. O custo mínimo fica perto de R$ 19 por atraso evitado, contra os R$ 20 que a premissa dá a um atraso, e a própria tela diz que o equilíbrio está perto: acelerar só compensa se um atraso custar mais que isso.",
     ],
     stack: [
       "Python",
@@ -709,7 +712,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
         title: "Dados e arquitetura",
         paragraphs: [
           "Um script em Python (semente 42) gera os pedidos em memória e grava só os agregados em um data.json de 701 KB: cubo de 20 meses × 27 UFs, 3.507 linhas de corredor, 5.343 de categoria e 80 vendedores por mês. Um build concatena tudo em um único index.html, que calcula os indicadores no navegador. O mapa é um SVG desenhado à mão, sem biblioteca de mapa e sem fonte de tiles.",
-          "Existe também um script de ETL para o conjunto real do Olist, que gera o mesmo data.json. Ele foi testado só com um CSV falso de 6.000 pedidos; nunca foi rodado com o Olist real.",
+          "Existe também um script de ETL para o conjunto real do Olist, que gera o mesmo data.json. Ele foi testado só com um CSV falso de 6.000 pedidos; nunca foi rodado com o Olist real. O dataset público do Olist tem licença própria, que não verifiquei, e o projeto não o redistribui.",
         ],
       },
       {
