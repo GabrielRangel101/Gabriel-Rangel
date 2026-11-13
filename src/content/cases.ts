@@ -755,7 +755,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
     period: "21 dias (A/B) e 24 meses (DiD)",
     resultLabel: "O que a análise mostra",
     impactNote:
-      "Sem impacto medido em operação real: os dados são sintéticos e o valor em R$ é uma projeção feita com premissas declaradas (base anual, ticket de R$ 29,90 e 12 meses de vida útil), não um resultado.",
+      "Sem impacto medido em operação real: os dados são sintéticos e o valor em R$ é uma projeção feita com premissas declaradas (base anual, ticket de R$ 29,90, 12 meses de vida útil e desconto de reativação de 40% por 3 meses), não um resultado.",
     role: "Projeto pessoal de análise estatística, com apoio de IA",
     highlights: [
       "Tamanho de amostra e poder calculados antes, com checagem de SRM no resultado",
@@ -764,6 +764,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Análise por segmento com correção de Holm: 1 segmento significativo sem correção, 0 depois",
       "Simulações de erros comuns: SRM injetado, peeking e subpotência",
       "DiD com efeitos fixos, erros clusterizados por região e teste de tendências paralelas",
+      "Impacto em R$ líquido do custo do desconto e plano de acompanhamento de 60 dias após o lançamento",
     ],
     problem:
       "Duas decisões de produto precisavam de uma resposta honesta: o novo checkout converte mais, e o desconto de reativação retém mais? Comparar antes e depois, ou olhar o p-valor todo dia, leva a decidir com um efeito que pode ser acaso.",
@@ -773,7 +774,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Checkout: a conversão foi de 4,384% para 5,203%, +0,819 p.p. (IC 95% de +0,337 a +1,302; p = 0,00088), em 30.103 usuários. O SRM não indicou desbalanceamento (p = 0,127) e os guardrails não pioraram. O poder observado foi de 72,4%, abaixo dos 80% planejados, porque a amostra rodada ficou menor que a calculada.",
       "Retenção: o DiD mediu +3,346 p.p. (IC 95% de +3,100 a +3,591), em 12 regiões por 24 meses, e a premissa de tendências paralelas não foi rejeitada (p = 0,76).",
       "Peeking: em 1.000 experimentos A/A simulados, olhar o p-valor todo dia elevou o falso positivo de 5% para 23%.",
-      "Projeção, não medição: com as premissas declaradas, os efeitos equivalem a cerca de R$ 1,47 mi por ano no checkout e R$ 1,80 mi por ano na reativação. São alavancas distintas e não se somam.",
+      "Projeção, não medição: com as premissas declaradas, os efeitos equivalem a cerca de R$ 1,47 mi por ano no checkout e R$ 1,62 mi por ano na reativação, já descontado o custo do próprio desconto (R$ 1,80 mi bruto menos R$ 0,18 mi). São alavancas distintas, de populações diferentes, e não se somam.",
     ],
     stack: [
       "Python",
@@ -808,7 +809,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       {
         title: "Testes e verificação",
         paragraphs: [
-          "O projeto tem 26 testes automatizados (pytest), que rodei em um ambiente limpo e passaram, e dois notebooks executáveis de ponta a ponta. A demo traz uma calculadora de poder em JavaScript que reproduz o poder do projeto (79,96% com 17.923 por braço e 72,4% com 14.919).",
+          "O projeto tem 28 testes automatizados (pytest), que rodei em um ambiente limpo e passaram, e dois notebooks executáveis de ponta a ponta. A demo traz uma calculadora de poder em JavaScript que reproduz o poder do projeto (79,96% com 17.923 por braço e 72,4% com 14.919).",
         ],
       },
       {

@@ -151,7 +151,7 @@ export const projects: Project[] = [
     title: "Teste A/B e Impacto: Assinaturas",
     type: "experimento",
     summary:
-      "Teste A/B de um novo checkout e mensuração de impacto de uma política de retenção por diferenças-em-diferenças, com SRM, CUPED, bootstrap, correção de Holm e 26 testes. Dados sintéticos, código aberto.",
+      "Teste A/B de um novo checkout e mensuração de impacto de uma política de retenção por diferenças-em-diferenças, com SRM, CUPED, bootstrap, correção de Holm e 28 testes. Dados sintéticos, código aberto.",
     headline: "+0,82 p.p. de conversão, p = 0,0009",
     synthetic: true,
     image: abTestImage,
