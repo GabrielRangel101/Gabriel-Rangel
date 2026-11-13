@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image";
+import cashlabImage from "@/assets/cases/powerbi-cashlab.png";
 import peoplelabImage from "@/assets/cases/powerbi-peoplelab.png";
 import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
 import gestaoBarbeariaImage from "@/assets/cases/barbearia-gestao.png";
@@ -92,6 +93,16 @@ export const projects: Project[] = [
       "53 tabelas com RLS e cobrança no Asaas",
     synthetic: true,
     image: gestaoBarbeariaImage,
+  },
+  {
+    slug: "cashlab",
+    title: "CashLab: Fluxo de Caixa",
+    type: "power-bi",
+    summary:
+      "Saldo de caixa realizado e projetado em 90 dias, carteira a receber por faixa de atraso, orçado contra realizado e capital de giro, em cinco páginas, com uma página que prova o que foi lido e rejeitado dos arquivos.",
+    headline: "Saldo de R$ 3,92 mi e ciclo de 49,4 dias",
+    synthetic: true,
+    image: cashlabImage,
   },
   {
     slug: "peoplelab",

@@ -900,6 +900,81 @@ classe ABC = acumulado - própria fatia < 0,80: A | < 0,95: B | senão C`,
       },
     ],
   },
+  cashlab: {
+    description: [
+      "Relatório de controle financeiro feito no Power BI Desktop para uma distribuidora fictícia com 5 filiais: saldo de caixa realizado e projetado em 90 dias, carteira a receber por faixa de atraso, orçado contra realizado, capital de giro e uma página que prova quantas linhas dos arquivos foram aceitas ou rejeitadas, com o motivo.",
+      "Os dados são 100% sintéticos, gerados em Python a partir de um briefing simulado, com defeitos de arquivo plantados de propósito para o tratamento ser testado: 116 arquivos mensais de contas a pagar e a receber, de jan/2022 a out/2026, com a posição fixa em 31/10/2026. O projeto foi construído com apoio do Claude.",
+    ],
+    status: "Publicado",
+    dataKind: "Sintético",
+    period: "jan/2022 a out/2026",
+    resultLabel: "Insight do dado de exemplo",
+    role: "Relatório em Power BI, do tratamento dos arquivos ao layout, com apoio de IA",
+    highlights: [
+      "Saldo de caixa realizado e projeção de 90 dias em dois cenários, base e conservador",
+      "Carteira a receber por faixa de atraso, por filial e por cliente",
+      "Orçado contra realizado por centro de custo, em despesa e receita",
+      "Prazo médio de recebimento, pagamento e estoque, e o ciclo financeiro",
+      "Página de qualidade dos dados: linhas lidas = aceitas + rejeitadas, com o motivo",
+      "Cinco páginas e 8 tooltips de página",
+    ],
+    problem:
+      "Uma distribuidora com 5 filiais precisa saber se o caixa aguenta os próximos 60 a 90 dias, quem está inadimplente e onde, e se a despesa está dentro do orçado. Os números vêm de arquivos mensais com formatos diferentes, e só serve se der para confiar neles.",
+    decision:
+      "Tratei os arquivos no Power Query e mostrei o que entrou e o que foi rejeitado, linha a linha, em uma página própria. No modelo, o saldo projetado parte do saldo realizado na posição e soma o fluxo esperado dos meses seguintes, com um cenário base (perda histórica de 0,8%) e um conservador (4,5%). A data de referência é fixa, então os números não mudam com o tempo.",
+    result: [
+      "Em 31/10/2026, o saldo de caixa é de R$ 3,92 mi e cobre 41 dias de saídas. O saldo projetado para 31/01 é de R$ 4,23 mi no cenário base e de R$ 3,89 mi no conservador.",
+      "A carteira a receber soma R$ 6,47 mi (660 títulos), com R$ 1,21 mi vencido (18,7%). A inadimplência acima de 90 dias é de 4,5%, abaixo da meta de 5%, mas concentrada: 9,3% no Sul e 7,0% no Centro. Os 10 maiores clientes concentram 15,0% do a receber e 36,2% do vencido.",
+      "A despesa realizada foi de R$ 28,87 mi contra R$ 28,24 mi orçados (+2,2%), com 4 de 8 centros acima do orçado. Logística está 12,2% acima.",
+      "O prazo médio de recebimento é de 54,5 dias, o de pagamento de 44,5 e o de estoque de 39,4, o que dá um ciclo financeiro de 49,4 dias. Pessoal responde por 48% das saídas dos últimos 12 meses.",
+      "Na página de qualidade, as 41.599 linhas lidas fecham com 40.387 aceitas e 1.212 rejeitadas, e os 116 arquivos batem.",
+    ],
+    stack: ["Power BI", "DAX", "Power Query", "Modelagem de dados", "Python"],
+    demo: {
+      embedUrl:
+        PB +
+        "eyJrIjoiODA2ODQ1ZTUtMjJlMC00NmRhLWFmZTktZDBhOGQ4ZTAxYmZlIiwidCI6IjY1OWNlMmI4LTA3MTQtNDE5OC04YzM4LWRjOWI2MGFhYmI1NyJ9",
+      title: "Relatório Power BI de fluxo de caixa, CashLab",
+      openLabel: "Abrir relatório ao vivo",
+      ratio: "16 / 9",
+      dataLabel: "Dados sintéticos",
+    },
+    technical: [
+      {
+        title: "Modelo de dados",
+        paragraphs: [
+          "São 20 tabelas e 21 relações. Os fatos são Pagar, Receber, Orçamento e Estoque, ligados às dimensões de filial, centro de custo, cliente, fornecedor, status e faixa de atraso. O calendário é uma tabela calculada, com a data de emissão como relação ativa e as de vencimento e pagamento inativas, usadas por USERELATIONSHIP.",
+          "Há também tabelas de apoio: posição, ponte do fluxo, auditoria dos arquivos, erros e os defeitos plantados.",
+        ],
+      },
+      {
+        title: "Medidas DAX",
+        paragraphs: [
+          "O modelo tem 468 medidas, a maioria de apoio (cores, rótulos e tooltips). As de negócio incluem o saldo acumulado e o ciclo financeiro.",
+        ],
+        code: "Saldo Final =\nVAR _fim = MAX ( 'Calendário'[Data] )\nRETURN [Saldo Inicial]\n  + CALCULATE ( [Fluxo Líquido],\n      FILTER ( ALL ( 'Calendário' ), 'Calendário'[Data] <= _fim ) )\n\nCiclo Financeiro =\nROUND ( [Prazo Médio Estoque], 1 )\n  + ROUND ( [Prazo Médio Recebimento], 1 )\n  - ROUND ( [Prazo Médio Pagamento], 1 )",
+      },
+      {
+        title: "Projeção de 90 dias",
+        paragraphs: [
+          "Depois da posição, as entradas esperadas são o maior valor entre os títulos já lançados e a média dos últimos 12 meses, descontada a perda. As saídas são o maior entre os lançados e a média de 12 meses. Não é previsão estatística: é uma regra simples, declarada na própria página.",
+        ],
+      },
+      {
+        title: "Qualidade dos dados",
+        paragraphs: [
+          "O gerador planta 14 defeitos de arquivo (linha de total no rodapé, datas em 3 formatos, valores como texto, duplicatas e 4 layouts de colunas), com a contagem exata em um gabarito. A página de qualidade mostra as linhas lidas, aceitas e rejeitadas e o motivo de cada rejeição.",
+        ],
+      },
+      {
+        title: "Limites",
+        paragraphs: [
+          "Estoque e margem são sintéticos, e o prazo médio de estoque depende disso. Não há previsão estatística, conciliação bancária nem atualização em tempo real: os dados são estáticos, com posição fixa em 31/10/2026.",
+          "O projeto está em formato PBIP e ainda não está em repositório público. O relatório está publicado na web pelo Power BI e embutido nesta página.",
+        ],
+      },
+    ],
+  },
   peoplelab: {
     description: [
       "Dashboard de pessoas e turnover feito do zero no Power BI Desktop. Mostra headcount, turnover, perfil do time e desempenho em quatro páginas, com menu lateral, filtro de ano sincronizado e tooltips personalizados que abrem ao passar o mouse.",
