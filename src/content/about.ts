@@ -22,7 +22,7 @@ export const aboutFacts = [
 export const aboutBio = [
   "Sou analista de dados com mais de 3 anos em Business Analytics. Trabalho com Looker Studio, Power BI, BigQuery, SQL e Python para transformar dados em painéis que respondem à pergunta do negócio.",
   "Também automatizo o trabalho repetitivo, com Power Automate, n8n e a API do Claude, e atendo clientes do varejo por conta própria desde 06/2023.",
-  "Meu jeito de trabalhar é direto e prático: resultado antes de tecnologia, e cada passo explicado sem jargão. Cada projeto deste portfólio tem uma demo que você pode abrir e testar.",
+  "Meu jeito de trabalhar é direto e prático: resultado antes de tecnologia, e cada passo explicado sem jargão. Cada projeto deste portfólio tem uma demo para abrir, e os textos dizem o que ela mostra e o que não prova.",
 ];
 
 // Duas camadas: o que Gabriel usa hoje e o que já usou. Separação a confirmar por ele.

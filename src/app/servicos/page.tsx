@@ -26,9 +26,10 @@ export default function ServicesPage() {
             Dados, sistemas e automação para a sua empresa.
           </h1>
           <p className="text-subhead mt-6 max-w-2xl text-ink-muted">
-            Presto estes serviços pela {company.name}. Você conversa direto
-            comigo, e o trabalho é feito sob contrato, com escopo e prazo
-            definidos antes de começar.
+            {company.name} é o nome sob o qual presto serviços para empresas;
+            este portfólio é meu, Gabriel Rangel. Você conversa direto comigo,
+            e o trabalho é feito sob contrato, com escopo e prazo definidos
+            antes de começar.
           </p>
         </Container>
       </section>

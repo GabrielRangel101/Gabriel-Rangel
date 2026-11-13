@@ -33,7 +33,7 @@ export const projects: Project[] = [
     title: "Radar de Agenda",
     type: "sistema",
     summary:
-      "Dashboard de uma clínica odontológica fictícia com camada semântica em SQL e um servidor MCP próprio, que deixa o Claude responder perguntas sobre os números com 8 ferramentas fixas e somente leitura.",
+      "Dashboard de uma clínica odontológica fictícia com camada semântica em SQL e um servidor MCP próprio, que deixa o Claude responder perguntas sobre os números com 8 ferramentas fixas e somente leitura. O dashboard abre na demo; o MCP roda fora do site, ligado ao Claude.",
     headline:
       "MCP próprio com 8 ferramentas somente leitura",
     synthetic: true,
@@ -171,11 +171,11 @@ export const projects: Project[] = [
 
 // Destaques da Home, em ordem: um de cada frente, com PeopleLab entre eles.
 export const featuredSlugs = [
-  "radar-agenda",
+  "teste-ab-assinaturas",
+  "erp-pipeline-varejo",
+  "cashlab",
   "gazeta-meridiano",
-  "peoplelab",
-  "saleslab",
-  "sabor-da-casa",
+  "radar-agenda",
   "gestao-barbearia",
 ];
 

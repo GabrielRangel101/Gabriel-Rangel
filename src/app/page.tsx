@@ -102,7 +102,7 @@ export default function Home() {
       <Section
         id="projetos"
         eyebrow="Projetos em destaque"
-        title="Demos reais, para abrir e testar."
+        title="Cases com demo aberta e números conferíveis."
       >
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((project) => (
@@ -123,7 +123,8 @@ export default function Home() {
           <p className="text-body-lg text-ink-muted">
             Sou analista de dados e automação com IA. Construo dashboards,
             sistemas e agentes que tiram o trabalho manual do caminho. Mostro o
-            trabalho em demos que você pode abrir e testar.
+            trabalho em cases com demo, dados à mostra e o que cada um não
+            prova.
           </p>
           <Link
             href="/sobre"
