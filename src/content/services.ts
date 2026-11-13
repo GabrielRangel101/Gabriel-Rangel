@@ -45,7 +45,7 @@ export const services: {
       "Agentes de IA com acesso controlado aos dados",
       "Alertas e relatórios automáticos",
     ],
-    href: "/projetos?tipo=agente",
+    href: "/projetos?tipo=sistema",
   },
   {
     icon: DatabaseIcon,

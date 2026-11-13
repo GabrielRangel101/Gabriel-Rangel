@@ -31,7 +31,7 @@ export const projects: Project[] = [
   {
     slug: "radar-agenda",
     title: "Radar de Agenda",
-    type: "agente",
+    type: "sistema",
     summary:
       "Dashboard de uma clínica odontológica fictícia com camada semântica em SQL e um servidor MCP próprio, que deixa o Claude responder perguntas sobre os números com 8 ferramentas fixas e somente leitura.",
     headline:
