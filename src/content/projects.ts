@@ -5,6 +5,7 @@ import saleslabImage from "@/assets/cases/powerbi-saleslab.png";
 import gestaoBarbeariaImage from "@/assets/cases/barbearia-gestao.png";
 import erpPipelineImage from "@/assets/cases/erp-pipeline.png";
 import abTestImage from "@/assets/cases/teste-ab-assinaturas.png";
+import survivalImage from "@/assets/cases/sobrevivencia-assinaturas.png";
 import trechoImage from "@/assets/cases/trecho-logistica.png";
 import lookerPedidosImage from "@/assets/cases/looker-pedidos.png";
 import saborImage from "@/assets/cases/sabor-da-casa.png";
@@ -155,6 +156,16 @@ export const projects: Project[] = [
     headline: "+0,82 p.p. de conversão, p = 0,0009",
     synthetic: true,
     image: abTestImage,
+  },
+  {
+    slug: "sobrevivencia-assinaturas",
+    title: "Sobrevivência de Assinantes: Retenção",
+    type: "experimento",
+    summary:
+      "Análise de sobrevivência da retenção de assinantes: Kaplan-Meier, log-rank com Holm, Cox com riscos proporcionais violados e corrigidos, RMST/LTV por canal e riscos competitivos, com 106 testes. Dados sintéticos, código aberto.",
+    headline: "Penhasco de 2,85× no fim da promoção",
+    synthetic: true,
+    image: survivalImage,
   },
   {
     slug: "relatorio-pedidos",
