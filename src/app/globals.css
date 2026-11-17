@@ -517,6 +517,10 @@ a:focus-visible .roll > span {
 .cta-stage:has(.cta-open:hover, .cta-open:focus-visible) .cta-frame {
   border-width: 18px;
 }
+/* Quando a página termina no CTA de moldura, o rodapé encosta nele. */
+main:has(.cta-stage:last-child) + footer {
+  margin-top: 0;
+}
 @media (max-width: 767px) {
   .cta-frame {
     border-width: 48px 16px;

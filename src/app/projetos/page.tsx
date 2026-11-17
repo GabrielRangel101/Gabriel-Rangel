@@ -144,7 +144,7 @@ export default async function ProjectsPage({ searchParams }: Props) {
           </p>
           <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {pageItems.map((project) => (
-              <CaseCard key={project.slug} project={project} compact />
+              <CaseCard key={project.slug} project={project} />
             ))}
           </div>
 
