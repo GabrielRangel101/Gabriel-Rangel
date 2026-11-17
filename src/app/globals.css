@@ -278,6 +278,8 @@ body {
 }
 .roll > span::after {
   content: attr(data-t);
+  /* Texto alternativo vazio: o leitor de tela não lê o rótulo duas vezes. */
+  content: attr(data-t) / "";
   display: block;
 }
 a:hover .roll > span,
