@@ -88,6 +88,7 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
         <legend className="text-body-sm mb-2 font-medium text-ink">Assunto</legend>
         {[
           { value: "projeto", label: "Sobre um projeto do portfólio" },
+          { value: "trabalho", label: "Trabalhar juntos em um projeto" },
           { value: "conversa", label: "Trocar uma ideia" },
           { value: "outro", label: "Outro assunto" },
         ].map((option) => (
@@ -131,7 +132,7 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
         label="Mensagem"
         name="message"
         required
-        hint="Se for sobre um projeto, diga qual, para eu responder com mais precisão."
+        hint="Conte o contexto. Se for sobre um projeto do portfólio, diga qual; se for trabalhar junto, diga o que hoje é manual ou o que você quer enxergar nos números."
         defaultValue={values?.message}
         error={state.errors?.message}
       />

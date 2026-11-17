@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import portrait from "@/assets/gabriel-rangel.jpg";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { FinalCta } from "@/components/ui/FinalCta";
 import { Section } from "@/components/ui/Section";
-import { ExternalLinkIcon } from "@/components/ui/icons";
+import { ArrowRightIcon, ExternalLinkIcon } from "@/components/ui/icons";
 import {
   aboutBio,
   aboutFacts,
   courses,
   education,
   experience,
-  toolGroups,
 } from "@/content/about";
 import { site } from "@/lib/site";
 
@@ -109,34 +109,13 @@ export default function AboutPage() {
             {aboutBio.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
+            <p>
+              <Link href="/stack" className="link-retract text-button text-primary">
+                Ferramentas e onde usei cada uma
+                <ArrowRightIcon />
+              </Link>
+            </p>
           </div>
-        </div>
-      </Section>
-
-      <Section id="ferramentas" eyebrow="Ferramentas" title="O que domino e o que já usei.">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {toolGroups.map((group) => (
-            <section
-              key={group.title}
-              aria-labelledby={`ferr-${group.title}`}
-              className="rounded-[20px] border border-line-soft p-6"
-              data-reveal
-            >
-              <h3 id={`ferr-${group.title}`} className="text-card-title">
-                {group.title}
-              </h3>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <li
-                    key={item}
-                    className="text-body-sm rounded-full border border-line-soft px-3 py-1.5 text-ink-muted"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
         </div>
       </Section>
 

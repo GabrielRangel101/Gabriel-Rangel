@@ -5,6 +5,7 @@ export const site = {
     "Analista de dados e automação com IA. Dashboards, sistemas e agentes que tiram o trabalho manual do caminho.",
   nav: [
     { href: "/projetos", label: "Projetos" },
+    { href: "/stack", label: "Stack" },
     { href: "/sobre", label: "Sobre" },
     { href: "/contato", label: "Contato" },
   ],

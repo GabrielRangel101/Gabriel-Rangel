@@ -6,6 +6,7 @@ export type ContactField = "name" | "email" | "message" | "topic";
 
 const topics = {
   projeto: "Sobre um projeto do portfólio",
+  trabalho: "Trabalhar juntos em um projeto",
   conversa: "Trocar uma ideia",
   outro: "Outro assunto",
 } as const;

@@ -6,6 +6,11 @@ export const faq = [
       "Dashboards de BI (Power BI e Looker Studio), sistemas web, automações e agentes de IA, e a organização dos dados por trás deles. Os projetos estão em Projetos.",
   },
   {
+    question: "Posso chamar você para um projeto?",
+    answer:
+      "Pode. Escolha \"Trabalhar juntos em um projeto\" no formulário e conte o contexto. Eu respondo por e-mail e a gente vê se faz sentido.",
+  },
+  {
     question: "Os projetos do portfólio usam dados reais?",
     answer:
       "Não. As demos usam dados sintéticos, de exemplo ou fictícios, e cada projeto informa isso na própria página.",
