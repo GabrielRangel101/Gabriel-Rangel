@@ -129,12 +129,12 @@ export default function Home() {
         </Container>
       </section>
 
-      <Section id="areas" eyebrow="O que construo" title="Quatro frentes de trabalho.">
+      <Section id="areas" eyebrow="O que eu faço" title="Quatro áreas em que trabalho.">
         <ul className="border-t border-line-soft">
-          {areas.map(({ icon: Icon, title, text, note }) => (
+          {areas.map(({ icon: Icon, title, text, note, href }) => (
             <li key={title} className="border-b border-line-soft">
               <Link
-                href="/servicos"
+                href={href}
                 className="group grid grid-cols-[40px_1fr] items-baseline gap-x-4 gap-y-2 py-7 transition-[padding,background-color] duration-[400ms] ease-[var(--ease-expressive)] hover:bg-[linear-gradient(90deg,rgb(43_196_207/0.08),transparent)] md:grid-cols-[56px_1fr_1.1fr] md:gap-6 md:hover:pl-4 focus-visible:pl-4"
               >
                 <Icon width={22} height={22} className="translate-y-1 text-primary" aria-hidden="true" />
@@ -230,9 +230,9 @@ export default function Home() {
 
       <FinalCta
         eyebrow="Contato"
-        title="Tem um projeto na sua empresa?"
-        primary={{ href: "/contato", label: "Falar sobre o projeto" }}
-        secondary={{ href: "/servicos", label: "Ver serviços" }}
+        title="Quer trocar uma ideia sobre dados?"
+        primary={{ href: "/contato", label: "Falar comigo" }}
+        secondary={{ href: "/projetos", label: "Ver projetos" }}
       />
     </>
   );

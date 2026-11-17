@@ -6,7 +6,6 @@ const routes = [
   "/",
   "/projetos",
   "/sobre",
-  "/servicos",
   "/contato",
   "/privacidade",
   ...Object.keys(cases).map((slug) => `/projetos/${slug}`),

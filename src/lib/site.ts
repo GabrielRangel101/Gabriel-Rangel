@@ -1,19 +1,11 @@
 // Dados do site em um só lugar. Links externos sem URL confirmada ficam de fora do Footer.
 export const site = {
   name: "Gabriel Rangel",
-  // Empresa que presta o serviço: aparece só em /servicos e no rodapé.
-  // Preencha razão social e CNPJ para exibi-los (ficam ocultos enquanto estiverem vazios).
-  company: {
-    name: "Rangel Analytics",
-    legalName: undefined as string | undefined,
-    cnpj: undefined as string | undefined,
-  },
   tagline:
     "Analista de dados e automação com IA. Dashboards, sistemas e agentes que tiram o trabalho manual do caminho.",
   nav: [
     { href: "/projetos", label: "Projetos" },
     { href: "/sobre", label: "Sobre" },
-    { href: "/servicos", label: "Serviços" },
     { href: "/contato", label: "Contato" },
   ],
   // E-mail público, exibido em Contato e no rodapé.

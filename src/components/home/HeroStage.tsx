@@ -194,10 +194,10 @@ export function HeroStage() {
           <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
             <GlassCta href="/projetos">Ver projetos</GlassCta>
             <Link
-              href="/servicos"
+              href="/sobre"
               className="link-retract text-button touch-target text-ink-muted hover:text-ink"
             >
-              Serviços para empresas
+              Sobre mim
             </Link>
           </div>
         </div>

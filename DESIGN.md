@@ -389,7 +389,7 @@ No drop shadows or blur on surfaces; the only gradients are the hero background 
 - **Skeleton.** Surface-2 blocks with the radius of the element they stand in for; no shimmer when `prefers-reduced-motion` is set.
 - **CTA banner.** Surface-1, 12px corners, 48px padding, headline plus two buttons (primary and secondary).
 - **Timeline row** (`/vagas`). Canvas background, 24px vertical padding, hairline bottom rule, date in caption on the left.
-- **Top nav.** 56px sticky bar on canvas: wordmark left; Projetos, Vagas, Serviços, Sobre centered; primary button "Falar comigo" right. Below 768px the links collapse into a menu.
+- **Top nav.** 56px sticky bar on canvas: wordmark left; Projetos, Sobre, Contato centered; primary button "Falar comigo" right. Below 768px the links collapse into a menu.
 - **Footer.** Canvas, body-sm in ink-subtle, link columns for navegação, contato, GitHub, LinkedIn.
 
 Not used in v1: pricing cards, customer logo tiles, testimonial cards (the site has no prices, no logos and no testimonials without authorization).
@@ -425,7 +425,7 @@ Camada editorial por cima dos tokens acima: as cores, o canvas e o acento contin
 - Navegação em vidro (`.nav-glass`): pílula com borda girando devagar e indicador de vidro que desliza até o item ativo (mesma linguagem do `GlassCta`).
 - `RoleIcons`: ícones animados das especialidades do hero (barras, fluxo entre nós, balão digitando).
 - `CountUp`: número que conta uma vez ao entrar na tela; o HTML já traz o valor final.
-- Linhas com hover (Home e Serviços): lista separada por `line-soft`, hover com recuo de 16 px e degradê do acento a transparente.
+- Linhas com hover (Home): lista separada por `line-soft`, hover com recuo de 16 px e degradê do acento a transparente.
 - Card de case: 20px de raio, hover sobe 5 px com borda no acento e spotlight que segue o mouse.
 
 **Movimento**

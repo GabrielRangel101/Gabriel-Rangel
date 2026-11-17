@@ -71,9 +71,7 @@ export function Footer() {
 
       <Container className="mt-12 border-t border-hairline pt-6">
         <p className="text-body-sm text-ink-subtle">
-          © {new Date().getFullYear()} {site.company.name}
-          {site.company.legalName && ` · ${site.company.legalName}`}
-          {site.company.cnpj && ` · CNPJ ${site.company.cnpj}`}. Cases com dados
+          © {new Date().getFullYear()} {site.name}. Cases com dados
           sintéticos.
         </p>
       </Container>

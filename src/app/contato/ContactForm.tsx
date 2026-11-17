@@ -53,7 +53,7 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
       <div>
         <h2 className="text-card-title">Envie uma mensagem</h2>
         <p className="text-body-sm mt-1 text-ink-muted">
-          Escolha o assunto e conte o resto. Eu respondo por e-mail.
+          Escolha o assunto e escreva o resto. Eu respondo por e-mail.
         </p>
       </div>
 
@@ -87,7 +87,8 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
       <fieldset className="flex flex-col gap-2">
         <legend className="text-body-sm mb-2 font-medium text-ink">Assunto</legend>
         {[
-          { value: "empresa", label: "Projeto para minha empresa" },
+          { value: "projeto", label: "Sobre um projeto do portfólio" },
+          { value: "conversa", label: "Trocar uma ideia" },
           { value: "outro", label: "Outro assunto" },
         ].map((option) => (
           <label
@@ -98,7 +99,7 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
               type="radio"
               name="topic"
               value={option.value}
-              defaultChecked={(values?.topic ?? "empresa") === option.value}
+              defaultChecked={(values?.topic ?? "projeto") === option.value}
               className="size-4 accent-primary"
             />
             {option.label}
@@ -130,7 +131,7 @@ export function ContactForm({ linkedin }: { linkedin?: string }) {
         label="Mensagem"
         name="message"
         required
-        hint="Se for um projeto, conte o que hoje é manual ou o que você quer enxergar nos seus números."
+        hint="Se for sobre um projeto, diga qual, para eu responder com mais precisão."
         defaultValue={values?.message}
         error={state.errors?.message}
       />

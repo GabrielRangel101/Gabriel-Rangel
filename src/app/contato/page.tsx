@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Accordion, AccordionItem } from "@/components/ui/Accordion";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -11,7 +10,7 @@ import { ContactForm } from "./ContactForm";
 export const metadata: Metadata = {
   title: "Contato",
   description:
-    "Fale com Gabriel Rangel sobre um projeto para a sua empresa ou outro assunto.",
+    "Fale com Gabriel Rangel sobre os projetos, dados ou qualquer outro assunto.",
 };
 
 const channelClass =
@@ -32,8 +31,8 @@ export default function ContactPage() {
             Fale comigo
           </h1>
           <p className="text-subhead mt-6 max-w-2xl text-ink-muted">
-            Para um projeto na sua empresa ou outro assunto, escreva pelo
-            formulário ou pelos canais ao lado.
+            Para trocar uma ideia sobre os projetos, sobre dados ou outro
+            assunto, escreva pelo formulário ou pelos canais ao lado.
           </p>
         </Container>
       </section>
@@ -92,14 +91,6 @@ export default function ContactPage() {
                 </li>
               )}
             </ul>
-            <p className="text-body-sm mt-6 text-ink-muted">
-              Os serviços, o processo de trabalho e a forma de contratação estão
-              em{" "}
-              <Link href="/servicos" className="text-primary underline">
-                Serviços
-              </Link>
-              .
-            </p>
           </div>
 
           <ContactForm linkedin={linkedin} />
