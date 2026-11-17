@@ -12,6 +12,7 @@ export function CaseCard({
   lean = false,
   index = 0,
   animate = false,
+  priority = false,
 }: {
   project: Project;
   // Ferramentas do case (o card mostra as três primeiras). Vem por prop para o card servir no cliente sem carregar os textos dos cases.
@@ -22,6 +23,8 @@ export function CaseCard({
   index?: number;
   // Entrada escalonada (usada ao filtrar em /projetos).
   animate?: boolean;
+  // Primeira linha da grade: imagem carrega já (é o maior elemento da tela).
+  priority?: boolean;
 }) {
   const stack = fullStack.slice(0, 3);
 
@@ -29,7 +32,7 @@ export function CaseCard({
     <article
       className={`spotlight group relative flex flex-col overflow-hidden rounded-[20px] border border-line-soft bg-[linear-gradient(180deg,rgb(15_40_51/0.7),rgb(11_29_39/0.6))] transition-[transform,border-color,box-shadow] duration-[400ms] ease-[var(--ease-expressive)] focus-within:border-primary/45 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-primary has-[:focus-visible]:[outline-style:solid] hover:-translate-y-[5px] hover:border-primary/45 hover:shadow-[0_24px_50px_-24px_rgb(43_196_207/0.35)] ${animate ? "card-in" : ""}`}
       style={animate ? ({ "--d": index } as React.CSSProperties) : undefined}
-      data-reveal={animate ? undefined : ""}
+      data-reveal={animate || priority ? undefined : ""}
     >
       {project.image && (
         <div className="relative aspect-[16/9] overflow-hidden border-b border-line-soft bg-surface-2">
@@ -40,6 +43,7 @@ export function CaseCard({
             sizes="(min-width: 1024px) 440px, (min-width: 640px) 50vw, 100vw"
             placeholder="blur"
             quality={90}
+            priority={priority}
             className="object-cover object-top transition-transform duration-700 ease-[var(--ease-expressive)] group-hover:scale-[1.05]"
           />
           <div className="absolute bottom-3 left-3">

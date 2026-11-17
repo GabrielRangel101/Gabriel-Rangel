@@ -33,6 +33,14 @@ export function Effects() {
     return () => io.disconnect();
   }, [pathname]);
 
+  // A partir daqui, trocas de rota animam a entrada da página (ver .nav-ready no CSS).
+  useEffect(() => {
+    // A página já na tela fica marcada para não animar quando a classe entrar.
+    document.querySelectorAll(".page-enter").forEach((el) => el.setAttribute("data-first", ""));
+    const id = requestAnimationFrame(() => document.documentElement.classList.add("nav-ready"));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   useEffect(() => {
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     const onMove = (event: PointerEvent) => {

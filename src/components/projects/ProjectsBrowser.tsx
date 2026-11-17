@@ -50,6 +50,8 @@ export function ProjectsBrowser({
   const [type, setType] = useState<CaseType | undefined>(initialType);
   const [order, setOrder] = useState(initialOrder);
   const [query, setQuery] = useState("");
+  // Só anima a entrada dos cards depois da primeira interação: na carga inicial eles pintam direto.
+  const [touched, setTouched] = useState(false);
 
   const searched = useMemo(() => {
     const q = normalize(query.trim());
@@ -77,6 +79,7 @@ export function ProjectsBrowser({
 
   const pickType = (event: MouseEvent, next: CaseType | undefined) => {
     event.preventDefault();
+    setTouched(true);
     setType(next);
     sync(next, order);
   };
@@ -129,7 +132,10 @@ export function ProjectsBrowser({
             <input
               type="search"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                setTouched(true);
+                setQuery(e.target.value);
+              }}
               placeholder="Buscar projeto ou ferramenta"
               className="min-w-0 flex-1 bg-transparent text-ink outline-none placeholder:text-ink-subtle"
             />
@@ -137,6 +143,7 @@ export function ProjectsBrowser({
           <SortMenu
             current={order}
             onSelect={(value) => {
+              setTouched(true);
               setOrder(value);
               sync(type, value);
             }}
@@ -149,10 +156,11 @@ export function ProjectsBrowser({
         Mostrando {visible.length} de {items.length} {items.length === 1 ? "projeto" : "projetos"}
       </p>
 
+      <h2 className="sr-only">Lista de projetos</h2>
       {visible.length > 0 ? (
         <div key={gridKey} className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map(({ project, stack }, i) => (
-            <CaseCard key={project.slug} project={project} stack={stack} index={i} animate />
+            <CaseCard key={project.slug} project={project} stack={stack} index={i} animate={touched} priority={i < 3} />
           ))}
         </div>
       ) : (

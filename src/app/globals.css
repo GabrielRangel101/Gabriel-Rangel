@@ -225,8 +225,9 @@ body {
   100% { box-shadow: 0 0 0 0 rgb(249 115 22 / 0); }
 }
 
-/* Entrada de página (template.tsx). */
-.page-enter {
+/* Entrada de página (template.tsx): só em navegação interna. No primeiro carregamento
+   a classe nav-ready ainda não existe, então o conteúdo pinta direto (melhor LCP). */
+.nav-ready .page-enter:not([data-first]) {
   animation: page-in 350ms var(--ease-standard) both;
 }
 
@@ -487,8 +488,8 @@ a:focus-visible .roll > span {
   display: inline-block;
   font-variation-settings: "wght" 300;
   transition: font-variation-settings 120ms linear;
-  animation: rise 900ms var(--ease-expressive) both;
-  animation-delay: calc(500ms + var(--i) * 45ms);
+  animation: rise 800ms var(--ease-expressive) both;
+  animation-delay: calc(80ms + var(--i) * 35ms);
 }
 .rise {
   animation: rise 900ms var(--ease-expressive) both;
