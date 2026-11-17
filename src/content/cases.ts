@@ -58,7 +58,7 @@ export const cases: Record<string, CaseStudy> = {
     dataKind: "Sintético",
     period: "nov/2025 a out/2026",
     resultLabel: "Insight do dado de exemplo",
-    role: "Dados, SQL, MCP e segurança · Rangel Analytics",
+    role: "Projeto pessoal de dados, SQL, MCP e segurança",
     highlights: [
       "Servidor MCP próprio (Cloudflare Worker) com 8 ferramentas fixas, somente leitura e sem SQL livre",
       "Camada semântica no schema bi: views e funções com RLS, sem dados pessoais",

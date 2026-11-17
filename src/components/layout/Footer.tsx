@@ -9,11 +9,13 @@ export function Footer() {
   const { github, linkedin } = site.external;
 
   return (
-    <footer className="mt-section-mobile bg-canvas py-16 md:mt-section">
+    <footer className="mt-section-mobile border-t border-hairline bg-canvas py-16 md:mt-section">
       <Container className="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">
-        <div className="max-w-sm">
-          <p className="text-body font-semibold text-ink">{site.name}</p>
-          <p className="text-body-sm mt-3 text-ink-subtle">{site.tagline}</p>
+        <div className="max-w-md">
+          <p className="text-[clamp(28px,3vw,40px)] font-light leading-none tracking-[-0.03em] text-ink">
+            {site.name}
+          </p>
+          <p className="text-body-sm mt-4 text-ink-subtle">{site.tagline}</p>
         </div>
 
         <nav aria-label="Rodapé: navegação">
@@ -69,9 +71,7 @@ export function Footer() {
 
       <Container className="mt-12 border-t border-hairline pt-6">
         <p className="text-body-sm text-ink-subtle">
-          © {new Date().getFullYear()} {site.company.name}
-          {site.company.legalName && ` · ${site.company.legalName}`}
-          {site.company.cnpj && ` · CNPJ ${site.company.cnpj}`}. Cases com dados
+          © {new Date().getFullYear()} {site.name}. Cases com dados
           sintéticos.
         </p>
       </Container>

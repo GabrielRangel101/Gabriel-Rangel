@@ -1,100 +1,89 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cases } from "@/content/cases";
 import type { Project } from "@/content/projects";
 import { ArrowRightIcon } from "./icons";
 import { TypeTag } from "./Tag";
 
 // O link cobre o card inteiro (after:absolute), então o clique e o foco valem para toda a área.
+// Hover (só mouse): sobe 5 px, borda no acento e spotlight que segue o cursor.
 export function CaseCard({
   project,
-  compact = false,
+  stack: fullStack,
   lean = false,
+  index = 0,
+  animate = false,
+  priority = false,
 }: {
   project: Project;
-  compact?: boolean;
+  // Ferramentas do case (o card mostra as três primeiras). Vem por prop para o card servir no cliente sem carregar os textos dos cases.
+  stack: string[];
   // Versão enxuta da Home: título, uma linha de resultado e três tags.
   lean?: boolean;
+  // Posição na grade, para a entrada escalonada.
+  index?: number;
+  // Entrada escalonada (usada ao filtrar em /projetos).
+  animate?: boolean;
+  // Primeira linha da grade: imagem carrega já (é o maior elemento da tela).
+  priority?: boolean;
 }) {
-  const study = cases[project.slug];
-  const stack = study?.stack.slice(0, compact || lean ? 3 : 4) ?? [];
+  const stack = fullStack.slice(0, 3);
 
   return (
-    <article className="transition-ui group relative flex flex-col overflow-hidden rounded-xl border border-hairline bg-surface-1 hover:border-hairline-strong hover:bg-surface-2">
+    <article
+      className={`spotlight group relative flex flex-col overflow-hidden rounded-[20px] border border-line-soft bg-[linear-gradient(180deg,rgb(15_40_51/0.7),rgb(11_29_39/0.6))] transition-[transform,border-color,box-shadow] duration-[400ms] ease-[var(--ease-expressive)] focus-within:border-primary/45 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-primary has-[:focus-visible]:[outline-style:solid] hover:-translate-y-[5px] hover:border-primary/45 hover:shadow-[0_24px_50px_-24px_rgb(43_196_207/0.35)] ${animate ? "card-in" : ""}`}
+      style={animate ? ({ "--d": index } as React.CSSProperties) : undefined}
+      data-reveal={animate || priority ? undefined : ""}
+    >
       {project.image && (
-        <div
-          className="relative aspect-[16/9] overflow-hidden border-b border-hairline bg-surface-2"
-        >
+        <div className="relative aspect-[16/9] overflow-hidden border-b border-line-soft bg-surface-2">
           <Image
             src={project.image}
-            alt={`Prévia do dashboard ${project.title}`}
+            alt={`Prévia do projeto ${project.title}`}
             fill
-            sizes={
-              compact
-                ? "(min-width: 1280px) 640px, (min-width: 768px) 66vw, 100vw"
-                : "(min-width: 1024px) 420px, (min-width: 768px) 50vw, 100vw"
-            }
+            sizes="(min-width: 1024px) 440px, (min-width: 640px) 50vw, 100vw"
             placeholder="blur"
             quality={90}
-            className="transition-ui object-cover object-top group-hover:scale-[1.02]"
+            priority={priority}
+            className="object-cover object-top transition-transform duration-700 ease-[var(--ease-expressive)] group-hover:scale-[1.05]"
           />
-          <div className="absolute right-3 top-3">
+          <div className="absolute bottom-3 left-3">
             <TypeTag type={project.type} />
           </div>
         </div>
       )}
 
-      <div className={`flex flex-1 flex-col ${compact ? "gap-3 p-5" : "gap-4 p-6"}`}>
+      <div className="flex flex-1 flex-col gap-3 p-5">
         {!project.image && <TypeTag type={project.type} />}
-        <h3 className="text-card-title">
+        <h3 className="text-[22px] font-medium leading-[1.15] tracking-[-0.02em]">
           <Link
             href={`/projetos/${project.slug}`}
-            className="rounded-xs after:absolute after:inset-0"
+            className="rounded-xs after:absolute after:inset-0 after:z-[3] focus-visible:outline-none"
           >
             {project.title}
           </Link>
         </h3>
-        {lean && (
-          <p className="text-body-sm line-clamp-2 text-ink-muted">
+        {lean ? (
+          <p className="text-body-sm line-clamp-2 font-medium text-primary">
             {project.headline}
           </p>
-        )}
-        {compact && !lean && (
+        ) : (
           <p className="text-body-sm line-clamp-3 text-ink-muted">
             {project.summary}
           </p>
         )}
-        {study && !compact && !lean && (
-          <dl className="flex flex-col gap-3">
-            <div>
-              <dt className="text-eyebrow text-ink">Desafio</dt>
-              <dd className="text-body-sm mt-1 text-ink-muted">{study.problem}</dd>
-            </div>
-            <div>
-              <dt className="text-eyebrow text-ink">O que fiz</dt>
-              <dd className="text-body-sm mt-1 text-ink-muted">{study.decision}</dd>
-            </div>
-            <div className="rounded-lg bg-surface-3 p-4">
-              <dt className="text-eyebrow text-primary">Resultado</dt>
-              <dd className="text-body-sm mt-1 font-medium text-ink">
-                {study.result[0]}
-              </dd>
-            </div>
-          </dl>
-        )}
-        <ul className="flex flex-wrap gap-2">
+        <ul className="flex flex-wrap gap-1.5" aria-label="Ferramentas">
           {stack.map((tool) => (
             <li
               key={tool}
-              className="text-caption rounded-full border border-hairline px-2 py-0.5 text-ink-subtle"
+              className="text-caption rounded-full border border-line-soft px-2.5 py-0.5 text-ink-subtle"
             >
               {tool}
             </li>
           ))}
         </ul>
-        <span className="text-button mt-auto inline-flex items-center gap-2 pt-2 text-primary">
+        <span className="text-button mt-auto inline-flex items-center gap-2 pt-2 text-ink">
           Ver projeto
-          <ArrowRightIcon className="transition-ui group-hover:translate-x-0.5" />
+          <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />
         </span>
       </div>
     </article>

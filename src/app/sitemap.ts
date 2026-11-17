@@ -5,8 +5,8 @@ import { siteUrl } from "@/lib/site-url";
 const routes = [
   "/",
   "/projetos",
+  "/stack",
   "/sobre",
-  "/servicos",
   "/contato",
   "/privacidade",
   ...Object.keys(cases).map((slug) => `/projetos/${slug}`),

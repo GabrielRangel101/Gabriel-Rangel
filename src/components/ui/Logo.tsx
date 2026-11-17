@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-// Ícone da marca Rangel Analytics (R com anel). Cores fixas da marca, para fundo escuro.
+// Ícone pessoal (R com anel). Cores fixas da marca, para fundo escuro.
 export function LogoMark(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

@@ -389,7 +389,7 @@ No drop shadows or blur on surfaces; the only gradients are the hero background 
 - **Skeleton.** Surface-2 blocks with the radius of the element they stand in for; no shimmer when `prefers-reduced-motion` is set.
 - **CTA banner.** Surface-1, 12px corners, 48px padding, headline plus two buttons (primary and secondary).
 - **Timeline row** (`/vagas`). Canvas background, 24px vertical padding, hairline bottom rule, date in caption on the left.
-- **Top nav.** 56px sticky bar on canvas: wordmark left; Projetos, Vagas, Serviços, Sobre centered; primary button "Falar comigo" right. Below 768px the links collapse into a menu.
+- **Top nav.** 56px sticky bar on canvas: wordmark left; Projetos, Sobre, Contato centered; primary button "Falar comigo" right. Below 768px the links collapse into a menu.
 - **Footer.** Canvas, body-sm in ink-subtle, link columns for navegação, contato, GitHub, LinkedIn.
 
 Not used in v1: pricing cards, customer logo tiles, testimonial cards (the site has no prices, no logos and no testimonials without authorization).
@@ -399,6 +399,44 @@ Not used in v1: pricing cards, customer logo tiles, testimonial cards (the site 
 - Duration tokens: 120ms for hover and press, 200ms for tabs and accordions, 280ms for overlays and route transitions. Easing `cubic-bezier(0.2, 0, 0, 1)`.
 - Animate only opacity, transform and background-color. Never animate layout properties.
 - With `prefers-reduced-motion: reduce`, replace movement with an instant change or an opacity fade, and stop autoplay.
+
+## Proposta A (visual v2, 11/2026)
+
+Camada editorial por cima dos tokens acima: as cores, o canvas e o acento continuam os mesmos; mudam a tipografia de títulos, o movimento e três componentes novos. Os efeitos abaixo são as únicas exceções às regras de "sem vidro, sem spotlight, sem pílula" e só valem onde estão listados.
+
+**Tokens novos** (`globals.css`, `@theme`)
+- `--ease-expressive: cubic-bezier(0.77, 0, 0.175, 1)` para revelações e entradas; `--ease-standard` continua nos hovers simples.
+- `--color-line-soft: rgb(242 248 249 / 0.13)`: linhas finas das listas em linha, chips e bordas de card.
+- `--color-glow` (0.26) e `--color-glow-strong` (0.38): brilho do CTA de vidro.
+- `--color-glass: rgb(7 19 26 / 0.9)`: interior do CTA de vidro.
+- `--color-stage-top: #0b1d27`: topo do palco do hero.
+- `--color-tooltip: #0f2833`: fundo do tooltip do painel.
+
+**Tipografia de títulos**
+- Inter carregada como fonte variável (100 a 900).
+- Títulos de página e de seção em peso 300, tracking -0.03em a -0.045em, `text-wrap: balance`. O nome do hero vai de 300 a 900 conforme a distância do cursor (só com mouse).
+- O corpo de texto e os componentes continuam em 400 a 600.
+
+**Componentes novos**
+- `GlassCta`: pílula de vidro com borda girando (conic, 3,4 s), ícone redondo, rótulo e seta. Um por tela para a ação principal: hero ("Ver projetos"), CTA final e "Abrir app ao vivo" no case. Ref.: Lumina "Glow CTA pill" e Sora "Glass button motion" (ds.asimov.academy).
+- `HeroStage` e `CasesPanel`: palco do hero (colunas com feixes caindo, lanterna no cursor, foto recortada) e painel com abas. O painel mostra só números publicados nos cases, com o gráfico certo para cada um: colunas (tempos do pipeline), intervalo (efeito e IC 95% do A/B) e linhas (projeção de 90 dias do CashLab). Nada de série com pontos inventados.
+- `FinalCta`: seção de fechamento com moldura na cor do canvas que abre no hover ou foco do botão.
+- `ProjectStage`: palco dos 3 melhores projetos na Home (seção fixa, cada projeto sai de cena por vez, capturas reais, número em laranja). Abaixo de 1024 px ou com movimento reduzido vira lista empilhada. Os demais destaques ficam numa grade logo depois.
+- Navegação em vidro (`.nav-glass`): pílula com borda girando devagar e indicador de vidro que desliza até o item ativo (mesma linguagem do `GlassCta`).
+- `RoleIcons`: ícones animados das especialidades do hero (barras, fluxo entre nós, balão digitando).
+- `CountUp`: número que conta uma vez ao entrar na tela; o HTML já traz o valor final.
+- Linhas com hover (Home): lista separada por `line-soft`, hover com recuo de 16 px e degradê do acento a transparente.
+- Card de case: 20px de raio, hover sobe 5 px com borda no acento e spotlight que segue o mouse.
+
+**Movimento**
+- Entrada de página: fade e 12 px de subida em 350 ms (`template.tsx`).
+- Revelação ao rolar: `data-reveal` (opacidade, 18 px e blur de 6 px, 800 ms, uma vez). Só oculta o conteúdo quando há JS (classe `js` no `<html>`).
+- Efeitos de cursor (peso das letras, lanterna, spotlight) só com `(hover: hover) and (pointer: fine)`.
+- `prefers-reduced-motion: reduce` desliga feixes, rotação do painel, contadores, borda girando e revelações; o conteúdo aparece direto.
+
+**Cortado de propósito**
+- Cursor seguidor com rótulo "Ver": não acrescentava informação e disputava com o spotlight dos cards.
+- Palco de projetos fixo com rolagem longa do protótipo: na Home ficou a grade de cards, mais curta e acessível.
 
 ## Do's and Don'ts
 
@@ -413,10 +451,10 @@ Not used in v1: pricing cards, customer logo tiles, testimonial cards (the site 
 ### Don't
 - Don't ship a light theme in v1.
 - Don't use the accent as a section background or card fill.
-- Don't add gradients beyond the hero and the headline highlight, nor glassmorphism, spotlight effects, or use orange for anything but the contact CTA.
+- Don't add gradients, glass or spotlight beyond the places listed in Proposta A (hero stage, GlassCta, FinalCta, case card hover, row hover). Orange stays for the contact CTA, plus the small warm accents of the hero (one beam color and the live dot).
 - Don't color-code case types.
 - Don't use ink-disabled for information.
-- Don't use pill-shaped CTAs.
+- Don't use pill-shaped CTAs, except GlassCta.
 - Don't embed a dashboard with a light theme without framing it in a dark panel and checking the contrast around it.
 
 ## Responsive Behavior

@@ -22,13 +22,15 @@ export function Section({
       className={tight ? "mt-8 md:mt-12" : "mt-section-mobile md:mt-section"}
     >
       <Container>
-        {eyebrow && <p className="text-eyebrow text-ink-subtle">{eyebrow}</p>}
-        <h2
-          id={`${id}-titulo`}
-          className="text-display-md mt-3 max-w-3xl"
-        >
-          {title}
-        </h2>
+        <div data-reveal>
+          {eyebrow && <p className="text-eyebrow text-ink-subtle">{eyebrow}</p>}
+          <h2
+            id={`${id}-titulo`}
+            className="mt-3 max-w-[18ch] text-balance text-[clamp(30px,4.6vw,60px)] font-light leading-[1.04] tracking-[-0.03em]"
+          >
+            {title}
+          </h2>
+        </div>
         <div className="mt-8 md:mt-12">{children}</div>
       </Container>
     </section>

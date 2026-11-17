@@ -17,6 +17,15 @@ export function TopNav() {
   const open = openOn === pathname;
   const setOpen = (value: boolean) => setOpenOn(value ? pathname : null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  // A borda inferior só aparece depois que a página rola (barra de vidro "descola" do topo).
+  const [stuck, setStuck] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setStuck(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Escape fecha e devolve o foco ao botão.
   useEffect(() => {
@@ -34,15 +43,49 @@ export function TopNav() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
+  // Desktop: o item ativo ganha o indicador de vidro (deslizante); aqui só cor e hover.
   const linkClass = (href: string) =>
-    `text-body-sm touch-target transition-ui inline-flex items-center relative rounded-md px-3 ${
-      isActive(href)
-        ? "bg-surface-2 text-ink after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:rounded-full after:bg-primary"
-        : "text-ink-subtle hover:bg-surface-1 hover:text-ink"
+    `text-body-sm touch-target transition-ui relative z-10 inline-flex items-center rounded-full px-4 ${
+      isActive(href) ? "text-ink" : "text-ink-subtle hover:text-ink"
     }`;
 
+  // Menu móvel: lista em linhas, com a barra do acento no ativo.
+  const mobileLinkClass = (href: string) =>
+    `text-body touch-target transition-ui relative inline-flex min-h-11 items-center rounded-md px-3 after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:bg-primary after:transition-transform after:duration-300 ${
+      isActive(href)
+        ? "text-ink after:scale-x-100"
+        : "text-ink-subtle hover:text-ink after:scale-x-0 hover:after:scale-x-100"
+    }`;
+
+  // Indicador deslizante: mede o link ativo e posiciona o vidro atrás dele.
+  const navRef = useRef<HTMLElement>(null);
+  const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+  const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
+
+  useEffect(() => {
+    const measure = () => {
+      const index = site.nav.findIndex((item) => isActive(item.href));
+      const el = index >= 0 ? linkRefs.current[index] : null;
+      setIndicator(el ? { x: el.offsetLeft, w: el.offsetWidth } : null);
+    };
+    const id = setTimeout(measure, 0);
+    const ro = new ResizeObserver(measure);
+    if (navRef.current) ro.observe(navRef.current);
+    document.fonts?.ready.then(measure);
+    return () => {
+      clearTimeout(id);
+      ro.disconnect();
+    };
+    // isActive depende só do pathname.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   return (
-    <header className="sticky top-0 z-40 border-b border-hairline bg-header">
+    <header
+      className={`sticky top-0 z-40 border-b bg-canvas/75 backdrop-blur-md transition-[border-color] duration-300 ${
+        stuck || open ? "border-hairline" : "border-transparent"
+      }`}
+    >
       <Container className="flex h-14 items-center gap-6">
         <Link
           href="/"
@@ -54,11 +97,28 @@ export function TopNav() {
           </span>
         </Link>
 
-        <nav aria-label="Principal" className="hidden items-center gap-1 md:flex">
-          {site.nav.map(({ href, label }) => (
+        <nav
+          ref={navRef}
+          aria-label="Principal"
+          className="nav-glass relative ml-2 hidden items-center md:flex"
+        >
+          <span className="nav-spin" aria-hidden="true" />
+          <span
+            aria-hidden="true"
+            className="nav-indicator"
+            style={{
+              width: indicator?.w ?? 0,
+              transform: `translateX(${indicator?.x ?? 0}px)`,
+              opacity: indicator ? 1 : 0,
+            }}
+          />
+          {site.nav.map(({ href, label }, i) => (
             <Link
               key={href}
               href={href}
+              ref={(el) => {
+                linkRefs.current[i] = el;
+              }}
               aria-current={isActive(href) ? "page" : undefined}
               className={linkClass(href)}
             >
@@ -78,7 +138,7 @@ export function TopNav() {
             aria-controls="menu-mobile"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             onClick={() => setOpen(!open)}
-            className="transition-ui inline-flex size-11 items-center justify-center rounded-md text-ink hover:bg-surface-1 md:hidden"
+            className="transition-ui inline-flex size-11 items-center justify-center rounded-md text-ink hover:bg-surface-2 md:hidden"
           >
             {open ? (
               <CloseIcon width={20} height={20} />
@@ -93,7 +153,7 @@ export function TopNav() {
         <nav
           id="menu-mobile"
           aria-label="Principal"
-          className="border-t border-hairline bg-header md:hidden"
+          className="border-t border-hairline md:hidden"
         >
           <Container className="flex flex-col py-2">
             {site.nav.map(({ href, label }) => (
@@ -101,7 +161,7 @@ export function TopNav() {
                 key={href}
                 href={href}
                 aria-current={isActive(href) ? "page" : undefined}
-                className={`${linkClass(href)} text-body min-h-11`}
+                className={mobileLinkClass(href)}
               >
                 {label}
               </Link>

@@ -1,13 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
-import portrait from "@/assets/gabriel-rangel.jpg";
-import { Button } from "@/components/ui/Button";
+import { HeroStage } from "@/components/home/HeroStage";
+import { ProjectStage } from "@/components/home/ProjectStage";
+import type { StageSlide } from "@/components/home/ProjectStage";
 import { CaseCard } from "@/components/ui/CaseCard";
 import { Container } from "@/components/ui/Container";
-import { CtaBanner } from "@/components/ui/CtaBanner";
-import { DemoFrame } from "@/components/ui/DemoFrame";
-import { FeatureCard } from "@/components/ui/FeatureCard";
-import { ScaledFrame } from "@/components/ui/ScaledFrame";
+import { CountUp } from "@/components/ui/CountUp";
+import { FinalCta } from "@/components/ui/FinalCta";
 import { Section } from "@/components/ui/Section";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { areas } from "@/content/areas";
@@ -19,100 +17,197 @@ const featured = featuredSlugs
   .map((slug) => publishedProjects.find((project) => project.slug === slug))
   .filter((project) => project !== undefined);
 
+// Os 3 primeiros destaques vão para o palco; os demais, para a grade logo abaixo.
+const more = featured.slice(3);
+
+// Título curto e número de cada projeto do palco: todos já estão publicados no case.
+const stageCopy: Record<string, { title: string; metric: string; metricLabel: string }> = {
+  "teste-ab-assinaturas": {
+    title: "Teste A/B e impacto",
+    metric: "+0,82 p.p. de conversão",
+    metricLabel: "no novo checkout, com p = 0,0009 e IC 95% que não inclui zero",
+  },
+  "erp-pipeline-varejo": {
+    title: "Pipeline de ERP",
+    metric: "83,48 s",
+    metricLabel: "para carregar 1 milhão de itens de venda no data warehouse",
+  },
+  cashlab: {
+    title: "CashLab",
+    metric: "R$ 3,92 mi de saldo",
+    metricLabel: "de caixa em 31/10/2026, com ciclo financeiro de 49,4 dias",
+  },
+};
+
+const stageSlides: StageSlide[] = featured
+  .slice(0, 3)
+  .filter((project) => stageCopy[project.slug])
+  .map((project) => ({
+    slug: project.slug,
+    type: project.type,
+    image: project.image,
+    stack: cases[project.slug]?.stack ?? [],
+    ...stageCopy[project.slug],
+  }));
+
+// Números da Home: cada um já está publicado no case para onde aponta.
+const numbers = [
+  {
+    to: 1000000,
+    decimals: 0,
+    prefix: "",
+    suffix: "",
+    label: "itens de venda carregados em 83,48 s",
+    caseTitle: "Pipeline de ERP",
+    slug: "erp-pipeline-varejo",
+  },
+  {
+    to: 53,
+    decimals: 0,
+    prefix: "",
+    suffix: "",
+    label: "tabelas com RLS",
+    caseTitle: "Gestão para Barbearia",
+    slug: "gestao-barbearia",
+  },
+  {
+    to: 8,
+    decimals: 0,
+    prefix: "",
+    suffix: "",
+    label: "ferramentas somente leitura no MCP",
+    caseTitle: "Radar de Agenda",
+    slug: "radar-agenda",
+  },
+  {
+    to: 0.82,
+    decimals: 2,
+    prefix: "+",
+    suffix: " p.p.",
+    label: "de conversão, com p = 0,0009",
+    caseTitle: "Teste A/B",
+    slug: "teste-ab-assinaturas",
+  },
+];
+
 export default function Home() {
   return (
     <>
-      <section
-        aria-labelledby="hero-titulo"
-        className="bg-linear-to-b from-hero-top via-hero-mid to-canvas pb-10 pt-12 md:pb-12 md:pt-20"
-      >
-        <Container className="grid items-center gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-          <div>
-            <Image
-              src={portrait}
-              alt="Retrato de Gabriel Rangel"
-              width={56}
-              height={56}
-              priority
-              placeholder="blur"
-              className="size-14 rounded-full border border-hairline-strong object-cover object-[50%_25%]"
-            />
-            <h1 id="hero-titulo" className="text-display-lg mt-6 max-w-3xl">
-              {site.name},{" "}
-              <span className="text-accent-gradient">
-                analista de dados e automação com IA.
-              </span>
-            </h1>
-            <p className="text-headline mt-6 max-w-2xl text-ink">
-              Seus dados viram decisão, sem trabalho manual no meio.
+      <HeroStage />
+
+      <section aria-labelledby="intro-titulo" className="pt-10 md:pt-14">
+        <Container className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:gap-10">
+          <div data-reveal>
+            <p className="text-eyebrow text-ink-subtle">
+              Analista de dados e automação com IA
             </p>
-            <p className="text-body-lg mt-4 max-w-2xl text-ink-muted">
+            <h2
+              id="intro-titulo"
+              className="mt-3 max-w-[22ch] text-balance text-[clamp(24px,3vw,38px)] font-medium leading-[1.15] tracking-[-0.02em]"
+            >
+              Seus dados viram decisão, sem trabalho manual no meio.
+            </h2>
+            <p className="text-body-lg mt-4 max-w-[46ch] text-ink-muted">
               Dashboards, sistemas e agentes que tiram o trabalho manual do
               caminho.
             </p>
-            <ul
-              aria-label="Ferramentas principais"
-              className="mt-6 flex flex-wrap gap-2"
-            >
-              {site.stack.map((tool) => (
-                <li
-                  key={tool}
-                  className="text-body-sm rounded-md border border-hairline-strong bg-surface-1/60 px-3 py-1 text-ink"
-                >
-                  {tool}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="/projetos">Ver projetos</Button>
-              <Button href="/servicos" variant="secondary">
-                Serviços para empresas
-              </Button>
-            </div>
           </div>
-          <div className="max-lg:hidden">
-            <DemoFrame
-              fallbackHref={cases["gazeta-meridiano"].demo!.embedUrl}
-              fallbackLabel="Abrir o dashboard em nova aba"
-            >
-              <ScaledFrame
-                src={cases["gazeta-meridiano"].demo!.embedUrl}
-                title={cases["gazeta-meridiano"].demo!.title}
-              />
-            </DemoFrame>
-          </div>
+          <ul
+            aria-label="Ferramentas principais"
+            data-reveal
+            className="flex flex-wrap gap-2 lg:justify-end"
+          >
+            {site.stack.map((tool) => (
+              <li
+                key={tool}
+                className="text-body-sm rounded-full border border-line-soft px-3 py-1 text-ink-muted"
+              >
+                {tool}
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 
-      <Section
-        id="areas"
-        tight
-        eyebrow="O que construo"
-        title="Quatro frentes de trabalho."
-      >
-        <div className="grid gap-4 sm:grid-cols-2">
-          {areas.map(({ icon, title, text, note }) => (
-            <FeatureCard key={title} icon={icon} title={title} note={note}>
-              {text}
-            </FeatureCard>
+      <Section id="areas" eyebrow="O que eu faço" title="Quatro áreas em que trabalho.">
+        <ul className="border-t border-line-soft">
+          {areas.map(({ icon: Icon, title, text, note, href }) => (
+            <li key={title} className="border-b border-line-soft">
+              <Link
+                href={href}
+                className="group grid grid-cols-[40px_1fr] items-baseline gap-x-4 gap-y-2 py-7 transition-[padding,background-color] duration-[400ms] ease-[var(--ease-expressive)] hover:bg-[linear-gradient(90deg,rgb(43_196_207/0.08),transparent)] md:grid-cols-[56px_1fr_1.1fr] md:gap-6 md:hover:pl-4 focus-visible:pl-4"
+              >
+                <Icon width={22} height={22} className="translate-y-1 text-primary" aria-hidden="true" />
+                <h3 className="text-[clamp(22px,2.6vw,36px)] font-normal tracking-[-0.02em]">
+                  <span className="roll">
+                    <span data-t={title}>{title}</span>
+                  </span>
+                </h3>
+                <p className="text-body col-start-2 max-w-[48ch] text-ink-muted md:col-start-3">
+                  {text}
+                  {note && <span className="text-body-sm mt-1 block text-ink-subtle">{note}</span>}
+                </p>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </Section>
 
-      <Section
-        id="projetos"
-        eyebrow="Projetos em destaque"
-        title="Cases com demo aberta e números conferíveis."
-      >
+      <Section id="numeros" eyebrow="Números dos cases" title="Quatro números que dá para conferir.">
+        <ul className="grid grid-cols-2 border-y border-line-soft lg:grid-cols-4">
+          {numbers.map((n, i) => (
+            <li
+              key={n.slug}
+              className={`border-line-soft ${i % 2 === 0 ? "border-r" : ""} ${i < 2 ? "max-lg:border-b" : ""} lg:border-r lg:last:border-r-0`}
+            >
+              <Link
+                href={`/projetos/${n.slug}`}
+                className="group flex h-full flex-col gap-3 p-4 transition-colors duration-300 hover:bg-surface-1 md:p-6"
+              >
+                <CountUp
+                  to={n.to}
+                  decimals={n.decimals}
+                  prefix={n.prefix}
+                  suffix={n.suffix}
+                  className="block whitespace-nowrap text-[clamp(28px,3.8vw,56px)] font-light leading-none tracking-[-0.04em] tabular-nums"
+                />
+                <span className="text-body-sm text-ink-muted">{n.label}</span>
+                <span className="text-body-sm mt-auto inline-flex items-center gap-1.5 text-primary">
+                  {n.caseTitle}
+                  <ArrowRightIcon
+                    width={14}
+                    height={14}
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <section aria-labelledby="destaques-titulo" className="mt-section-mobile md:mt-section">
+        <Container data-reveal>
+          <p className="text-eyebrow text-ink-subtle">Projetos em destaque</p>
+          <h2
+            id="destaques-titulo"
+            className="mt-3 max-w-[18ch] text-balance text-[clamp(30px,4.6vw,60px)] font-light leading-[1.04] tracking-[-0.03em]"
+          >
+            Cases com demo aberta e números conferíveis.
+          </h2>
+        </Container>
+        <div className="mt-8 md:mt-12">
+          <ProjectStage slides={stageSlides} />
+        </div>
+      </section>
+
+      <Section id="mais-projetos" eyebrow="Mais projetos" title="Sistemas e dashboards com IA.">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((project) => (
-            <CaseCard key={project.slug} project={project} lean />
+          {more.map((project, i) => (
+            <CaseCard key={project.slug} project={project} stack={cases[project.slug]?.stack ?? []} lean index={i} />
           ))}
         </div>
-        <Link
-          href="/projetos"
-          className="text-button mt-8 inline-flex min-h-10 items-center gap-2 rounded-md text-primary"
-        >
+        <Link href="/projetos" className="link-retract text-button mt-10 text-primary">
           Ver todos os projetos
           <ArrowRightIcon />
         </Link>
@@ -126,26 +221,19 @@ export default function Home() {
             trabalho em cases com demo, dados à mostra e o que cada um não
             prova.
           </p>
-          <Link
-            href="/sobre"
-            className="text-button mt-6 inline-flex min-h-10 items-center gap-2 rounded-md text-primary"
-          >
+          <Link href="/sobre" className="link-retract text-button mt-6 text-primary">
             Conhecer a trajetória
             <ArrowRightIcon />
           </Link>
         </div>
       </Section>
 
-      <section aria-label="Próximos passos" className="mt-section-mobile md:mt-section">
-        <Container>
-          <CtaBanner title="Tem um projeto na sua empresa?">
-            <Button href="/servicos">Ver serviços</Button>
-            <Button href="/contato" variant="cta">
-              Falar sobre o projeto
-            </Button>
-          </CtaBanner>
-        </Container>
-      </section>
+      <FinalCta
+        eyebrow="Contato"
+        title="Quer trocar uma ideia sobre dados?"
+        primary={{ href: "/contato", label: "Falar comigo" }}
+        secondary={{ href: "/projetos", label: "Ver projetos" }}
+      />
     </>
   );
 }

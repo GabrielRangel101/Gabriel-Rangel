@@ -39,7 +39,7 @@ export function Tabs({ label, tabs }: { label: string; tabs: TabItem[] }) {
       <div
         role="tablist"
         aria-label={label}
-        className="mx-auto flex w-fit max-w-full gap-1 rounded-full border border-hairline bg-surface-1 p-1"
+        className="mx-auto flex w-fit max-w-full gap-1 rounded-full border border-line-soft bg-black/30 p-1"
       >
         {tabs.map((tab, index) => {
           const selected = tab.id === active;
@@ -59,7 +59,7 @@ export function Tabs({ label, tabs }: { label: string; tabs: TabItem[] }) {
               onKeyDown={(e) => onKeyDown(e, index)}
               className={`text-button touch-target transition-ui inline-flex items-center gap-2 whitespace-nowrap rounded-full px-3 sm:px-5 ${
                 selected
-                  ? "bg-surface-3 text-ink"
+                  ? "bg-primary text-on-primary"
                   : "text-ink-subtle hover:text-ink"
               }`}
             >

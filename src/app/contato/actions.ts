@@ -5,7 +5,9 @@ import { headers } from "next/headers";
 export type ContactField = "name" | "email" | "message" | "topic";
 
 const topics = {
-  empresa: "Projeto para minha empresa",
+  projeto: "Sobre um projeto do portfólio",
+  trabalho: "Trabalhar juntos em um projeto",
+  conversa: "Trocar uma ideia",
   outro: "Outro assunto",
 } as const;
 
@@ -48,7 +50,7 @@ function validate(values: Record<ContactField, string>) {
   }
   if (values.message.length < 10 || values.message.length > 4000) {
     errors.message =
-      "Conte um pouco mais sobre o que você precisa, com pelo menos 10 caracteres.";
+      "Escreva sua mensagem, com pelo menos 10 caracteres.";
   }
   return errors;
 }
@@ -61,7 +63,7 @@ export async function submitContact(
     name: String(formData.get("name") ?? "").trim(),
     email: String(formData.get("email") ?? "").trim(),
     message: String(formData.get("message") ?? "").trim(),
-    topic: String(formData.get("topic") ?? "empresa"),
+    topic: String(formData.get("topic") ?? "projeto"),
   };
 
   // Honeypot e tempo mínimo: bots preenchem o campo escondido ou enviam rápido demais.

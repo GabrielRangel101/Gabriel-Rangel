@@ -1,29 +1,14 @@
-// Conteúdo de Serviços (passos) e Contato (perguntas). Textos são uma proposta, para Gabriel revisar.
-export const steps = [
-  {
-    title: "Conversa",
-    text: "Você me conta como o trabalho é feito hoje e onde está o que é manual ou repetitivo.",
-  },
-  {
-    title: "Proposta",
-    text: "Eu devolvo um escopo claro: o que será entregue, em quais etapas e com qual prazo.",
-  },
-  {
-    title: "Entrega",
-    text: "Construo, documento e mostro funcionando, para você usar sem depender de mim.",
-  },
-];
-
+// Perguntas do Contato. Textos são uma proposta, para Gabriel revisar.
 export const faq = [
   {
-    question: "Que tipo de trabalho você faz?",
+    question: "Com o que você trabalha?",
     answer:
-      "Dashboards de BI (Power BI e Looker Studio), sistemas web, automações e agentes de IA, e a organização dos dados por trás deles. Os detalhes estão em Serviços.",
+      "Dashboards de BI (Power BI e Looker Studio), sistemas web, automações e agentes de IA, e a organização dos dados por trás deles. Os projetos estão em Projetos.",
   },
   {
-    question: "Como funciona a contratação?",
+    question: "Posso chamar você para um projeto?",
     answer:
-      "Por contrato de prestação de serviços e nota fiscal, pela Rangel Analytics. Escopo, etapas e prazo ficam definidos na proposta.",
+      "Pode. Escolha \"Trabalhar juntos em um projeto\" no formulário e conte o contexto. Eu respondo por e-mail e a gente vê se faz sentido.",
   },
   {
     question: "Os projetos do portfólio usam dados reais?",
