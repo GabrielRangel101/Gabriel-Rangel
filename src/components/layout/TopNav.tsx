@@ -17,6 +17,15 @@ export function TopNav() {
   const open = openOn === pathname;
   const setOpen = (value: boolean) => setOpenOn(value ? pathname : null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  // A borda inferior só aparece depois que a página rola (barra de vidro "descola" do topo).
+  const [stuck, setStuck] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setStuck(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Escape fecha e devolve o foco ao botão.
   useEffect(() => {
@@ -34,15 +43,20 @@ export function TopNav() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
+  // Ativo: texto mais claro e um sublinhado discreto no acento. Sem fundo, para a barra ficar leve.
   const linkClass = (href: string) =>
-    `text-body-sm touch-target transition-ui inline-flex items-center relative rounded-md px-3 ${
+    `text-body-sm touch-target transition-ui inline-flex items-center relative rounded-md px-3 after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:bg-primary after:transition-transform after:duration-300 ${
       isActive(href)
-        ? "bg-surface-2 text-ink after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:rounded-full after:bg-primary"
-        : "text-ink-subtle hover:bg-surface-1 hover:text-ink"
+        ? "text-ink after:scale-x-100"
+        : "text-ink-subtle hover:text-ink after:scale-x-0 hover:after:scale-x-100"
     }`;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-hairline bg-header">
+    <header
+      className={`sticky top-0 z-40 border-b bg-canvas/75 backdrop-blur-md transition-[border-color] duration-300 ${
+        stuck || open ? "border-hairline" : "border-transparent"
+      }`}
+    >
       <Container className="flex h-14 items-center gap-6">
         <Link
           href="/"
@@ -78,7 +92,7 @@ export function TopNav() {
             aria-controls="menu-mobile"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             onClick={() => setOpen(!open)}
-            className="transition-ui inline-flex size-11 items-center justify-center rounded-md text-ink hover:bg-surface-1 md:hidden"
+            className="transition-ui inline-flex size-11 items-center justify-center rounded-md text-ink hover:bg-surface-2 md:hidden"
           >
             {open ? (
               <CloseIcon width={20} height={20} />
@@ -93,7 +107,7 @@ export function TopNav() {
         <nav
           id="menu-mobile"
           aria-label="Principal"
-          className="border-t border-hairline bg-header md:hidden"
+          className="border-t border-hairline md:hidden"
         >
           <Container className="flex flex-col py-2">
             {site.nav.map(({ href, label }) => (
