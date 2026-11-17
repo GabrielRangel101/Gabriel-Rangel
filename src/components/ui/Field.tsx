@@ -10,7 +10,7 @@ type FieldProps = {
 };
 
 const control =
-  "text-body w-full rounded-md border border-input-border bg-surface-1 px-3 py-2.5 text-ink placeholder:text-ink-subtle min-h-11 aria-[invalid=true]:border-error";
+  "text-body w-full rounded-[12px] border border-input-border bg-surface-1 px-3 py-2.5 text-ink placeholder:text-ink-subtle min-h-11 transition-[border-color,box-shadow] duration-200 focus:border-primary focus:shadow-[0_0_0_3px_rgb(43_196_207/0.2)] focus-visible:outline-none aria-[invalid=true]:border-error";
 
 function useField(error?: string, hint?: string) {
   const id = useId();

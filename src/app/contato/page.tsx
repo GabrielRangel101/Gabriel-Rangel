@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const channelClass =
-  "transition-ui flex min-h-14 flex-col justify-center rounded-lg border border-hairline bg-surface-1 px-5 py-3 hover:border-hairline-strong hover:bg-surface-2";
+  "spotlight relative flex min-h-14 flex-col justify-center overflow-hidden rounded-[16px] border border-line-soft px-5 py-3 transition-[border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-primary/45";
 
 export default function ContactPage() {
   const { linkedin, github } = site.external;
@@ -23,9 +23,12 @@ export default function ContactPage() {
   return (
     <>
       <section aria-labelledby="contato-titulo" className="pt-12 md:pt-20">
-        <Container>
+        <Container data-reveal>
           <p className="text-eyebrow text-ink-subtle">Contato</p>
-          <h1 id="contato-titulo" className="text-display-lg mt-3 max-w-4xl">
+          <h1
+            id="contato-titulo"
+            className="mt-3 max-w-4xl text-[clamp(40px,7vw,96px)] font-light leading-[0.98] tracking-[-0.045em]"
+          >
             Fale comigo
           </h1>
           <p className="text-subhead mt-6 max-w-2xl text-ink-muted">

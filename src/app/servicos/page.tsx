@@ -20,9 +20,12 @@ export default function ServicesPage() {
   return (
     <>
       <section aria-labelledby="servicos-titulo" className="pt-12 md:pt-20">
-        <Container>
+        <Container data-reveal>
           <p className="text-eyebrow text-ink-subtle">Serviços para empresas</p>
-          <h1 id="servicos-titulo" className="text-display-lg mt-3 max-w-4xl">
+          <h1
+            id="servicos-titulo"
+            className="mt-3 max-w-[16ch] text-balance text-[clamp(40px,7vw,96px)] font-light leading-[0.98] tracking-[-0.045em]"
+          >
             Dados, sistemas e automação para a sua empresa.
           </h1>
           <p className="text-subhead mt-6 max-w-2xl text-ink-muted">
@@ -35,30 +38,32 @@ export default function ServicesPage() {
       </section>
 
       <Section id="entregas" tight eyebrow="O que entrego" title="Quatro frentes, do dado à decisão.">
-        <div className="grid gap-4 md:grid-cols-2">
+        <ul className="border-t border-line-soft">
           {services.map(({ icon: Icon, title, text, items, href }) => (
-            <article
-              key={title}
-              className="flex flex-col rounded-lg border border-hairline bg-surface-1 p-6"
-            >
-              <Icon width={24} height={24} className="text-ink-muted" />
-              <h3 className="text-card-title mt-4">{title}</h3>
-              <p className="text-body-sm mt-2 text-ink-muted">{text}</p>
-              <ul className="text-body-sm mt-4 flex list-disc flex-col gap-1.5 pl-5 text-ink-muted">
-                {items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <Link
-                href={href}
-                className="text-button mt-auto inline-flex min-h-10 items-center gap-2 pt-4 text-primary"
-              >
-                Ver projetos desse tipo
-                <ArrowRightIcon />
-              </Link>
-            </article>
+            <li key={title} className="border-b border-line-soft" data-reveal>
+              <article className="group grid gap-x-6 gap-y-3 py-8 transition-[padding,background-color] duration-[400ms] ease-[var(--ease-expressive)] hover:bg-[linear-gradient(90deg,rgb(43_196_207/0.08),transparent)] md:grid-cols-[56px_1fr_1.1fr] md:hover:pl-4">
+                <Icon width={24} height={24} className="text-primary md:translate-y-1.5" aria-hidden="true" />
+                <div>
+                  <h3 className="text-[clamp(24px,2.8vw,38px)] font-normal leading-[1.1] tracking-[-0.02em]">
+                    {title}
+                  </h3>
+                  <p className="text-body mt-2 max-w-[44ch] text-ink-muted">{text}</p>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <ul className="text-body-sm flex list-disc flex-col gap-1.5 pl-5 text-ink-muted marker:text-primary">
+                    {items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                  <Link href={href} className="link-retract text-button self-start text-primary">
+                    Ver projetos desse tipo
+                    <ArrowRightIcon />
+                  </Link>
+                </div>
+              </article>
+            </li>
           ))}
-        </div>
+        </ul>
       </Section>
 
       <Section id="processo" eyebrow="Como funciona" title="Em três passos.">
@@ -66,13 +71,14 @@ export default function ServicesPage() {
           {steps.map((step, index) => (
             <li
               key={step.title}
-              className="rounded-lg border border-hairline bg-surface-1 p-5"
+              className="rounded-[20px] border border-line-soft p-6"
+              data-reveal
             >
               <span
                 aria-hidden="true"
-                className="text-card-title grid size-10 place-items-center rounded-md bg-surface-2 text-ink-muted"
+                className="block text-[clamp(40px,4vw,56px)] font-light leading-none tracking-[-0.04em] text-primary tabular-nums"
               >
-                {index + 1}
+                {String(index + 1).padStart(2, "0")}
               </span>
               <h3 className="text-card-title mt-4">{step.title}</h3>
               <p className="text-body-sm mt-1 text-ink-muted">{step.text}</p>
