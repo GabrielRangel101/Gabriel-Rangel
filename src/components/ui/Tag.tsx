@@ -31,7 +31,7 @@ const pill =
 export function TypeTag({ type }: { type: CaseType }) {
   const { label, Icon } = caseTypes[type];
   return (
-    <span className={pill}>
+    <span className="text-caption inline-flex items-center gap-1 rounded-full border border-line-soft bg-canvas/80 px-2.5 py-1 text-ink backdrop-blur-md">
       <Icon width={12} height={12} />
       {label}
     </span>

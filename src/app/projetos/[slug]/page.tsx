@@ -9,9 +9,11 @@ import { CodeBlock } from "@/components/ui/CodeBlock";
 import { Container } from "@/components/ui/Container";
 import { DemoFrame } from "@/components/ui/DemoFrame";
 import { EmbedFrame } from "@/components/ui/EmbedFrame";
+import { GlassCta } from "@/components/ui/GlassCta";
 import {
   ActivityIcon,
   ArrowLeftIcon,
+  ArrowRightIcon,
   ChipIcon,
   CheckCircleIcon,
   CheckIcon,
@@ -25,7 +27,7 @@ import {
 import { Tabs } from "@/components/ui/Tabs";
 import { TypeTag } from "@/components/ui/Tag";
 import { cases } from "@/content/cases";
-import { projects } from "@/content/projects";
+import { projects, publishedProjects } from "@/content/projects";
 import { site } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -81,7 +83,7 @@ function InfoCard({
   children: ReactNode;
 }) {
   return (
-    <li className="rounded-lg border border-hairline bg-surface-1 p-3">
+    <li className="rounded-[14px] border border-line-soft bg-surface-1/60 p-3">
       <span className="flex items-center gap-2 text-ink-subtle">
         <Icon width={16} height={16} />
         <span className="text-eyebrow uppercase">{label}</span>
@@ -102,7 +104,7 @@ function PanelCard({
   children: ReactNode;
 }) {
   return (
-    <section className="rounded-xl border border-hairline bg-surface-1 p-6">
+    <section className="rounded-[20px] border border-line-soft bg-surface-1/60 p-6">
       <div className="flex items-center gap-3">
         <span className="grid size-10 place-items-center rounded-md bg-surface-2 text-ink-muted">
           <Icon width={20} height={20} />
@@ -121,6 +123,10 @@ export default async function CasePage({ params }: Props) {
   if (!project || !study) notFound();
 
   const external = { target: "_blank", rel: "noopener" } as const;
+  // Anterior e próximo na ordem de curadoria de /projetos.
+  const position = publishedProjects.findIndex((p) => p.slug === slug);
+  const prev = position > 0 ? publishedProjects[position - 1] : undefined;
+  const next = position >= 0 && position < publishedProjects.length - 1 ? publishedProjects[position + 1] : undefined;
   const demo = study.demo;
   const isPowerBi = demo?.embedUrl.includes("app.powerbi.com") ?? false;
 
@@ -128,10 +134,9 @@ export default async function CasePage({ params }: Props) {
     <>
       <div className="flex flex-wrap items-center gap-3">
         {demo && (
-          <Button href={demo.embedUrl} {...external}>
-            <ExternalLinkIcon />
+          <GlassCta href={demo.embedUrl} external size="sm" icon={<ExternalLinkIcon width={16} height={16} />}>
             {demo.openLabel ?? "Abrir app ao vivo"}
-          </Button>
+          </GlassCta>
         )}
         {study.repoUrl && (
           <Button
@@ -336,12 +341,14 @@ export default async function CasePage({ params }: Props) {
 
         <header className="mt-4">
           <TypeTag type={project.type} />
-          <h1 className="text-display-md mt-3">{project.title}</h1>
-          <p className="text-body mt-2 max-w-3xl text-ink-muted">
+          <h1 className="mt-4 max-w-[20ch] text-balance text-[clamp(36px,5.6vw,72px)] font-light leading-[1] tracking-[-0.035em]">
+            {project.title}
+          </h1>
+          <p className="text-body-lg mt-4 max-w-3xl text-ink-muted">
             {project.summary}
           </p>
 
-          <ul className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-[1fr_1fr_1.4fr_1.8fr]">
+          <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-[1fr_1fr_1.4fr_1.8fr]">
             <InfoCard icon={DatabaseIcon} label="Tipo de dado">
               {study.dataKind}
             </InfoCard>
@@ -378,6 +385,40 @@ export default async function CasePage({ params }: Props) {
             ]}
           />
         </div>
+
+        <nav
+          aria-label="Outros projetos"
+          className="mt-section-mobile grid gap-3 border-t border-line-soft pt-8 sm:grid-cols-2 md:mt-section"
+        >
+          {prev && (
+            <Link
+              href={`/projetos/${prev.slug}`}
+              className="group flex flex-col gap-1 rounded-[14px] p-4 transition-colors duration-300 hover:bg-surface-1"
+            >
+              <span className="text-body-sm inline-flex items-center gap-2 text-ink-subtle">
+                <ArrowLeftIcon className="transition-transform duration-300 group-hover:-translate-x-1" />
+                Projeto anterior
+              </span>
+              <span className="text-[clamp(20px,2.2vw,28px)] font-light tracking-[-0.02em]">
+                {prev.title}
+              </span>
+            </Link>
+          )}
+          {next && (
+            <Link
+              href={`/projetos/${next.slug}`}
+              className="group flex flex-col items-end gap-1 rounded-[14px] p-4 text-right transition-colors duration-300 hover:bg-surface-1 sm:col-start-2"
+            >
+              <span className="text-body-sm inline-flex items-center gap-2 text-ink-subtle">
+                Próximo projeto
+                <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+              <span className="text-[clamp(20px,2.2vw,28px)] font-light tracking-[-0.02em]">
+                {next.title}
+              </span>
+            </Link>
+          )}
+        </nav>
       </Container>
     </article>
   );

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cases } from "@/content/cases";
 import type { Project } from "@/content/projects";
 import { ArrowRightIcon } from "./icons";
 import { TypeTag } from "./Tag";
@@ -9,11 +8,14 @@ import { TypeTag } from "./Tag";
 // Hover (só mouse): sobe 5 px, borda no acento e spotlight que segue o cursor.
 export function CaseCard({
   project,
+  stack: fullStack,
   lean = false,
   index = 0,
   animate = false,
 }: {
   project: Project;
+  // Ferramentas do case (o card mostra as três primeiras). Vem por prop para o card servir no cliente sem carregar os textos dos cases.
+  stack: string[];
   // Versão enxuta da Home: título, uma linha de resultado e três tags.
   lean?: boolean;
   // Posição na grade, para a entrada escalonada.
@@ -21,8 +23,7 @@ export function CaseCard({
   // Entrada escalonada (usada ao filtrar em /projetos).
   animate?: boolean;
 }) {
-  const study = cases[project.slug];
-  const stack = study?.stack.slice(0, 3) ?? [];
+  const stack = fullStack.slice(0, 3);
 
   return (
     <article

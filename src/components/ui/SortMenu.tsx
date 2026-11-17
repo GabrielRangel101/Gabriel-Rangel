@@ -7,12 +7,15 @@ import { CheckIcon, ChevronDownIcon } from "./icons";
 export type SortOption = { value: string; label: string; href: string };
 
 // Menu de ordenação feito de links, então a ordem fica na URL e funciona sem estado no servidor.
+// Com onSelect, o clique troca a ordem no cliente (o link continua valendo sem JS).
 export function SortMenu({
   options,
   current,
+  onSelect,
 }: {
   options: SortOption[];
   current: string;
+  onSelect?: (value: string) => void;
 }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
@@ -41,7 +44,7 @@ export function SortMenu({
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="text-button touch-target transition-ui inline-flex w-full items-center justify-between gap-3 rounded-lg border border-hairline bg-surface-2 px-4 hover:border-hairline-strong md:w-auto md:min-w-44"
+        className="text-button touch-target transition-ui inline-flex w-full items-center justify-between gap-3 rounded-full border border-line-soft bg-transparent px-4 hover:border-ink-subtle md:w-auto md:min-w-44"
       >
         <span>
           <span className="sr-only">Ordenar por: </span>
@@ -58,7 +61,13 @@ export function SortMenu({
             <li key={o.value}>
               <Link
                 href={o.href}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  setOpen(false);
+                  if (onSelect) {
+                    e.preventDefault();
+                    onSelect(o.value);
+                  }
+                }}
                 aria-current={o.value === selected.value ? "true" : undefined}
                 className={`text-button flex min-h-10 items-center gap-2 rounded-md px-3 hover:bg-surface-4 ${
                   o.value === selected.value ? "text-primary" : "text-ink-muted"

@@ -7,6 +7,7 @@ import { FinalCta } from "@/components/ui/FinalCta";
 import { Section } from "@/components/ui/Section";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { areas } from "@/content/areas";
+import { cases } from "@/content/cases";
 import { featuredSlugs, publishedProjects } from "@/content/projects";
 import { site } from "@/lib/site";
 
@@ -153,7 +154,7 @@ export default function Home() {
       <Section id="projetos" eyebrow="Projetos em destaque" title="Cases com demo aberta e números conferíveis.">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((project, i) => (
-            <CaseCard key={project.slug} project={project} lean index={i} />
+            <CaseCard key={project.slug} project={project} stack={cases[project.slug]?.stack ?? []} lean index={i} />
           ))}
         </div>
         <Link
