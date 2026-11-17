@@ -43,13 +43,42 @@ export function TopNav() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
-  // Ativo: texto mais claro e um sublinhado discreto no acento. Sem fundo, para a barra ficar leve.
+  // Desktop: o item ativo ganha o indicador de vidro (deslizante); aqui só cor e hover.
   const linkClass = (href: string) =>
-    `text-body-sm touch-target transition-ui inline-flex items-center relative rounded-md px-3 after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:bg-primary after:transition-transform after:duration-300 ${
+    `text-body-sm touch-target transition-ui relative z-10 inline-flex items-center rounded-full px-4 ${
+      isActive(href) ? "text-ink" : "text-ink-subtle hover:text-ink"
+    }`;
+
+  // Menu móvel: lista em linhas, com a barra do acento no ativo.
+  const mobileLinkClass = (href: string) =>
+    `text-body touch-target transition-ui relative inline-flex min-h-11 items-center rounded-md px-3 after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:bg-primary after:transition-transform after:duration-300 ${
       isActive(href)
         ? "text-ink after:scale-x-100"
         : "text-ink-subtle hover:text-ink after:scale-x-0 hover:after:scale-x-100"
     }`;
+
+  // Indicador deslizante: mede o link ativo e posiciona o vidro atrás dele.
+  const navRef = useRef<HTMLElement>(null);
+  const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+  const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
+
+  useEffect(() => {
+    const measure = () => {
+      const index = site.nav.findIndex((item) => isActive(item.href));
+      const el = index >= 0 ? linkRefs.current[index] : null;
+      setIndicator(el ? { x: el.offsetLeft, w: el.offsetWidth } : null);
+    };
+    const id = setTimeout(measure, 0);
+    const ro = new ResizeObserver(measure);
+    if (navRef.current) ro.observe(navRef.current);
+    document.fonts?.ready.then(measure);
+    return () => {
+      clearTimeout(id);
+      ro.disconnect();
+    };
+    // isActive depende só do pathname.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return (
     <header
@@ -68,11 +97,28 @@ export function TopNav() {
           </span>
         </Link>
 
-        <nav aria-label="Principal" className="hidden items-center gap-1 md:flex">
-          {site.nav.map(({ href, label }) => (
+        <nav
+          ref={navRef}
+          aria-label="Principal"
+          className="nav-glass relative ml-2 hidden items-center md:flex"
+        >
+          <span className="nav-spin" aria-hidden="true" />
+          <span
+            aria-hidden="true"
+            className="nav-indicator"
+            style={{
+              width: indicator?.w ?? 0,
+              transform: `translateX(${indicator?.x ?? 0}px)`,
+              opacity: indicator ? 1 : 0,
+            }}
+          />
+          {site.nav.map(({ href, label }, i) => (
             <Link
               key={href}
               href={href}
+              ref={(el) => {
+                linkRefs.current[i] = el;
+              }}
               aria-current={isActive(href) ? "page" : undefined}
               className={linkClass(href)}
             >
@@ -115,7 +161,7 @@ export function TopNav() {
                 key={href}
                 href={href}
                 aria-current={isActive(href) ? "page" : undefined}
-                className={`${linkClass(href)} text-body min-h-11`}
+                className={mobileLinkClass(href)}
               >
                 {label}
               </Link>

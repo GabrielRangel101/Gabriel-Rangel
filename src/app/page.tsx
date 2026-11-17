@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { HeroStage } from "@/components/home/HeroStage";
+import { ProjectStage } from "@/components/home/ProjectStage";
+import type { StageSlide } from "@/components/home/ProjectStage";
 import { CaseCard } from "@/components/ui/CaseCard";
 import { Container } from "@/components/ui/Container";
 import { CountUp } from "@/components/ui/CountUp";
@@ -14,6 +16,39 @@ import { site } from "@/lib/site";
 const featured = featuredSlugs
   .map((slug) => publishedProjects.find((project) => project.slug === slug))
   .filter((project) => project !== undefined);
+
+// Os 3 primeiros destaques vão para o palco; os demais, para a grade logo abaixo.
+const more = featured.slice(3);
+
+// Título curto e número de cada projeto do palco: todos já estão publicados no case.
+const stageCopy: Record<string, { title: string; metric: string; metricLabel: string }> = {
+  "teste-ab-assinaturas": {
+    title: "Teste A/B e impacto",
+    metric: "+0,82 p.p. de conversão",
+    metricLabel: "no novo checkout, com p = 0,0009 e IC 95% que não inclui zero",
+  },
+  "erp-pipeline-varejo": {
+    title: "Pipeline de ERP",
+    metric: "83,48 s",
+    metricLabel: "para carregar 1 milhão de itens de venda no data warehouse",
+  },
+  cashlab: {
+    title: "CashLab",
+    metric: "R$ 3,92 mi de saldo",
+    metricLabel: "de caixa em 31/10/2026, com ciclo financeiro de 49,4 dias",
+  },
+};
+
+const stageSlides: StageSlide[] = featured
+  .slice(0, 3)
+  .filter((project) => stageCopy[project.slug])
+  .map((project) => ({
+    slug: project.slug,
+    type: project.type,
+    image: project.image,
+    stack: cases[project.slug]?.stack ?? [],
+    ...stageCopy[project.slug],
+  }));
 
 // Números da Home: cada um já está publicado no case para onde aponta.
 const numbers = [
@@ -151,16 +186,28 @@ export default function Home() {
         </ul>
       </Section>
 
-      <Section id="projetos" eyebrow="Projetos em destaque" title="Cases com demo aberta e números conferíveis.">
+      <section aria-labelledby="destaques-titulo" className="mt-section-mobile md:mt-section">
+        <Container data-reveal>
+          <p className="text-eyebrow text-ink-subtle">Projetos em destaque</p>
+          <h2
+            id="destaques-titulo"
+            className="mt-3 max-w-[18ch] text-balance text-[clamp(30px,4.6vw,60px)] font-light leading-[1.04] tracking-[-0.03em]"
+          >
+            Cases com demo aberta e números conferíveis.
+          </h2>
+        </Container>
+        <div className="mt-8 md:mt-12">
+          <ProjectStage slides={stageSlides} />
+        </div>
+      </section>
+
+      <Section id="mais-projetos" eyebrow="Mais projetos" title="Sistemas e dashboards com IA.">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((project, i) => (
+          {more.map((project, i) => (
             <CaseCard key={project.slug} project={project} stack={cases[project.slug]?.stack ?? []} lean index={i} />
           ))}
         </div>
-        <Link
-          href="/projetos"
-          className="link-retract text-button mt-10 text-primary"
-        >
+        <Link href="/projetos" className="link-retract text-button mt-10 text-primary">
           Ver todos os projetos
           <ArrowRightIcon />
         </Link>

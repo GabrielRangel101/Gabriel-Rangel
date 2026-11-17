@@ -7,6 +7,7 @@ import cutout from "@/assets/gabriel-recorte.webp";
 import { Container } from "@/components/ui/Container";
 import { GlassCta } from "@/components/ui/GlassCta";
 import { CasesPanel } from "./CasesPanel";
+import { AgentIcon, DataIcon, FlowIcon } from "./RoleIcons";
 
 // Colunas do fundo: duração e atraso de cada feixe; o segundo feixe de algumas colunas é laranja.
 const columns = [
@@ -20,7 +21,11 @@ const columns = [
   { d: 6.5, dl: 4.8, beams: [0] },
 ];
 
-const roles = ["Analista de dados", "Automação com IA", "Agentes de IA"];
+const roles = [
+  { label: "Analista de dados", icon: <DataIcon /> },
+  { label: "Automação com IA", icon: <FlowIcon /> },
+  { label: "Agentes de IA", icon: <AgentIcon /> },
+];
 
 function Letters({ text, offset }: { text: string; offset: number }) {
   return text.split("").map((ch, i) => (
@@ -144,11 +149,12 @@ export function HeroStage() {
         >
           {roles.map((role, i) => (
             <li
-              key={role}
-              className="rise whitespace-nowrap max-lg:[&+&]:before:mr-2 max-lg:[&+&]:before:text-cta max-lg:[&+&]:before:content-['·'] lg:border-t lg:border-line-soft lg:py-3 lg:transition-[color,padding] lg:duration-300 lg:last:border-b lg:hover:pl-2 lg:hover:text-primary"
+              key={role.label}
+              className="rise whitespace-nowrap max-lg:[&+&]:before:mr-2 max-lg:[&+&]:before:text-cta max-lg:[&+&]:before:content-['·'] lg:flex lg:items-center lg:gap-4 lg:border-t lg:border-line-soft lg:py-3 lg:transition-[color,padding] lg:duration-300 lg:last:border-b lg:hover:pl-2 lg:hover:text-primary"
               style={{ "--delay": `${1100 + i * 120}ms` } as React.CSSProperties}
             >
-              {role}
+              <span className="max-lg:hidden">{role.icon}</span>
+              {role.label}
             </li>
           ))}
         </ul>

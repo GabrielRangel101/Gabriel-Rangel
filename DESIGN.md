@@ -419,8 +419,11 @@ Camada editorial por cima dos tokens acima: as cores, o canvas e o acento contin
 
 **Componentes novos**
 - `GlassCta`: pílula de vidro com borda girando (conic, 3,4 s), ícone redondo, rótulo e seta. Um por tela para a ação principal: hero ("Ver projetos"), CTA final e "Abrir app ao vivo" no case. Ref.: Lumina "Glow CTA pill" e Sora "Glass button motion" (ds.asimov.academy).
-- `HeroStage` e `CasesPanel`: palco do hero (colunas com feixes caindo, lanterna no cursor, foto recortada) e painel com abas. O painel mostra só números publicados nos cases, em barras; nada de curva com pontos inventados.
+- `HeroStage` e `CasesPanel`: palco do hero (colunas com feixes caindo, lanterna no cursor, foto recortada) e painel com abas. O painel mostra só números publicados nos cases, com o gráfico certo para cada um: colunas (tempos do pipeline), intervalo (efeito e IC 95% do A/B) e linhas (projeção de 90 dias do CashLab). Nada de série com pontos inventados.
 - `FinalCta`: seção de fechamento com moldura na cor do canvas que abre no hover ou foco do botão.
+- `ProjectStage`: palco dos 3 melhores projetos na Home (seção fixa, cada projeto sai de cena por vez, capturas reais, número em laranja). Abaixo de 1024 px ou com movimento reduzido vira lista empilhada. Os demais destaques ficam numa grade logo depois.
+- Navegação em vidro (`.nav-glass`): pílula com borda girando devagar e indicador de vidro que desliza até o item ativo (mesma linguagem do `GlassCta`).
+- `RoleIcons`: ícones animados das especialidades do hero (barras, fluxo entre nós, balão digitando).
 - `CountUp`: número que conta uma vez ao entrar na tela; o HTML já traz o valor final.
 - Linhas com hover (Home e Serviços): lista separada por `line-soft`, hover com recuo de 16 px e degradê do acento a transparente.
 - Card de case: 20px de raio, hover sobe 5 px com borda no acento e spotlight que segue o mouse.

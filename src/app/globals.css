@@ -225,6 +225,39 @@ body {
   100% { box-shadow: 0 0 0 0 rgb(249 115 22 / 0); }
 }
 
+/* Ícones das especialidades (RoleIcons). */
+@keyframes role-bar {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+@keyframes role-flow {
+  to { stroke-dashoffset: -14; }
+}
+@keyframes role-node {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+@keyframes role-dot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+  30% { transform: translateY(-3px); opacity: 1; }
+}
+.role-bar {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: role-bar 1.8s ease-in-out infinite;
+}
+.role-flow {
+  animation: role-flow 0.9s linear infinite;
+}
+.role-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: role-node 1.5s ease-in-out infinite;
+}
+.role-dot {
+  animation: role-dot 1.2s ease-in-out infinite;
+}
+
 /* Entrada de página (template.tsx): só em navegação interna. No primeiro carregamento
    a classe nav-ready ainda não existe, então o conteúdo pinta direto (melhor LCP). */
 .nav-ready .page-enter:not([data-first]) {
@@ -406,6 +439,159 @@ a:focus-visible .roll > span {
   height: 32px;
 }
 
+/* Palco de projetos da Home (ProjectStage). Base: lista empilhada, tudo visível.
+   Desktop com movimento permitido: seção fixa e projetos que saem de cena por vez. */
+.work-slide {
+  position: relative;
+  padding-block: 56px;
+}
+.work-title .m {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.06em;
+}
+.work-title .m > i {
+  display: inline-block;
+  font-style: normal;
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .work-pin {
+    height: calc(100vh + (var(--n) - 1) * 80vh);
+  }
+  .work-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .work-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 80px 0 40px;
+    clip-path: inset(0 0 var(--c, 0%) 0);
+  }
+  .work-head {
+    position: absolute;
+    z-index: 40;
+    top: 76px;
+    left: max(32px, calc((100% - var(--container-content)) / 2 + 32px));
+  }
+  .work-dots {
+    position: absolute;
+    z-index: 40;
+    right: max(32px, calc((100% - var(--container-content)) / 2 + 32px));
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .work-dots li {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-line-soft);
+    transition: background-color 300ms, transform 300ms;
+  }
+  .work-dots li.on {
+    background: var(--color-primary);
+    transform: scale(1.5);
+  }
+  .work-title .m > i {
+    transform: translateY(105%);
+    transition: transform 800ms var(--ease-expressive);
+    transition-delay: calc(var(--i) * 35ms);
+  }
+  .work-slide.on .work-title .m > i {
+    transform: none;
+  }
+  .work-mock {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+    transition: opacity 700ms 150ms, transform 900ms 150ms var(--ease-expressive);
+  }
+  .work-slide.on .work-mock,
+  .work-slide:first-of-type .work-mock {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 1023px), (prefers-reduced-motion: reduce) {
+  .work-head,
+  .work-dots {
+    display: none;
+  }
+}
+
+/* Navegação em vidro: pílula com borda que gira devagar, interior fosco e um indicador
+   deslizante atrás do item ativo. Mesma linguagem do CTA de vidro. */
+.nav-glass {
+  isolation: isolate;
+  padding: 4px;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0) 55%, rgb(255 255 255 / 0.05));
+  box-shadow: 0 0 22px rgb(43 196 207 / 0.14);
+}
+.nav-glass::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--color-glass);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.nav-glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.1) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 900ms var(--ease-expressive);
+  pointer-events: none;
+}
+.nav-glass:hover::after {
+  transform: translateX(120%);
+}
+.nav-spin {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.nav-spin::before {
+  content: "";
+  position: absolute;
+  left: -100%;
+  top: -100%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(from 0deg, transparent 0 80deg, rgb(43 196 207 / 0.8) 170deg,
+    rgb(249 115 22 / 0.65) 235deg, transparent 290deg 360deg);
+  animation: cgspin 6s linear infinite;
+}
+.nav-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  z-index: 1;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgb(43 196 207 / 0.28), rgb(43 196 207 / 0.08));
+  border: 1px solid rgb(43 196 207 / 0.55);
+  box-shadow: 0 0 18px rgb(43 196 207 / 0.3), inset 0 1px 0 rgb(255 255 255 / 0.18);
+  transition: transform 450ms var(--ease-expressive), width 450ms var(--ease-expressive), opacity 300ms;
+  pointer-events: none;
+}
+
 /* Spotlight que segue o mouse (cards). Só com mouse. */
 .spotlight::before {
   content: "";
@@ -541,7 +727,8 @@ main:has(.cta-stage:last-child) + footer {
     opacity: 0.5;
     transform: translateY(80%);
   }
-  .cta-glass .cta-spin::before {
+  .cta-glass .cta-spin::before,
+  .nav-spin::before {
     animation: none !important;
   }
 }
