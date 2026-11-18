@@ -162,8 +162,8 @@ export const projects: Project[] = [
     title: "Sobrevivência de Assinantes: Retenção",
     type: "experimento",
     summary:
-      "Análise de sobrevivência da retenção de assinantes: Kaplan-Meier, log-rank com Holm, Cox com riscos proporcionais violados e corrigidos, RMST/LTV por canal e riscos competitivos, com 106 testes. Dados sintéticos, código aberto.",
-    headline: "Penhasco de 2,85× no fim da promoção",
+      "Sobrevivência de assinantes: Kaplan-Meier, Cox com riscos proporcionais violados e corrigidos, LTV por canal com CAC incerto, MRR e NRR, validação fora do tempo e em dado público, 160 testes. Dados sintéticos, código aberto.",
+    headline: "Penhasco de 2,64× no fim da promoção",
     synthetic: true,
     image: survivalImage,
   },

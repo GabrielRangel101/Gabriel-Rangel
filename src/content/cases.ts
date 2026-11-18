@@ -823,33 +823,36 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
   "sobrevivencia-assinaturas": {
     description: [
       "Análise de sobrevivência aplicada à retenção de assinaturas de um jornal digital fictício (Gazeta Meridiano): quanto tempo cada tipo de assinante permanece, onde a retenção quebra (no fim da promoção, por exemplo) e qual canal vale a verba quando se considera a permanência, e não só o custo de aquisição. A decisão em jogo era onde colocar a verba de aquisição e o que fazer no mês 3 da promoção da Black Friday.",
-      "Os dados são 100% sintéticos, gerados por scripts em Python com semente fixa, e os efeitos foram plantados de propósito: mídia paga com risco maior, indicação menor, engajamento protetor e um penhasco de risco no mês seguinte ao fim da promoção, que viola os riscos proporcionais de propósito. O que o projeto mostra é que o método recupera o efeito certo, e não uma descoberta sobre o mundo real. O código foi escrito com apoio do Claude, sob minha direção, e a demo é um relatório estático com um explorador interativo de curvas de sobrevivência.",
+      "Os dados são 100% sintéticos, gerados por scripts em Python com semente fixa, e os efeitos foram plantados de propósito: mídia paga com risco maior, indicação menor, engajamento protetor e um penhasco de risco no mês seguinte ao fim da promoção, que viola os riscos proporcionais de propósito. O que o projeto mostra é que o método recupera o efeito certo, e não uma descoberta sobre o mundo real. Como isso é em parte circular, o projeto também valida o modelo fora do tempo, roda o mesmo pipeline num dataset público de churn (dado de exemplo de telecom, que eu não plantei) e mede o que acontece quando o gerador não espelha o modelo. O código foi escrito com apoio do Claude, sob minha direção, e a demo é um relatório estático com um explorador interativo de curvas de sobrevivência.",
     ],
     status: "Código público no GitHub",
     dataKind: "Sintético",
-    period: "nov/2024 a out/2026, corte em 31/10/2026",
+    period: "nov/2023 a out/2026, corte em 31/10/2026",
     resultLabel: "O que a análise mostra",
     impactNote:
-      "Sem impacto medido em operação real: os dados são sintéticos e o valor em R$ é uma projeção feita com premissas declaradas (preço de tabela como ARPU, CAC por canal, taxa de desconto de 12% ao ano, sem margem de contribuição), não um resultado.",
+      "Sem impacto medido em operação real: os dados são sintéticos e o valor em R$ é uma projeção feita com premissas declaradas (preço de tabela vigente como ARPU, margem de contribuição de 70%, CAC por canal, taxa de desconto de 12% ao ano), não um resultado.",
     role: "Projeto pessoal de análise estatística, com apoio de IA",
     highlights: [
-      "Retenção ingênua × Kaplan-Meier por safra, com M12, M18 e M24 vazios onde a safra não tem tempo de observação",
-      "Log-rank por canal, plano e safra, com pares corrigidos por Holm: 12 de 28 pares entre safras significativos sem correção, 5 com Holm",
+      "Retenção ingênua × Kaplan-Meier por safra, com M12, M18 e M24 vazios onde a safra não tem tempo de observação (M24 observável nas safras mais antigas)",
+      "Log-rank por canal, plano e safra, com pares corrigidos por Holm: 25 de 66 pares entre safras significativos sem correção, 13 com Holm",
       "Cox com a violação de riscos proporcionais mostrada (Schoenfeld) e corrigida (estrato por plano, promoção por períodos), com tabela de efeito plantado × estimado",
-      "Validação em 20 réplicas de seed: o IC 95% cobriu o efeito plantado em 97% dos casos",
-      "RMST e LTV descontado por canal contra o CAC, com payback e IC por bootstrap de assinantes",
-      "Seção “O que poderia ter dado errado”: censura ignorada, riscos proporcionais violados e ranking por M12 bruto com safra pequena",
+      "LTV de contribuição por canal contra um CAC incerto, com ponto de equilíbrio e realocação de verba como faixa de cenários (os CACs são premissa, e isso está dito)",
+      "Ponte de MRR, retenção líquida de receita (NRR de 80%), reativação, troca de plano e conversão de trial",
+      "Validação fora do tempo (C-index 0,667 contra um teto de 0,675), score de risco por assinante e desenho do teste A/B da ação do mês 3",
+      "Mesmo pipeline num dataset público de churn e o mesmo modelo em dados com gerador diferente do modelo",
       "Riscos competitivos (voluntário, involuntário e fim de contrato) por Aalen-Johansen",
     ],
     problem:
-      "A retenção “ativos ÷ iniciados” por safra parece boa, mas só mede há quanto tempo a safra entrou: vai de 45% a 94% entre a safra mais antiga e a mais recente. E comparar canais só pelo custo de aquisição ignora quanto tempo cada assinante fica.",
+      "A retenção “ativos ÷ iniciados” por safra parece boa, mas só mede há quanto tempo a safra entrou: vai de 39% a 95% entre a safra mais antiga e a mais recente. E comparar canais só pelo custo de aquisição ignora quanto tempo cada assinante fica.",
     decision:
-      "Defini o evento (cancelamento efetivo), a origem do tempo (primeira cobrança) e o corte antes de olhar o resultado, tratei a censura à direita com Kaplan-Meier e IC 95% log-log, deixei vazias as células de M12, M18 e M24 sem tempo de observação e testei a premissa de riscos proporcionais antes de confiar no Cox. O valor por canal usa RMST e LTV descontado contra o CAC, com a parte medida separada da projetada.",
+      "Defini o evento (cancelamento efetivo), a origem do tempo (primeira cobrança) e o corte antes de olhar o resultado, tratei a censura à direita com Kaplan-Meier e IC 95% log-log, deixei vazias as células de M12, M18 e M24 sem tempo de observação e testei a premissa de riscos proporcionais antes de confiar no Cox. O valor por canal usa RMST e LTV de contribuição (com margem) contra um CAC incerto, com a parte medida separada da projetada.",
     result: [
-      "Retenção: em M12 a base retém 66,1% (IC 95% de 65,1% a 67,1%), acima da meta fictícia de 65%; em M18, 51,0%, abaixo da meta de 55%. M24 não é observável com este desenho, porque nenhum assinante completou 24 meses até o corte. O log-rank separa canais e planos (p < 0,001).",
-      "Onde quebra: 10,3% de quem chegou ao mês 3 da Black Friday cancela no mês seguinte ao fim da promoção, contra 3,6% sem promoção. O Cox corrigido estima HR 2,85 (IC 95% de 2,26 a 3,61) para o penhasco, perto dos 3,00 plantados; o Cox ingênuo, com um HR único de 1,20, subestima o penhasco. O teste de Schoenfeld por faixas de idade detecta a violação (p < 0,001).",
-      "Canais: mídia paga (Meta) é o canal pago mais barato (R$ 52 de CAC), mas o LTV descontado em 24 meses é de R$ 369 contra R$ 498 de indicação, e o retorno por real é de 7,1× contra 8,9×. Busca paga tem o pior retorno entre os canais com verba (4,4×).",
-      "Projeção, não medição: mover R$ 100.000 de busca paga para indicação soma cerca de R$ 444,3 mil de valor líquido (LTV menos CAC), supondo CAC médio igual ao marginal. No mês 3 da promoção, uma ação de R$ 4 por assinante rende R$ 2.565 líquidos numa coorte de 637 assinantes, e só se paga se evitar mais de 16% do excesso de cancelamentos.",
+      "Retenção: por Kaplan-Meier, M12 66,0% (IC 95% de 65,2% a 66,8%), acima da meta fictícia de 65%; M18 51,6% (abaixo da meta de 55%); M24 44,1% (IC de 43,2% a 45,1%, abaixo da meta de 48%). M24 só é observável nas 4 safras mais antigas, de 12.",
+      "Onde quebra: 10,5% de quem chegou ao mês 3 da Black Friday cancela no mês seguinte ao fim da promoção, contra 3,9% sem promoção. O Cox corrigido estima HR 2,64 (IC 95% de 2,18 a 3,19) para o penhasco, perto dos 3,00 plantados; o Cox ingênuo, com um HR único de 1,14, subestima o penhasco.",
+      "Canais: Mídia paga (Meta) é o canal pago mais barato (R$ 52 de CAC), mas o LTV de contribuição em 24 meses é de R$ 270 contra R$ 357 de Indicação. Com o CAC variando 30% para cima e para baixo, o retorno por real é de 5,2× (IC 4,1 a 7,3) contra 6,4× (IC 4,9 a 8,9), e Indicação é o melhor em 71% das réplicas: uma vantagem moderada, que depende de um CAC que é premissa (escolhi os CACs para a pergunta ter resposta não trivial).",
+      "Projeção, não medição: mover R$ 100 mil de Busca paga para Indicação soma de R$ 312,2 mil (CAC marginal igual ao médio; IC R$ 95,4 mil a R$ 581,7 mil) até R$ 99,7 mil (CAC marginal 50% acima), e deixa de compensar quando o CAC marginal passa de 96% acima do médio. No mês 3 da promoção, uma ação de R$ 4 por assinante só se paga se evitar mais de 22% do excesso de cancelamentos, e provar 35% de efetividade num teste A/B exige cerca de 2.671 assinantes por braço, mais do que uma campanha inteira.",
+      "Operação (premissas fictícias): o MRR chega a R$ 369.193 com 11.035 assinantes ativos; a retenção líquida de receita em 12 meses é de 79,5% (IC 78,2% a 80,7%) e a bruta, de 70,7%.",
+      "Validação além do gerador: fora do tempo (modelo treinado até 31/10/2025, testado em quem entrou depois) o C-index é 0,667, perto do teto de 0,675 do risco verdadeiro, e o modelo subestima o cancelamento porque não conhecia o reajuste de preço. No dataset público de churn, o primeiro mês concentra 20% dos cancelamentos e a correção que funcionou no sintético não resolve a violação de riscos proporcionais. Com o gerador diferente do modelo, a cobertura dos IC cai de 90% para 78% quando o penhasco está fora do mês que o modelo supõe.",
     ],
     stack: [
       "Python",
@@ -873,7 +876,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       {
         title: "Dados e reprodutibilidade",
         paragraphs: [
-          "O gerador usa numpy com semente 42 e parâmetros centralizados em um arquivo de configuração. A duração vem de um modelo de risco por partes (exponencial por intervalos) em grade diária, com risco mensal-base de 3,5%. São 12.000 assinantes, 67% deles censurados à direita no corte de 31/10/2026. Os efeitos plantados ficam gravados em um arquivo de verdade (ground_truth.json).",
+          "O gerador usa numpy com semente 42 e parâmetros centralizados em um arquivo de configuração. A duração vem de um modelo de risco por partes (exponencial por intervalos) em grade diária, com risco mensal-base de 3,5%. São 18.000 assinantes entrando por 36 meses, 59% deles censurados à direita no corte de 31/10/2026. Os efeitos plantados ficam gravados em um arquivo de verdade (ground_truth.json).",
         ],
       },
       {
@@ -885,14 +888,20 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       {
         title: "Testes e verificação",
         paragraphs: [
-          "A suíte pytest tem 106 testes: determinismo da semente, invariantes de censura, Kaplan-Meier e log-rank contra exemplos calculados à mão e contra o lifelines, recuperação dos efeitos plantados, detecção da violação de riscos proporcionais e coerência entre results.json e os documentos. Rodei em um ambiente limpo e passaram, e a CI do GitHub também. Há dois notebooks executáveis de ponta a ponta.",
+          "A suíte pytest tem 160 testes: determinismo da semente, invariantes de censura, Kaplan-Meier e log-rank contra exemplos calculados à mão e contra o lifelines, recuperação dos efeitos plantados, detecção da violação de riscos proporcionais, a ponte de MRR (fecha em todos os meses), a validação fora do tempo e a coerência entre results.json e os documentos. Rodei em um ambiente limpo e passaram, e a CI do GitHub também. Há dois notebooks executáveis de ponta a ponta.",
+        ],
+      },
+      {
+        title: "Validação além do gerador",
+        paragraphs: [
+          "O resultado “o método recupera o efeito plantado” é circular em parte, porque o Cox corrigido espelha a estrutura do gerador. Por isso há quatro verificações: réplicas de seed, validação fora do tempo contra um teto (o risco individual verdadeiro), o mesmo modelo em dados com heterogeneidade não observada e com o penhasco deslocado, e o mesmo pipeline numa amostra pública de churn de telecom publicada pela IBM (Apache-2.0), que é dado de exemplo e não de operação real.",
         ],
       },
       {
         title: "Limites",
         paragraphs: [
-          "Dados sintéticos não provam nada sobre uma empresa real, e os efeitos foram plantados: o projeto mostra que o método os recupera. M24 não é observável com esta janela e o Kaplan-Meier agregado mistura safras com riscos diferentes.",
-          "ARPU, CAC, taxa de desconto e a efetividade da ação do mês 3 são premissas, e a realocação de verba supõe CAC marginal igual ao médio. Ficaram de fora modelos de fragilidade, reativações, upgrade de plano e o efeito causal do reajuste.",
+          "Dados sintéticos não provam nada sobre uma empresa real, e os efeitos foram plantados: o projeto mostra que o método os recupera e quanto ele erra quando o gerador não o espelha. O dataset público é dado de exemplo de outro setor. O Kaplan-Meier agregado mistura safras com riscos diferentes.",
+          "ARPU, margem, CAC, taxa de desconto, a camada de operação (reativação, troca de plano, trial) e a efetividade da ação do mês 3 são premissas, e a realocação de verba depende do CAC marginal, mostrado como cenários. Ficaram de fora modelos de fragilidade, efeitos que variam no tempo no dataset público, validação com dado de operação real e o efeito causal do reajuste.",
         ],
       },
     ],
