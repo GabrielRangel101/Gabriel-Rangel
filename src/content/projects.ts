@@ -78,7 +78,7 @@ export const projects: Project[] = [
     title: "Sabor da Casa",
     type: "sistema",
     summary:
-      "Sistema web de gestão para restaurante de bairro: pedidos, mesas, entregas, financeiro e clientes, com pedido pelo link público que cai direto no painel.",
+      "Sistema em produção em um restaurante de bairro: pedidos, mesas, entregas, financeiro e clientes, com pedido pelo link público ou QR Code que cai direto no painel. A demo usa dados fictícios.",
     headline:
       "15 telas e 71 políticas de segurança",
     synthetic: true,

@@ -368,12 +368,19 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
   },
   "sabor-da-casa": {
     description: [
-      "Sistema web de gestão para restaurante de bairro: pedidos, mesas, entregas, financeiro, despesas e clientes. Substitui as comandas de papel e os controles soltos.",
-      "O cliente pede por um link público e o pedido cai direto no painel, com alerta sonoro. A demonstração abaixo é uma cópia separada, com dados fictícios e outro nome; o sistema em produção atende um restaurante local. Para testar o pedido do cliente, abra /cliente em outra aba e acompanhe o pedido em /demo/pedidos.",
+      "Sistema web de gestão feito para um restaurante de bairro, em produção: pedidos, mesas, entregas, financeiro, despesas e clientes. Substitui as comandas de papel e os controles soltos e trouxe ao restaurante o cardápio digital, o pedido por QR Code, o controle de despesas, a margem de lucro e a ficha técnica por prato.",
+      "O cliente pede por um link público ou pelo QR Code da mesa, e o pedido cai direto no painel, com alerta sonoro: a cozinha recebe assim que o pedido é feito, e o garçom o confirma. A demonstração abaixo é uma versão fictícia do sistema real: uma cópia separada, com dados inventados e outro nome, para não expor o cliente. Para testar o pedido do cliente, abra /cliente em outra aba e acompanhe o pedido em /demo/pedidos.",
     ],
     status: "Em produção, com demo pública",
-    dataKind: "Fictício",
+    dataKind: "Fictício na demo (o sistema real está em produção)",
     resultLabel: "O que foi entregue",
+    impact: [
+      "Antes do sistema, o restaurante não media as vendas: tudo era anotado em comanda de papel. Depois da implantação, passou a ver quanto vende e quanto produz.",
+      "Ganhou cardápio digital, que não tinha, e pedido por QR Code na mesa: a cozinha recebe o pedido assim que o cliente faz, e o garçom confirma.",
+      "Passou a controlar as despesas, a margem de lucro e a ficha técnica de cada prato.",
+      "A taxa de serviço de 10% passou a ser lançada pelo sistema, o que representa cerca de R$ 2.000 a mais por mês para o restaurante.",
+      "Segundo o restaurante, o sistema é melhor do que eles esperavam.",
+    ],
     role: "Projeto autoral, entregue a cliente real",
     highlights: [
       "Pedidos em quadro, de novo a entregue, com alerta para pedidos parados",
@@ -381,11 +388,12 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Cardápio com categorias, adicionais e custo por produto",
       "Entregas com atribuição de pedidos e tela do motoboy no celular",
       "Financeiro e despesas, com contas fixas e variáveis",
+      "Ficha técnica por prato, com custo e margem de lucro (no sistema em produção)",
       "Resumo da semana em linguagem simples, com PDF e envio por link do WhatsApp",
       "Pedido pelo link público, ligado ao painel do restaurante",
     ],
     problem:
-      "Antes do sistema, as vendas eram anotadas à mão em comandas de papel, com controles soltos de despesas e clientes.",
+      "Antes do sistema, o restaurante não metrificava as vendas: tudo era anotado à mão em comandas de papel, com controles soltos de despesas e clientes, e não havia cardápio digital.",
     decision:
       "Usei o Supabase com regras de segurança por empresa e por perfil. O cliente do link público só consegue criar e consultar o próprio pedido, sem ler as tabelas do restaurante, e gatilhos no banco impedem alterar uma comanda fechada.",
     result: [
