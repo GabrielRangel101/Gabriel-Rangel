@@ -65,7 +65,7 @@ export const experience: Experience[] = [
     intro:
       "Atuo no time de Business Analytics, apoiando a área de Aquisição de assinantes B2C com dados e análises de canais, mídia paga, atribuição e conversão. Antes, apoiei também Redação, Audiência e Streaming.",
     highlights: [
-      "**Vendas sem canal identificado (“não trackeado”) de ~40% para ~7% (−83%):** participei, como analista de dados, da migração do GA4 para uma nova propriedade (30+ campos novos) e, com o time, do redesenho da atribuição de UTMs. Validei os dados contra a propriedade anterior, criei novas métricas, atualizei os dashboards e expliquei o funcionamento ao time.",
+      "**Migração do GA4 para uma nova propriedade (30+ campos novos):** participei, como analista de dados, da migração e, com o time, do redesenho da atribuição de UTMs. Validei os dados contra a propriedade anterior, criei novas métricas, atualizei os dashboards e expliquei o funcionamento ao time.",
       "**40 horas por mês a menos de trabalho manual com automação em Python (Playwright e Chromium):** a primeira reúne dados do Looker Studio e do Google Play e envia o resultado em um card no Teams. Outros 3 relatórios automatizados com Power Automate somam cerca de 26 horas por mês.",
       "**4 dashboards completos** que mantenho no Looker Studio (de 5 a 60 páginas): conversão (funis Android, iOS e site, por dia e hora) e mídia paga (Google Ads e Meta Ads).",
       "**Dados de navegação e conversão organizados para análise:** integrei GA4 e BigQuery (ETL e modelagem dimensional) e estruturei o rastreio de navegação e conversão para as áreas de negócio B2C.",
