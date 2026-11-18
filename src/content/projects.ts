@@ -89,7 +89,7 @@ export const projects: Project[] = [
     title: "Sistema de Gestão para Barbearia",
     type: "sistema",
     summary:
-      "Agenda por barbeiro, agendamento online, comandas, comissões, clube de assinatura e cobrança pelo Asaas, com três perfis de acesso e app instalável no celular.",
+      "Sistema em produção em uma barbearia: agenda por barbeiro, agendamento online, comandas, comissões, clube de assinatura e cobrança pelo Asaas, com três perfis de acesso e app instalável no celular. A demo usa dados fictícios.",
     headline:
       "53 tabelas com RLS e cobrança no Asaas",
     synthetic: true,

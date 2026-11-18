@@ -451,15 +451,21 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
   },
   "gestao-barbearia": {
     description: [
-      "Sistema web de gestão para uma barbearia local: agenda por barbeiro, agendamento online pelo cliente, comandas e caixa, comissões, clube de assinatura e financeiro, com três perfis de acesso (dono, barbeiro e cliente) e app instalável no celular.",
-      "A demonstração abaixo é uma cópia separada, com banco próprio e dados fictícios, refeitos a cada 3 horas. Ela entra direto como dono; a tela de login tem os botões para entrar como barbeiro e como cliente, e o botão ao lado abre a versão para celular. O pagamento é simulado e nada é cobrado.",
-      "Parti de um template de terceiros e o desenvolvimento seguiu com apoio de IA, então o código não é 100% autoral.",
+      "Sistema web de gestão feito para uma barbearia local, em produção e em uso pelo barbeiro e pelos clientes: agenda por barbeiro, agendamento online pelo cliente, comandas e caixa, comissões, clube de assinatura e financeiro, com três perfis de acesso (dono, barbeiro e cliente) e app instalável no celular.",
+      "A demonstração abaixo é uma versão fictícia do painel real: uma cópia separada, com banco próprio e dados inventados, refeitos a cada 3 horas, sem nenhum dado do cliente. Ela entra direto como dono; a tela de login tem os botões para entrar como barbeiro e como cliente, e o botão ao lado abre a versão para celular. O pagamento é simulado e nada é cobrado.",
+      "O desenvolvimento foi feito com apoio de IA, sob minha direção: o clube de assinatura, as regras de negócio, a segurança no banco e a demo são trabalho meu.",
     ],
-    status: "Demo pública",
-    dataKind: "Fictício",
-    period: "45 dias atrás a 6 dias à frente",
+    status: "Em produção, com demo pública",
+    dataKind: "Fictício na demo (o painel real está em produção)",
     resultLabel: "O que foi entregue",
-    role: "Adaptação de template com IA: clube, regras de negócio, segurança no banco e demo",
+    impact: [
+      "Antes do sistema, o barbeiro não media o próprio faturamento e não sabia quanto vendia dos produtos do estoque.",
+      "Depois da implantação, passou a ver onde está faturando bem e onde não está, e a identificar os pontos de atenção do negócio.",
+      "Com os números, percebeu que a venda de produtos faz o faturamento crescer bastante. Passou a oferecer shampoo e outros produtos ao cliente certo e a melhorar como vende.",
+      "Segundo o barbeiro, o sistema é o que ele esperava, é fácil de usar e ajuda muito, e os clientes conseguem marcar o horário sozinhos.",
+      "O ganho de faturamento é relato do barbeiro: não medi o antes e o depois em reais.",
+    ],
+    role: "Projeto real para uma barbearia, com apoio de IA: clube, regras de negócio, segurança no banco e demo",
     highlights: [
       "Agenda por barbeiro, com bloqueio de horário e lista de espera",
       "Agendamento online pelo cliente, com janela de 7 dias e confirmação por link",
@@ -470,7 +476,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Três perfis: o barbeiro vê só a própria agenda e os atendimentos",
     ],
     problem:
-      "Reunir em um só sistema a agenda, a comanda, as comissões, o clube de assinatura e o financeiro de uma barbearia, com cada pessoa vendo só o que precisa.",
+      "O barbeiro não media o próprio faturamento nem sabia quanto vendia dos produtos do estoque. Faltava reunir em um só sistema a agenda, a comanda, as comissões, o clube de assinatura e o financeiro da barbearia, com cada pessoa vendo só o que precisa.",
     decision:
       "Impedi o conflito de horários com triggers no banco, ativei RLS em todas as tabelas e verifiquei as permissões no servidor. Para pagamentos, o sistema não tem campo de número de cartão ou CVV: a cobrança passa pelo Asaas, que guarda os dados do cartão.",
     result: [
@@ -502,7 +508,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       {
         title: "Origem do projeto",
         paragraphs: [
-          "O sistema parte de um template de terceiros para barbearias, com outro sistema de gestão como referência. A primeira rodada foi feita com o agente de IA da Lovable e as seguintes com Claude: botão de cancelar assinatura, aviso de agendamento duplicado, as checagens SQL e a demo. O código completo fica em repositório privado.",
+          "O ponto de partida foi uma base pronta de terceiros para barbearias, com outro sistema de gestão como referência. O que construí em cima dela: o clube de assinatura, as regras de negócio, a segurança no banco, o botão de cancelar assinatura, o aviso de agendamento duplicado, as checagens SQL e a demo. A primeira rodada foi feita com o agente de IA da Lovable e as seguintes com Claude. O código completo fica em repositório privado.",
         ],
       },
       {
@@ -534,7 +540,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       {
         title: "Como a demo funciona",
         paragraphs: [
-          "A demo é um deploy separado, com banco próprio e populado com dados fictícios. As datas são relativas a hoje, de 45 dias atrás a 6 dias à frente, e os dados são refeitos a cada 3 horas. As alterações feitas na demo valem só até o próximo reset.",
+          "A demo é um deploy separado, com banco próprio e populado com dados fictícios. As datas são relativas ao dia de hoje: a agenda traz atendimentos dos últimos 45 dias e horários marcados para os próximos 6 dias, para que nunca apareça vazia. Os dados são refeitos a cada 3 horas. As alterações feitas na demo valem só até o próximo reset.",
           "O pagamento é simulado: a tela avisa e nada é cobrado. A versão celular mostra o app dentro de uma moldura de celular.",
         ],
       },
