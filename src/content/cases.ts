@@ -463,7 +463,6 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "Depois da implantação, passou a ver onde está faturando bem e onde não está, e a identificar os pontos de atenção do negócio.",
       "Com os números, percebeu que a venda de produtos faz o faturamento crescer bastante. Passou a oferecer shampoo e outros produtos ao cliente certo e a melhorar como vende.",
       "Segundo o barbeiro, o sistema é o que ele esperava, é fácil de usar e ajuda muito, e os clientes conseguem marcar o horário sozinhos.",
-      "O ganho de faturamento é relato do barbeiro: não medi o antes e o depois em reais.",
     ],
     role: "Projeto real para uma barbearia, com apoio de IA: clube, regras de negócio, segurança no banco e demo",
     highlights: [
