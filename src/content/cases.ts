@@ -668,7 +668,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
       "O layout é responsivo: testei de 360 a 1440 px em Chrome com viewport emulado, sem rolagem horizontal da página e sem erro de console nas cinco telas. Não testei em aparelho físico, e as tabelas largas (vendedores e corredores) rolam na horizontal por escolha de projeto.",
     ],
     status: "Código público no GitHub",
-    dataKind: "Sintético",
+    dataKind: "Simulado, calibrado em estatísticas públicas do Olist",
     period: "jan/2017 a ago/2018 (simulado)",
     resultLabel: "O que o painel mostra",
     impactNote:
@@ -712,7 +712,7 @@ Resposta: 70 orçamentos há mais de 7 dias sem resposta, somando R$ 234.255.`,
         title: "Dados e arquitetura",
         paragraphs: [
           "Um script em Python (semente 42) gera os pedidos em memória e grava só os agregados em um data.json de 701 KB: cubo de 20 meses × 27 UFs, 3.507 linhas de corredor, 5.343 de categoria e 80 vendedores por mês. Um build concatena tudo em um único index.html, que calcula os indicadores no navegador. O mapa é um SVG desenhado à mão, sem biblioteca de mapa e sem fonte de tiles.",
-          "Existe também um script de ETL para o conjunto real do Olist, que gera o mesmo data.json. Ele foi testado só com um CSV falso de 6.000 pedidos; nunca foi rodado com o Olist real. O dataset público do Olist tem licença própria, que não verifiquei, e o projeto não o redistribui.",
+          "Existe também um script de ETL para o conjunto público Brazilian E-Commerce by Olist (Kaggle), que gera o mesmo data.json. Ele foi testado só com um CSV falso de 6.000 pedidos; nunca foi rodado com o Olist real. O dataset público do Olist tem licença própria, que não verifiquei, e o projeto não o redistribui.",
         ],
       },
       {
